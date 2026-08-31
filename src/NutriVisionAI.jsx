@@ -37,6 +37,7 @@ const STRINGS = {
     goal_gain: "Gain Weight", goal_muscle: "Build Muscle",
     calculate: "Calculate my goals →", save_changes: "Save changes →",
     fill_required: "Enter age, weight & height to continue",
+    still_need: "Still needed: {fields}",
     cancel: "Cancel", current_targets: "CURRENT TARGETS",
     // BMI
     bmi_title: "BODY MASS INDEX",
@@ -165,6 +166,7 @@ const STRINGS = {
     goal_gain: "वज़न बढ़ाना", goal_muscle: "मांसपेशी बढ़ाना",
     calculate: "मेरे लक्ष्य गिनें →", save_changes: "बदलाव सहेजें →",
     fill_required: "जारी रखने के लिए उम्र, वज़न और ऊँचाई भरें",
+    still_need: "अभी भरना बाकी: {fields}",
     cancel: "रद्द करें", current_targets: "मौजूदा लक्ष्य",
     bmi_title: "बॉडी मास इंडेक्स (BMI)",
     bmi_under: "कम वज़न", bmi_healthy: "स्वस्थ",
@@ -398,6 +400,7 @@ function Ring({ value, max, color, size = 80, stroke = 7, label, sub, icon }) {
 
 // ─── Hero Calorie Ring ────────────────────────────────────────────────────────
 function CalorieRing({ consumed, goal }) {
+  const { t } = useLang();
   const size = 180, stroke = 14;
   const r = (size - stroke) / 2, circ = 2 * Math.PI * r;
   const rawPct = goal > 0 ? consumed / goal : 0;
@@ -1296,15 +1299,19 @@ function downloadCSV(csv, filename) {
 // NumField/ToggleGroup are module-level so React keeps the same component
 // identity across renders — defining them inside ProfileSetup remounts the
 // <input> on every keystroke and steals focus after a single character.
-function NumField({ label, field, unit, placeholder, min, max, value, onChange }) {
+function NumField({ label, field, unit, placeholder, min, max, value, onChange, missing }) {
   return (
-    <div style={{ flex:1, background:T.card, border:`1px solid ${T.border}`, borderRadius:12, padding:"10px 8px 8px", textAlign:"center", minWidth:0 }}>
+    <div style={{
+      flex:1, background:T.card,
+      border:`1px solid ${missing ? `${T.amber}70` : T.border}`,
+      borderRadius:12, padding:"10px 8px 8px", textAlign:"center", minWidth:0
+    }}>
       <div style={{ fontSize:9, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{label}</div>
       <input
         type="number" inputMode="decimal" value={value}
         onChange={e => onChange(field, e.target.value)}
         placeholder={placeholder} min={min} max={max}
-        style={{ width:"100%", background:"transparent", border:"none", color:T.teal, fontFamily:"monospace", fontSize:22, fontWeight:800, textAlign:"center", outline:"none", padding:0, boxSizing:"border-box" }}
+        style={{ width:"100%", background:"transparent", border:"none", color: missing ? T.amber : T.teal, fontFamily:"monospace", fontSize:22, fontWeight:800, textAlign:"center", outline:"none", padding:0, boxSizing:"border-box" }}
       />
       <div style={{ fontSize:10, color:T.textMuted, marginTop:2 }}>{unit}</div>
     </div>
@@ -1444,9 +1451,9 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
       <div style={{ flex:1, overflowY:"auto", padding:"0 20px 20px" }}>
         <div style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{t("body_stats")}</div>
         <div style={{ display:"flex", gap:8, marginBottom:14 }}>
-          <NumField label={t("age")}    field="age"    unit={t("years")} placeholder="28"  min={10}  max={100} value={form.age}    onChange={set} />
-          <NumField label={t("weight")} field="weight" unit={t("kg")} placeholder="70"  min={20}  max={250} value={form.weight} onChange={set} />
-          <NumField label={t("height")} field="height" unit={t("cm")} placeholder="170" min={100} max={230} value={form.height} onChange={set} />
+          <NumField label={t("age")}    field="age"    unit={t("years")} placeholder="28"  min={10}  max={100} value={form.age}    onChange={set} missing={!form.age} />
+          <NumField label={t("weight")} field="weight" unit={t("kg")} placeholder="70"  min={20}  max={250} value={form.weight} onChange={set} missing={!form.weight} />
+          <NumField label={t("height")} field="height" unit={t("cm")} placeholder="170" min={100} max={230} value={form.height} onChange={set} missing={!form.height} />
         </div>
 
         {bmi && (() => {
