@@ -1,33 +1,130 @@
 /**
- * Serverless proxy for the Anthropic Messages API.
+ * Serverless proxy for nutrition analysis.
  *
- * Runs on Vercel (and Netlify, via the redirect in netlify.toml).
- * The API key stays in the server environment and never reaches the browser.
+ * Supports two providers. Whichever key is present is used:
+ *   GEMINI_API_KEY     → Google Gemini (has a free tier)
+ *   ANTHROPIC_API_KEY  → Anthropic Claude (paid, ~$0.01–0.02 per photo)
  *
- * Required environment variable:
- *   ANTHROPIC_API_KEY
+ * If both are set, GEMINI_PROVIDER_PRIORITY decides; default is Gemini,
+ * since it's the one with a free quota.
+ *
+ * The key stays in the server environment and never reaches the browser.
  */
 
-const MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6";
-const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB, matches Anthropic's limit
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
+const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-6";
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
-// Very small in-memory rate limiter. Serverless instances are ephemeral, so
-// this only throttles bursts hitting the same warm instance. For real
-// production traffic use Upstash Redis or your platform's rate limiting.
+// Small in-memory limiter. Serverless instances are ephemeral and parallel,
+// so this throttles bursts on a warm instance only — it is not real
+// protection. Set a spend cap with your provider as well.
 const hits = new Map();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 20;
 
 function rateLimited(ip) {
   const now = Date.now();
-  const record = hits.get(ip) || { count: 0, start: now };
-  if (now - record.start > WINDOW_MS) {
+  const rec = hits.get(ip) || { count: 0, start: now };
+  if (now - rec.start > WINDOW_MS) {
     hits.set(ip, { count: 1, start: now });
     return false;
   }
-  record.count += 1;
-  hits.set(ip, record);
-  return record.count > MAX_PER_WINDOW;
+  rec.count += 1;
+  hits.set(ip, rec);
+  return rec.count > MAX_PER_WINDOW;
+}
+
+/**
+ * Convert the app's Anthropic-shaped messages into Gemini's format.
+ * The app sends: [{ role, content: string | [{type:'text'|'image', ...}] }]
+ * Gemini wants:  { contents: [{ role, parts: [{text} | {inline_data}] }] }
+ */
+function toGemini(messages) {
+  return messages.map((m) => {
+    const parts = [];
+    if (typeof m.content === "string") {
+      parts.push({ text: m.content });
+    } else if (Array.isArray(m.content)) {
+      for (const block of m.content) {
+        if (block.type === "text") {
+          parts.push({ text: block.text });
+        } else if (block.type === "image" && block.source?.data) {
+          parts.push({
+            inline_data: {
+              mime_type: block.source.media_type || "image/jpeg",
+              data: block.source.data
+            }
+          });
+        }
+      }
+    }
+    return { role: m.role === "assistant" ? "model" : "user", parts };
+  });
+}
+
+async function callGemini(apiKey, messages, maxTokens) {
+  const url =
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: toGemini(messages),
+      generationConfig: {
+        maxOutputTokens: maxTokens,
+        temperature: 0.2,
+        // Ask for JSON directly — the app parses the reply as JSON.
+        responseMimeType: "application/json"
+      }
+    })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    const msg = data?.error?.message || `Gemini request failed (${res.status})`;
+    const err = new Error(msg);
+    err.status = res.status;
+    throw err;
+  }
+
+  const text =
+    data?.candidates?.[0]?.content?.parts?.map((p) => p.text || "").join("") || "";
+
+  if (!text) {
+    // Usually a safety block or an empty candidate list.
+    const reason = data?.candidates?.[0]?.finishReason || "no content returned";
+    const err = new Error(`Gemini returned no usable response (${reason}).`);
+    err.status = 502;
+    throw err;
+  }
+
+  // Return in the shape the app already expects from Anthropic.
+  return [{ type: "text", text }];
+}
+
+async function callAnthropic(apiKey, messages, maxTokens) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01"
+    },
+    body: JSON.stringify({ model: ANTHROPIC_MODEL, max_tokens: maxTokens, messages })
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    const msg = data?.error?.message || `Anthropic request failed (${res.status})`;
+    const err = new Error(msg);
+    err.status = res.status;
+    throw err;
+  }
+
+  return data.content;
 }
 
 export default async function handler(req, res) {
@@ -40,10 +137,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed. Use POST." });
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+
+  if (!geminiKey && !anthropicKey) {
     return res.status(500).json({
-      error: "Server is missing ANTHROPIC_API_KEY. Add it in your hosting provider's environment variables."
+      error:
+        "No API key configured on the server. Add GEMINI_API_KEY (free tier available) " +
+        "or ANTHROPIC_API_KEY in your hosting provider's environment variables, then redeploy."
     });
   }
 
@@ -64,47 +165,34 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Request must include a non-empty 'messages' array." });
     }
 
-    // Guard against oversized image payloads before spending an API call.
+    // Reject oversized images before spending a call.
     for (const message of messages) {
       if (!Array.isArray(message.content)) continue;
       for (const block of message.content) {
         if (block?.type === "image" && block.source?.data) {
           const bytes = (block.source.data.length * 3) / 4;
           if (bytes > MAX_IMAGE_BYTES) {
-            return res.status(413).json({
-              error: "Image is too large. Please use an image under 5 MB."
-            });
+            return res.status(413).json({ error: "Image is too large. Please use an image under 5 MB." });
           }
         }
       }
     }
 
-    const upstream = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01"
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: Math.min(Number(max_tokens) || 1000, 2000),
-        messages
-      })
-    });
+    const tokens = Math.min(Number(max_tokens) || 1000, 2000);
+    const preferGemini = (process.env.PROVIDER || "gemini").toLowerCase() === "gemini";
 
-    const data = await upstream.json();
-
-    if (!upstream.ok) {
-      // Pass through a useful message without leaking key or internals.
-      return res.status(upstream.status).json({
-        error: data?.error?.message || "The nutrition service returned an error."
-      });
+    let content;
+    if (geminiKey && (preferGemini || !anthropicKey)) {
+      content = await callGemini(geminiKey, messages, tokens);
+    } else {
+      content = await callAnthropic(anthropicKey, messages, tokens);
     }
 
-    return res.status(200).json({ content: data.content });
+    return res.status(200).json({ content });
   } catch (err) {
     console.error("analyze handler failed:", err);
-    return res.status(500).json({ error: "Analysis failed. Please try again." });
+    return res.status(err.status || 500).json({
+      error: err.message || "Analysis failed. Please try again."
+    });
   }
 }
