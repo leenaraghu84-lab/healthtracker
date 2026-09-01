@@ -68,13 +68,21 @@ const STRINGS = {
     add: "+ Add", items: "items", item: "item",
     // Scanner
     log_food: "📷 Log Food", analyzing: "🔍 Analyzing...", detected: "✅ Food Detected",
-    choose_photo: "Choose a food photo",
+    choose_photo: "Add a food photo",
+    take_photo: "Camera",
+    from_gallery: "Gallery",
     drag_drop: "You can also drag & drop, or paste an image here",
     or_type: "or type it",
     search_placeholder: "e.g. chiken tika, 2 roti, daal",
     did_you_mean: "DID YOU MEAN — tap to add instantly",
     not_listed: "Not listed? Press → to let AI estimate it.",
     identifying: "Identifying calories, macros & micronutrients...",
+    err_not_image: "That file isn't an image. Please choose a photo.",
+    err_read_failed: "Couldn't read that image. Try another photo.",
+    err_too_large: "Image is too large even after compression. Try a smaller photo.",
+    compressing: "Preparing image...",
+    err_rate_limit: "Too many requests just now. Wait a moment and try again.",
+    err_generic: "Request failed ({code}). Please try again.",
     meal: "MEAL", portion: "PORTION",
     auto_set: "Auto-set from the time ({t})", changed_from: "Changed from {m}",
     add_item: "+ Add item", meal_total: "MEAL TOTAL",
@@ -192,13 +200,21 @@ const STRINGS = {
     breakfast: "नाश्ता", lunch: "दोपहर का भोजन", snacks: "स्नैक्स", dinner: "रात का भोजन",
     add: "+ जोड़ें", items: "चीज़ें", item: "चीज़",
     log_food: "📷 भोजन दर्ज करें", analyzing: "🔍 जाँच हो रही है...", detected: "✅ भोजन पहचाना गया",
-    choose_photo: "भोजन की फ़ोटो चुनें",
+    choose_photo: "भोजन की फ़ोटो जोड़ें",
+    take_photo: "कैमरा",
+    from_gallery: "गैलरी",
     drag_drop: "आप फ़ोटो खींचकर छोड़ भी सकते हैं",
     or_type: "या टाइप करें",
     search_placeholder: "जैसे चिकन टिक्का, 2 रोटी, दाल",
     did_you_mean: "क्या आपका मतलब — तुरंत जोड़ने के लिए दबाएँ",
     not_listed: "सूची में नहीं? → दबाकर AI से अनुमान लगवाएँ।",
     identifying: "कैलोरी और पोषक तत्वों की पहचान हो रही है...",
+    err_not_image: "यह फ़ाइल इमेज नहीं है। कृपया फ़ोटो चुनें।",
+    err_read_failed: "यह इमेज नहीं पढ़ी जा सकी। दूसरी फ़ोटो आज़माएँ।",
+    err_too_large: "कंप्रेस करने के बाद भी इमेज बहुत बड़ी है। छोटी फ़ोटो आज़माएँ।",
+    compressing: "इमेज तैयार हो रही है...",
+    err_rate_limit: "अभी बहुत सारे अनुरोध हुए। थोड़ी देर बाद फिर कोशिश करें।",
+    err_generic: "अनुरोध विफल ({code})। कृपया फिर कोशिश करें।",
     meal: "भोजन", portion: "मात्रा",
     auto_set: "समय के अनुसार ({t})", changed_from: "{m} से बदला गया",
     add_item: "+ चीज़ जोड़ें", meal_total: "कुल",
@@ -787,6 +803,55 @@ function mealSlotForTime(date = new Date()) {
   return "Snacks";                                       // 23:31–03:59
 }
 
+// ─── Image compression ────────────────────────────────────────────────────────
+// Phone cameras produce 4–12 MB photos, and base64 adds ~33% on top, which
+// blows past the API's 5 MB limit. Downscale and re-encode before sending.
+// Food recognition doesn't need full resolution — 1024px is ample.
+const MAX_EDGE = 1024;
+const TARGET_BYTES = 3_500_000; // stay comfortably under the 5 MB cap
+
+function compressImage(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      try {
+        let { width, height } = img;
+        const scale = Math.min(MAX_EDGE / Math.max(width, height), 1);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Step quality down until the encoded size fits.
+        let quality = 0.82;
+        let dataUrl = canvas.toDataURL("image/jpeg", quality);
+        while (dataUrl.length * 0.75 > TARGET_BYTES && quality > 0.4) {
+          quality -= 0.12;
+          dataUrl = canvas.toDataURL("image/jpeg", quality);
+        }
+
+        resolve({ dataUrl, base64: dataUrl.split(",")[1] });
+      } catch (err) {
+        reject(err);
+      }
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Could not read image"));
+    };
+
+    img.src = url;
+  });
+}
+
 function ScannerModal({ onClose, onAddMeal }) {
   const { t, lang } = useLang();
   const [phase, setPhase] = useState("upload");
@@ -827,7 +892,10 @@ function ScannerModal({ onClose, onAddMeal }) {
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err?.error?.message || `Request failed (${res.status})`);
+      // Translate the common status codes into something actionable.
+      if (res.status === 413) throw new Error(t("err_too_large"));
+      if (res.status === 429) throw new Error(t("err_rate_limit"));
+      throw new Error(err?.error?.message || t("err_generic", { code: res.status }));
     }
     const data = await res.json();
     const text = data.content?.map(b => b.text || "").join("") || "";
@@ -851,7 +919,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
         setEditItems(parsed.items.map((it,i) => ({ fiber:0,calcium:0,b12:0,...it, id:i })));
         setPhase("result");
       } else { setError("Could not detect food. Try a clearer image or use manual entry."); setPhase("upload"); }
-    } catch(e) { setError("Analysis failed: " + (e.message || "Try again.")); setPhase("upload"); }
+    } catch(e) { setError(e.message || t("err_read_failed")); setPhase("upload"); }
     setLoading(false);
   };
 
@@ -871,17 +939,22 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
     setLoading(false);
   };
 
-  const handleFile = (file) => {
+  const handleFile = async (file) => {
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setImage(e.target.result);
-      const base64 = e.target.result.split(",")[1];
-      // Determine media type; default to jpeg if unknown
-      const mediaType = file.type && file.type.startsWith("image/") ? file.type : "image/jpeg";
-      analyzeImage(base64, mediaType);
-    };
-    reader.readAsDataURL(file);
+    if (!file.type?.startsWith("image/")) {
+      setError(t("err_not_image"));
+      return;
+    }
+    setPhase("scanning");
+    setError(null);
+    try {
+      const { dataUrl, base64 } = await compressImage(file);
+      setImage(dataUrl);
+      await analyzeImage(base64, "image/jpeg");
+    } catch (e) {
+      setError(t("err_read_failed"));
+      setPhase("upload");
+    }
   };
 
   const totals = editItems.reduce((a,b) => ({
@@ -939,16 +1012,56 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                   const item = [...(e.clipboardData?.items || [])].find(x => x.type.startsWith("image/"));
                   if (item) handleFile(item.getAsFile());
                 }}
-                style={{ border:`2px dashed ${T.teal}60`, borderRadius:16, padding:"24px 16px", textAlign:"center", marginBottom:16, background:T.card }}>
-                <div style={{ fontSize:36, marginBottom:10 }}>📸</div>
-                <div style={{ fontSize:15, fontWeight:700, color:T.textPrimary, marginBottom:12 }}>{t("choose_photo")}</div>
+                style={{ border:`2px dashed ${T.teal}60`, borderRadius:16, padding:"22px 16px", textAlign:"center", marginBottom:16, background:T.card }}>
+                <div style={{ fontSize:34, marginBottom:8 }}>📸</div>
+                <div style={{ fontSize:15, fontWeight:700, color:T.textPrimary, marginBottom:14 }}>{t("choose_photo")}</div>
+
+                {/* Two separate inputs: `capture` opens the camera directly,
+                    while the plain one opens the gallery/file picker. One
+                    input can't do both — capture forces camera-only. */}
+                <div style={{ display:"flex", gap:10, marginBottom:12 }}>
+                  <label style={{
+                    flex:1, position:"relative", background:T.teal, borderRadius:11,
+                    color:T.bg, fontSize:13, fontWeight:800, padding:"13px 8px",
+                    cursor:"pointer", display:"flex", alignItems:"center",
+                    justifyContent:"center", gap:6
+                  }}>
+                    📷 {t("take_photo")}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                      onChange={e => { if (e.target.files?.[0]) handleFile(e.target.files[0]); e.target.value = ""; }}
+                      style={{ position:"absolute", inset:0, opacity:0, width:"100%", height:"100%", cursor:"pointer" }}
+                    />
+                  </label>
+
+                  <label style={{
+                    flex:1, position:"relative", background:T.surface,
+                    border:`1px solid ${T.border}`, borderRadius:11,
+                    color:T.textPrimary, fontSize:13, fontWeight:700, padding:"13px 8px",
+                    cursor:"pointer", display:"flex", alignItems:"center",
+                    justifyContent:"center", gap:6
+                  }}>
+                    🖼️ {t("from_gallery")}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={e => { if (e.target.files?.[0]) handleFile(e.target.files[0]); e.target.value = ""; }}
+                      style={{ position:"absolute", inset:0, opacity:0, width:"100%", height:"100%", cursor:"pointer" }}
+                    />
+                  </label>
+                </div>
+
+                {/* Plain fallback — some sandboxed webviews block the overlay
+                    pattern above, and a bare input still works there. */}
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={e => { if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]); }}
-                  style={{ width:"100%", color:T.textSecondary, fontSize:12, cursor:"pointer" }}
+                  onChange={e => { if (e.target.files?.[0]) handleFile(e.target.files[0]); e.target.value = ""; }}
+                  style={{ width:"100%", color:T.textMuted, fontSize:11, cursor:"pointer" }}
                 />
-                <div style={{ fontSize:11, color:T.textMuted, marginTop:12 }}>{t("drag_drop")}</div>
+                <div style={{ fontSize:10.5, color:T.textMuted, marginTop:10 }}>{t("drag_drop")}</div>
               </div>
               <div style={{ display:"flex", alignItems:"center", gap:12, margin:"16px 0" }}>
                 <div style={{ flex:1, height:1, background:T.border }} /><span style={{ fontSize:11, color:T.textMuted }}>{t("or_type")}</span><div style={{ flex:1, height:1, background:T.border }} />
