@@ -83,6 +83,10 @@ const STRINGS = {
     compressing: "Preparing image...",
     err_rate_limit: "Too many requests just now. Wait a moment and try again.",
     err_generic: "Request failed ({code}). Please try again.",
+    err_bad_response: "The service returned an unexpected response. Try again.",
+    err_no_match: "Couldn't estimate that. Try being more specific — e.g. \"1 cup tea with milk and sugar\".",
+    err_no_key: "The server is missing its API key. Add ANTHROPIC_API_KEY in your Vercel project settings and redeploy.",
+    err_no_food: "No food detected in that photo. Try a clearer, closer shot — or type the meal instead.",
     meal: "MEAL", portion: "PORTION",
     auto_set: "Auto-set from the time ({t})", changed_from: "Changed from {m}",
     add_item: "+ Add item", meal_total: "MEAL TOTAL",
@@ -215,6 +219,10 @@ const STRINGS = {
     compressing: "इमेज तैयार हो रही है...",
     err_rate_limit: "अभी बहुत सारे अनुरोध हुए। थोड़ी देर बाद फिर कोशिश करें।",
     err_generic: "अनुरोध विफल ({code})। कृपया फिर कोशिश करें।",
+    err_bad_response: "सेवा से अप्रत्याशित उत्तर मिला। फिर कोशिश करें।",
+    err_no_match: "अनुमान नहीं लगा सका। अधिक स्पष्ट लिखें — जैसे \"1 कप दूध-चीनी वाली चाय\"।",
+    err_no_key: "सर्वर पर API key नहीं है। Vercel सेटिंग्स में ANTHROPIC_API_KEY जोड़ें और फिर से डिप्लॉय करें।",
+    err_no_food: "इस फ़ोटो में भोजन नहीं मिला। साफ़ और पास से खींची फ़ोटो आज़माएँ — या भोजन टाइप करें।",
     meal: "भोजन", portion: "मात्रा",
     auto_set: "समय के अनुसार ({t})", changed_from: "{m} से बदला गया",
     add_item: "+ चीज़ जोड़ें", meal_total: "कुल",
@@ -810,6 +818,26 @@ function mealSlotForTime(date = new Date()) {
 const MAX_EDGE = 1024;
 const TARGET_BYTES = 3_500_000; // stay comfortably under the 5 MB cap
 
+// Fallback when the browser can't decode the image into a canvas.
+// Sends the original bytes, which the API may still accept.
+function readFileDirect(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      const match = /^data:([^;]+);/.exec(dataUrl);
+      let mediaType = match ? match[1] : file.type || "image/jpeg";
+      // The API accepts jpeg, png, gif and webp only.
+      if (!["image/jpeg", "image/png", "image/gif", "image/webp"].includes(mediaType)) {
+        mediaType = "image/jpeg";
+      }
+      resolve({ dataUrl, base64: dataUrl.split(",")[1], mediaType });
+    };
+    reader.onerror = () => reject(new Error("read failed"));
+    reader.readAsDataURL(file);
+  });
+}
+
 function compressImage(file) {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
@@ -837,7 +865,7 @@ function compressImage(file) {
           dataUrl = canvas.toDataURL("image/jpeg", quality);
         }
 
-        resolve({ dataUrl, base64: dataUrl.split(",")[1] });
+        resolve({ dataUrl, base64: dataUrl.split(",")[1], mediaType: "image/jpeg" });
       } catch (err) {
         reject(err);
       }
@@ -895,6 +923,9 @@ function ScannerModal({ onClose, onAddMeal }) {
       // Translate the common status codes into something actionable.
       if (res.status === 413) throw new Error(t("err_too_large"));
       if (res.status === 429) throw new Error(t("err_rate_limit"));
+      // The proxy returns { error } — pass it through, since it names
+      // configuration problems like a missing API key.
+      if (err?.error) throw new Error(err.error);
       throw new Error(err?.error?.message || t("err_generic", { code: res.status }));
     }
     const data = await res.json();
@@ -914,12 +945,23 @@ function ScannerModal({ onClose, onAddMeal }) {
 Rules: estimate realistic Indian/global portions, all numbers integers, fiber in grams, calcium in mg, b12 in micrograms (μg). If no food visible return {"items":[],"confidence":"low"}` }
         ]
       }]);
-      const parsed = JSON.parse(clean);
+      let parsed;
+      try {
+        parsed = JSON.parse(clean);
+      } catch {
+        throw new Error(t("err_bad_response"));
+      }
       if (parsed.items?.length > 0) {
         setEditItems(parsed.items.map((it,i) => ({ fiber:0,calcium:0,b12:0,...it, id:i })));
         setPhase("result");
-      } else { setError("Could not detect food. Try a clearer image or use manual entry."); setPhase("upload"); }
-    } catch(e) { setError(e.message || t("err_read_failed")); setPhase("upload"); }
+      } else {
+        setError(t("err_no_food"));
+        setPhase("upload");
+      }
+    } catch(e) {
+      setError(e.message || t("err_bad_response"));
+      setPhase("upload");
+    }
     setLoading(false);
   };
 
@@ -932,29 +974,65 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
         content: `Nutrition AI. Estimate for: "${manualFood}". Return ONLY valid JSON, no markdown:
 {"items": [${ITEM_SCHEMA}]}`
       }], 800);
-      const parsed = JSON.parse(clean);
+      let parsed;
+      try {
+        parsed = JSON.parse(clean);
+      } catch {
+        // The request succeeded but the model didn't return clean JSON.
+        throw new Error(t("err_bad_response"));
+      }
+      if (!parsed.items?.length) throw new Error(t("err_no_match"));
       setEditItems(parsed.items.map((it,i) => ({ fiber:0,calcium:0,b12:0,...it, id:i })));
       setPhase("result");
-    } catch { setError("Could not look up that food. Try being more specific."); }
+    } catch (e) {
+      // Show the real reason — a swallowed error makes a server
+      // misconfiguration look like a bad search term.
+      setError(e.message || t("err_no_match"));
+    }
     setLoading(false);
   };
 
   const handleFile = async (file) => {
     if (!file) return;
-    if (!file.type?.startsWith("image/")) {
+
+    // Some pickers report an empty type for HEIC and other formats, so judge
+    // by extension too rather than rejecting outright.
+    const looksLikeImage =
+      file.type?.startsWith("image/") || /\.(jpe?g|png|webp|gif|heic|heif|bmp)$/i.test(file.name || "");
+    if (!looksLikeImage) {
       setError(t("err_not_image"));
       return;
     }
+
     setPhase("scanning");
     setError(null);
+
+    // Step 1: compress. If the browser can't decode the format (HEIC on
+    // desktop Chrome, for instance), fall back to sending the original.
+    let payload;
     try {
-      const { dataUrl, base64 } = await compressImage(file);
-      setImage(dataUrl);
-      await analyzeImage(base64, "image/jpeg");
-    } catch (e) {
-      setError(t("err_read_failed"));
-      setPhase("upload");
+      payload = await compressImage(file);
+    } catch {
+      try {
+        payload = await readFileDirect(file);
+      } catch (e2) {
+        setError(t("err_read_failed"));
+        setPhase("upload");
+        return;
+      }
     }
+
+    if (payload.base64.length * 0.75 > 5_000_000) {
+      setError(t("err_too_large"));
+      setPhase("upload");
+      return;
+    }
+
+    setImage(payload.dataUrl);
+
+    // Step 2: analyse. analyzeImage sets its own error message, so don't
+    // wrap it here — doing so reports API failures as image failures.
+    await analyzeImage(payload.base64, payload.mediaType);
   };
 
   const totals = editItems.reduce((a,b) => ({
