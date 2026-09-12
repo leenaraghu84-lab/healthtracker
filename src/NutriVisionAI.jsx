@@ -155,6 +155,36 @@ const STRINGS = {
     csv_fail: "Export blocked by your browser — try a different one",
     added_toast: "{name} added to {m}",
     good_sources: "GOOD SOURCES (Indian)",
+    grp_header: "GROUPS",
+    grp_title: "Groups",
+    grp_sub: "Create or join a shared challenge",
+    grp_your_groups: "YOUR GROUPS",
+    grp_empty: "No groups yet",
+    grp_empty_body: "Create a group for a shared goal — a workout challenge, a weight-loss push, a monthly streak — and join under any alias you like.",
+    grp_create: "Create group",
+    grp_join: "Join group",
+    grp_create_title: "Create a group",
+    grp_create_body: "Give it a title and pick an alias. You'll get a share code others can use to join.",
+    grp_join_title: "Join a group",
+    grp_join_body: "Enter the share code you were given, and choose how you want to appear.",
+    grp_title_label: "GROUP TITLE",
+    grp_title_ph: "e.g. Morning Workout Club",
+    grp_alias_label: "YOUR ALIAS IN THIS GROUP",
+    grp_alias_ph: "e.g. RunnerA",
+    grp_alias_hint: "Use any name you like — it doesn't have to be your real one, and you can use a different alias in each group.",
+    grp_code_label: "SHARE CODE",
+    grp_share_code: "SHARE CODE",
+    grp_as: "as",
+    grp_members: "MEMBERS",
+    grp_leave: "Leave group",
+    grp_need_title: "Please enter a group title.",
+    grp_need_alias: "Please choose an alias.",
+    grp_need_code: "Please enter a share code.",
+    grp_already: "You're already in that group.",
+    grp_not_found: "No group found with that code. Check it and try again.",
+    grp_no_server: "Joining needs a shared backend, which isn't available in this build.",
+    grp_local_only: "Groups are saved on this device only in this build. You can create and organise them, but others can't see or join them until the app has a server behind it. Nothing you enter here leaves your phone.",
+    grp_privacy_note: "Members see only your alias, your daily calorie and protein percentages, and how many days you've logged. Your weight, BMI, age and meal details are never shared.",
     macros: "MACROS", micronutrients: "MICRONUTRIENTS",
     daily_targets: "YOUR DAILY TARGETS", based_on: "Based on:",
   },
@@ -285,6 +315,36 @@ const STRINGS = {
     csv_fail: "ब्राउज़र ने निर्यात रोका — दूसरा ब्राउज़र आज़माएँ",
     added_toast: "{name} {m} में जोड़ा गया",
     good_sources: "अच्छे स्रोत (भारतीय)",
+    grp_header: "ग्रुप",
+    grp_title: "ग्रुप",
+    grp_sub: "साझा चुनौती बनाएँ या जुड़ें",
+    grp_your_groups: "आपके ग्रुप",
+    grp_empty: "अभी कोई ग्रुप नहीं",
+    grp_empty_body: "साझा लक्ष्य के लिए ग्रुप बनाएँ — वर्कआउट चुनौती, वज़न घटाने का अभियान, या मासिक लक्ष्य — और अपनी पसंद के किसी भी नाम से जुड़ें।",
+    grp_create: "ग्रुप बनाएँ",
+    grp_join: "ग्रुप से जुड़ें",
+    grp_create_title: "नया ग्रुप बनाएँ",
+    grp_create_body: "एक नाम दें और अपना उपनाम चुनें। आपको एक कोड मिलेगा जिससे दूसरे जुड़ सकते हैं।",
+    grp_join_title: "ग्रुप से जुड़ें",
+    grp_join_body: "आपको मिला कोड डालें, और चुनें कि आप किस नाम से दिखना चाहते हैं।",
+    grp_title_label: "ग्रुप का नाम",
+    grp_title_ph: "जैसे मॉर्निंग वर्कआउट क्लब",
+    grp_alias_label: "इस ग्रुप में आपका उपनाम",
+    grp_alias_ph: "जैसे RunnerA",
+    grp_alias_hint: "कोई भी नाम चुनें — असली नाम ज़रूरी नहीं, और हर ग्रुप में अलग उपनाम रख सकते हैं।",
+    grp_code_label: "शेयर कोड",
+    grp_share_code: "शेयर कोड",
+    grp_as: "के रूप में",
+    grp_members: "सदस्य",
+    grp_leave: "ग्रुप छोड़ें",
+    grp_need_title: "कृपया ग्रुप का नाम डालें।",
+    grp_need_alias: "कृपया उपनाम चुनें।",
+    grp_need_code: "कृपया शेयर कोड डालें।",
+    grp_already: "आप पहले से इस ग्रुप में हैं।",
+    grp_not_found: "इस कोड से कोई ग्रुप नहीं मिला। कोड जाँचें।",
+    grp_no_server: "जुड़ने के लिए साझा सर्वर चाहिए, जो इस बिल्ड में उपलब्ध नहीं है।",
+    grp_local_only: "इस बिल्ड में ग्रुप सिर्फ़ इसी डिवाइस पर सहेजे जाते हैं। आप इन्हें बना और व्यवस्थित कर सकते हैं, पर सर्वर जुड़ने तक दूसरे इन्हें नहीं देख सकते। आपकी जानकारी फ़ोन से बाहर नहीं जाती।",
+    grp_privacy_note: "सदस्य केवल आपका उपनाम, दैनिक कैलोरी व प्रोटीन प्रतिशत, और कितने दिन दर्ज किए — यही देखते हैं। आपका वज़न, BMI, उम्र और भोजन विवरण कभी साझा नहीं होते।",
     macros: "मुख्य पोषक तत्व", micronutrients: "सूक्ष्म पोषक तत्व",
     daily_targets: "आपके दैनिक लक्ष्य", based_on: "आधार:",
   }
@@ -330,6 +390,27 @@ const FOOD_HI = {
   "Grilled salmon":"ग्रिल्ड सैल्मन", "Tuna (canned in water)":"टूना (डिब्बाबंद)",
   "Sardines / small fish":"सार्डिन / छोटी मछली", "Fish fingers":"फ़िश फ़िंगर",
   "Fish tikka":"मछली टिक्का", "Prawns masala":"झींगा मसाला", "Grilled prawns":"ग्रिल्ड झींगा",
+  "Margherita pizza":"मार्गेरिटा पिज़्ज़ा", "Cheese pizza":"चीज़ पिज़्ज़ा", "Veggie pizza":"वेज पिज़्ज़ा",
+  "Paneer tikka pizza":"पनीर टिक्का पिज़्ज़ा", "Chicken pizza":"चिकन पिज़्ज़ा", "Pepperoni pizza":"पेपरोनी पिज़्ज़ा",
+  "Garlic bread":"गार्लिक ब्रेड", "Cheese garlic bread":"चीज़ गार्लिक ब्रेड", "Focaccia":"फ़ोकाचिया",
+  "Pasta arrabbiata":"पास्ता अराबियाता", "Pasta alfredo":"पास्ता अल्फ्रेडो",
+  "Pasta in white sauce":"व्हाइट सॉस पास्ता", "Penne pesto":"पेने पेस्तो", "Mac and cheese":"मैक एंड चीज़",
+  "Spaghetti napolitana":"स्पेगेटी नेपोलिटाना", "Spaghetti aglio olio":"स्पेगेटी आलियो ओलियो",
+  "Spaghetti bolognese":"स्पेगेटी बोलोनीज़", "Chicken pasta":"चिकन पास्ता", "Lasagna":"लज़ान्या",
+  "Veg burrito":"वेज बरिटो", "Bean & cheese burrito":"बीन-चीज़ बरिटो", "Chicken burrito":"चिकन बरिटो",
+  "Burrito bowl (veg)":"बरिटो बाउल (वेज)", "Veg quesadilla":"वेज केसाडिया",
+  "Nachos with cheese":"चीज़ नाचोज़", "Veg tacos":"वेज टाको",
+  "Veg hakka noodles":"वेज हक्का नूडल्स", "Schezwan noodles":"शेज़वान नूडल्स",
+  "Chicken noodles":"चिकन नूडल्स", "Veg fried rice":"वेज फ्राइड राइस",
+  "Chicken fried rice":"चिकन फ्राइड राइस", "Veg manchurian (dry)":"वेज मंचूरियन (ड्राई)",
+  "Veg manchurian (gravy)":"वेज मंचूरियन (ग्रेवी)", "Chicken manchurian":"चिकन मंचूरियन",
+  "Gobi manchurian":"गोभी मंचूरियन", "Chilli paneer":"चिली पनीर", "Chilli chicken":"चिली चिकन",
+  "Spring rolls (veg)":"स्प्रिंग रोल (वेज)", "Hot & sour soup":"हॉट एंड सॉर सूप",
+  "Manchow soup":"मंचाउ सूप",
+  "Veg burger":"वेज बर्गर", "Cheese burger":"चीज़ बर्गर",
+  "Grilled chicken sandwich":"ग्रिल्ड चिकन सैंडविच", "Grilled cheese sandwich":"ग्रिल्ड चीज़ सैंडविच",
+  "Club sandwich":"क्लब सैंडविच", "French fries":"फ्रेंच फ्राइज़", "Potato wedges":"पोटैटो वेजेज",
+  "Caesar salad":"सीज़र सलाद", "Greek salad":"ग्रीक सलाद", "Grilled veg platter":"ग्रिल्ड वेज प्लैटर",
 };
 
 const SERVING_HI = {
@@ -349,6 +430,12 @@ const SERVING_HI = {
   "150g":"150 ग्राम", "150g tofu":"150 ग्राम टोफू", "150g chicken":"150 ग्राम चिकन",
   "150g fish":"150 ग्राम मछली", "200g":"200 ग्राम", "1 cup (200g)":"1 कप (200 ग्राम)",
   "1 cup (150g)":"1 कप (150 ग्राम)",
+  "2 slices (12in)":"2 स्लाइस (12 इंच)", "3 pieces":"3 पीस",
+  "1 plate (250g)":"1 प्लेट (250 ग्राम)", "1 plate (300g)":"1 प्लेट (300 ग्राम)",
+  "1 bowl (250g)":"1 कटोरी (250 ग्राम)", "1 slice (250g)":"1 स्लाइस (250 ग्राम)",
+  "1 large":"1 बड़ा", "1 whole":"1 पूरा", "1 burger":"1 बर्गर", "1 sandwich":"1 सैंडविच",
+  "2 tacos":"2 टाको", "3 rolls":"3 रोल", "6 balls":"6 बॉल",
+  "medium (110g)":"मध्यम (110 ग्राम)", "1 serving":"1 सर्विंग", "1 plate (150g)":"1 प्लेट (150 ग्राम)",
 };
 
 // Translate with {placeholder} substitution.
@@ -694,6 +781,66 @@ const FOOD_DB = [
   { name:"Fish tikka",           serving:"150g",            diet:"nonveg", kcal:240, protein:31, carbs:4,  fat:11, fiber:1, calcium:65,  b12:2.6, tags:["protein","b12"] },
   { name:"Prawns masala",        serving:"150g",            diet:"nonveg", kcal:200, protein:28, carbs:5,  fat:7,  fiber:1, calcium:110, b12:1.7, tags:["protein","b12","calcium"] },
   { name:"Grilled prawns",       serving:"150g",            diet:"nonveg", kcal:170, protein:30, carbs:1,  fat:5,  fiber:0, calcium:100, b12:1.6, tags:["protein","b12","light"] },
+
+  // ═══ CONTINENTAL — Pizza & breads ═══
+  { name:"Margherita pizza",     serving:"2 slices (12in)", diet:"veg", kcal:420, protein:18, carbs:52, fat:16, fiber:3, calcium:300, b12:0.7, tags:["calcium","calorie-dense"] },
+  { name:"Cheese pizza",         serving:"2 slices (12in)", diet:"veg", kcal:470, protein:20, carbs:52, fat:20, fiber:3, calcium:380, b12:0.9, tags:["calcium","b12","calorie-dense"] },
+  { name:"Veggie pizza",         serving:"2 slices (12in)", diet:"veg", kcal:400, protein:17, carbs:50, fat:15, fiber:4, calcium:290, b12:0.7, tags:["calcium","fiber","calorie-dense"] },
+  { name:"Paneer tikka pizza",   serving:"2 slices (12in)", diet:"veg", kcal:490, protein:22, carbs:53, fat:21, fiber:4, calcium:400, b12:1.0, tags:["protein","calcium","b12","calorie-dense"] },
+  { name:"Chicken pizza",        serving:"2 slices (12in)", diet:"nonveg", kcal:500, protein:26, carbs:51, fat:21, fiber:3, calcium:320, b12:1.1, tags:["protein","calcium","b12","calorie-dense"] },
+  { name:"Pepperoni pizza",      serving:"2 slices (12in)", diet:"nonveg", kcal:560, protein:24, carbs:52, fat:27, fiber:3, calcium:340, b12:1.2, tags:["protein","calcium","calorie-dense"] },
+  { name:"Garlic bread",         serving:"3 pieces",        diet:"veg", kcal:340, protein:8,  carbs:44, fat:15, fiber:2, calcium:80,  b12:0,   tags:["calorie-dense"] },
+  { name:"Cheese garlic bread",  serving:"3 pieces",        diet:"veg", kcal:430, protein:14, carbs:45, fat:22, fiber:2, calcium:280, b12:0.5, tags:["calcium","calorie-dense"] },
+  { name:"Focaccia",             serving:"2 pieces",        diet:"veg", kcal:280, protein:7,  carbs:40, fat:10, fiber:2, calcium:50,  b12:0,   tags:["calorie-dense"] },
+
+  // ═══ CONTINENTAL — Pasta ═══
+  { name:"Pasta arrabbiata",     serving:"1 plate (250g)",  diet:"veg", kcal:400, protein:12, carbs:64, fat:11, fiber:5, calcium:70,  b12:0,   tags:["fiber","calorie-dense"] },
+  { name:"Pasta alfredo",        serving:"1 plate (250g)",  diet:"veg", kcal:620, protein:18, carbs:58, fat:35, fiber:3, calcium:320, b12:0.6, tags:["calcium","calorie-dense"] },
+  { name:"Pasta in white sauce", serving:"1 plate (250g)",  diet:"veg", kcal:540, protein:16, carbs:60, fat:26, fiber:3, calcium:280, b12:0.5, tags:["calcium","calorie-dense"] },
+  { name:"Penne pesto",          serving:"1 plate (250g)",  diet:"veg", kcal:520, protein:15, carbs:58, fat:25, fiber:4, calcium:180, b12:0.3, tags:["calorie-dense"] },
+  { name:"Mac and cheese",       serving:"1 bowl (250g)",   diet:"veg", kcal:580, protein:22, carbs:57, fat:30, fiber:2, calcium:450, b12:0.8, tags:["protein","calcium","calorie-dense"] },
+  { name:"Spaghetti napolitana", serving:"1 plate (250g)",  diet:"veg", kcal:380, protein:12, carbs:66, fat:8,  fiber:6, calcium:65,  b12:0,   tags:["fiber"] },
+  { name:"Spaghetti aglio olio", serving:"1 plate (250g)",  diet:"veg", kcal:450, protein:12, carbs:62, fat:17, fiber:4, calcium:40,  b12:0,   tags:["calorie-dense"] },
+  { name:"Spaghetti bolognese",  serving:"1 plate (300g)",  diet:"nonveg", kcal:590, protein:30, carbs:65, fat:22, fiber:5, calcium:110, b12:1.9, tags:["protein","b12","calorie-dense"] },
+  { name:"Chicken pasta",        serving:"1 plate (300g)",  diet:"nonveg", kcal:560, protein:34, carbs:58, fat:20, fiber:4, calcium:200, b12:0.8, tags:["protein","calorie-dense"] },
+  { name:"Lasagna",              serving:"1 slice (250g)",  diet:"nonveg", kcal:520, protein:28, carbs:42, fat:26, fiber:4, calcium:380, b12:1.6, tags:["protein","calcium","b12","calorie-dense"] },
+
+  // ═══ CONTINENTAL — Mexican ═══
+  { name:"Veg burrito",          serving:"1 large",         diet:"veg", kcal:560, protein:19, carbs:78, fat:18, fiber:12, calcium:220, b12:0.4, tags:["fiber","protein","calorie-dense"] },
+  { name:"Bean & cheese burrito", serving:"1 large",        diet:"veg", kcal:620, protein:24, carbs:76, fat:24, fiber:13, calcium:380, b12:0.8, tags:["protein","fiber","calcium","calorie-dense"] },
+  { name:"Chicken burrito",      serving:"1 large",         diet:"nonveg", kcal:680, protein:36, carbs:74, fat:26, fiber:10, calcium:260, b12:1.0, tags:["protein","fiber","calorie-dense"] },
+  { name:"Burrito bowl (veg)",   serving:"1 bowl",          diet:"veg", kcal:450, protein:18, carbs:62, fat:14, fiber:13, calcium:180, b12:0.3, tags:["fiber","protein"] },
+  { name:"Veg quesadilla",       serving:"1 whole",         diet:"veg", kcal:480, protein:20, carbs:46, fat:24, fiber:5, calcium:420, b12:0.7, tags:["calcium","calorie-dense"] },
+  { name:"Nachos with cheese",   serving:"1 plate",         diet:"veg", kcal:540, protein:14, carbs:52, fat:31, fiber:6, calcium:340, b12:0.5, tags:["calcium","calorie-dense"] },
+  { name:"Veg tacos",            serving:"2 tacos",         diet:"veg", kcal:340, protein:11, carbs:44, fat:13, fiber:8, calcium:160, b12:0.2, tags:["fiber"] },
+
+  // ═══ CONTINENTAL — Indo-Chinese ═══
+  { name:"Veg hakka noodles",    serving:"1 plate (250g)",  diet:"veg", kcal:400, protein:10, carbs:60, fat:14, fiber:5, calcium:60,  b12:0,   tags:["fiber","calorie-dense"] },
+  { name:"Schezwan noodles",     serving:"1 plate (250g)",  diet:"veg", kcal:430, protein:10, carbs:62, fat:16, fiber:5, calcium:65,  b12:0,   tags:["calorie-dense"] },
+  { name:"Chicken noodles",      serving:"1 plate (300g)",  diet:"nonveg", kcal:490, protein:26, carbs:60, fat:17, fiber:4, calcium:70,  b12:0.5, tags:["protein","calorie-dense"] },
+  { name:"Veg fried rice",       serving:"1 plate (250g)",  diet:"veg", kcal:380, protein:9,  carbs:64, fat:10, fiber:4, calcium:55,  b12:0,   tags:["calorie-dense"] },
+  { name:"Chicken fried rice",   serving:"1 plate (300g)",  diet:"nonveg", kcal:470, protein:24, carbs:63, fat:14, fiber:3, calcium:60,  b12:0.5, tags:["protein","calorie-dense"] },
+  { name:"Veg manchurian (dry)", serving:"6 balls",         diet:"veg", kcal:320, protein:8,  carbs:38, fat:16, fiber:5, calcium:70,  b12:0,   tags:["fiber","calorie-dense"] },
+  { name:"Veg manchurian (gravy)", serving:"1 bowl",        diet:"veg", kcal:290, protein:7,  carbs:36, fat:14, fiber:4, calcium:65,  b12:0,   tags:["calorie-dense"] },
+  { name:"Chicken manchurian",   serving:"1 bowl",          diet:"nonveg", kcal:380, protein:24, carbs:28, fat:19, fiber:2, calcium:50,  b12:0.4, tags:["protein","calorie-dense"] },
+  { name:"Gobi manchurian",      serving:"1 plate",         diet:"veg", kcal:300, protein:7,  carbs:36, fat:15, fiber:5, calcium:60,  b12:0,   tags:["fiber","calorie-dense"] },
+  { name:"Chilli paneer",        serving:"1 plate (150g)",  diet:"veg", kcal:390, protein:20, carbs:20, fat:26, fiber:3, calcium:290, b12:1.0, tags:["protein","calcium","b12","calorie-dense"] },
+  { name:"Chilli chicken",       serving:"1 plate (150g)",  diet:"nonveg", kcal:350, protein:28, carbs:18, fat:19, fiber:2, calcium:50,  b12:0.5, tags:["protein","calorie-dense"] },
+  { name:"Spring rolls (veg)",   serving:"3 rolls",         diet:"veg", kcal:280, protein:6,  carbs:34, fat:14, fiber:4, calcium:45,  b12:0,   tags:["calorie-dense"] },
+  { name:"Hot & sour soup",      serving:"1 bowl",          diet:"veg", kcal:110, protein:4,  carbs:16, fat:4,  fiber:3, calcium:40,  b12:0,   tags:["light","fiber"] },
+  { name:"Manchow soup",         serving:"1 bowl",          diet:"veg", kcal:130, protein:4,  carbs:19, fat:5,  fiber:3, calcium:45,  b12:0,   tags:["light"] },
+
+  // ═══ CONTINENTAL — Burgers, sandwiches & sides ═══
+  { name:"Veg burger",           serving:"1 burger",        diet:"veg", kcal:420, protein:13, carbs:54, fat:16, fiber:5, calcium:150, b12:0.3, tags:["calorie-dense"] },
+  { name:"Cheese burger",        serving:"1 burger",        diet:"nonveg", kcal:540, protein:27, carbs:44, fat:29, fiber:3, calcium:280, b12:2.1, tags:["protein","calcium","b12","calorie-dense"] },
+  { name:"Grilled chicken sandwich", serving:"1 sandwich",  diet:"nonveg", kcal:420, protein:32, carbs:42, fat:13, fiber:4, calcium:150, b12:0.5, tags:["protein"] },
+  { name:"Grilled cheese sandwich", serving:"1 sandwich",   diet:"veg", kcal:400, protein:16, carbs:38, fat:21, fiber:3, calcium:380, b12:0.7, tags:["calcium","calorie-dense"] },
+  { name:"Club sandwich",        serving:"1 whole",         diet:"nonveg", kcal:520, protein:28, carbs:48, fat:24, fiber:4, calcium:200, b12:0.9, tags:["protein","calorie-dense"] },
+  { name:"French fries",         serving:"medium (110g)",   diet:"veg", kcal:340, protein:4,  carbs:44, fat:17, fiber:4, calcium:20,  b12:0,   tags:["calorie-dense"] },
+  { name:"Potato wedges",        serving:"1 serving",       diet:"veg", kcal:290, protein:5,  carbs:40, fat:13, fiber:5, calcium:25,  b12:0,   tags:["fiber","calorie-dense"] },
+  { name:"Caesar salad",         serving:"1 bowl",          diet:"veg", kcal:280, protein:9,  carbs:12, fat:22, fiber:3, calcium:180, b12:0.3, tags:["light","calcium"] },
+  { name:"Greek salad",          serving:"1 bowl",          diet:"veg", kcal:230, protein:8,  carbs:12, fat:17, fiber:4, calcium:240, b12:0.4, tags:["light","calcium","fiber"] },
+  { name:"Grilled veg platter",  serving:"1 plate",         diet:"veg", kcal:220, protein:7,  carbs:24, fat:11, fiber:8, calcium:110, b12:0,   tags:["fiber","light"] },
 ];
 
 // ─── Fuzzy food matching ──────────────────────────────────────────────────────
@@ -727,6 +874,23 @@ const SPELLING_ALIASES = {
   baigan:"baingan", brinjal:"baingan", eggplant:"baingan",
   milk:"milk", doodh:"milk",
   sprout:"sprouts", sprot:"sprouts",
+  pizaa:"pizza", pizzza:"pizza", piza:"pizza", pizz:"pizza",
+  speghetti:"spaghetti", spageti:"spaghetti", spagetti:"spaghetti", spagheti:"spaghetti",
+  bouretto:"burrito", burito:"burrito", buritto:"burrito", berrito:"burrito",
+  munchurian:"manchurian", manchurain:"manchurian", manchooriyan:"manchurian",
+  manchurian:"manchurian", munchurain:"manchurian",
+  noodels:"noodles", noodle:"noodles", nudles:"noodles", noddles:"noodles",
+  pasta:"pasta", paasta:"pasta",
+  bergur:"burger", burgur:"burger", burgar:"burger",
+  sandwitch:"sandwich", sandwhich:"sandwich", sandvich:"sandwich",
+  garlick:"garlic", garlik:"garlic",
+  cheez:"cheese", chees:"cheese", chesse:"cheese",
+  hakka:"hakka", haka:"hakka",
+  schezwan:"schezwan", shezwan:"schezwan", szechuan:"schezwan", schezuan:"schezwan",
+  frys:"fries", freis:"fries",
+  lasagne:"lasagna", lazania:"lasagna",
+  quesadila:"quesadilla", kesadia:"quesadilla",
+  nachoz:"nachos", nachose:"nachos",
 };
 
 function normalise(str) {
@@ -2093,6 +2257,7 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
 const GUIDE_TITLES_HI = {
   exercise: "रोज़ का व्यायाम",
   healthy:  "स्वस्थ भारतीय भोजन",
+  continental: "स्वस्थ कॉन्टिनेंटल भोजन",
   avoid:    "किनसे बचें",
   loss:     "वज़न घटाने के सुझाव",
   gain:     "वज़न बढ़ाने के सुझाव",
@@ -2235,6 +2400,94 @@ const GUIDES = {
       ]},
     ],
   },
+  continental: {
+    icon: "🍝", title: "Healthy Continental Foods", color: T.sky,
+    intro: "Continental food gets a bad name from its restaurant version — cream, cheese and deep-frying. Cooked sensibly, most of it is nutritionally solid. Organised by nutrient, with per-serving amounts.",
+    sections: [
+      { h: "🥩 Protein", items: [
+        "Grilled chicken breast — 31g per 100g, the leanest common option",
+        "Greek yogurt — 10g per 100g, roughly double regular curd",
+        "Cottage cheese — 11g per 100g, low fat and high calcium",
+        "Eggs in any form — 6g each, complete protein",
+        "Tuna or salmon — 25–29g per 100g, plus omega-3 and B12",
+        "Chickpea or lentil pasta — 14g per 80g dry, far above wheat pasta",
+        "Beans in burritos and chilli — rajma and black beans are the same family",
+        "Quinoa — 4.4g per cooked cup, and one of the few complete plant proteins",
+      ]},
+      { h: "🌿 Fiber — target 30g daily", items: [
+        "Whole wheat pasta — 6g per 100g dry, against 2.5g for refined",
+        "Beans in a burrito — a bean burrito carries 12–13g on its own",
+        "Whole grain bread — 6–7g per 100g; white bread has almost none",
+        "Oats — 10g per 100g",
+        "Broccoli — 5g per cup, plus vitamin C and folate",
+        "Corn, peas and mixed vegetables in pasta or salad",
+        "Avocado — 7g per half, plus monounsaturated fat",
+        "Lentil soup — 8g per bowl",
+      ]},
+      { h: "🦴 Calcium — target 1000mg daily", items: [
+        "Parmesan — 1180mg per 100g, the densest common cheese",
+        "Mozzarella — 500mg per 100g; pizza genuinely delivers here",
+        "Cheddar — 720mg per 100g",
+        "Greek yogurt — 110mg per 100g, plus probiotics",
+        "Milk in pasta sauces and soups",
+        "Fortified plant milks — check the label, as unfortified has almost none",
+        "Tofu set with calcium sulphate — 350mg per 100g",
+        "Canned sardines with bones — 380mg per 100g",
+      ]},
+      { h: "💊 Vitamin B12", items: [
+        "Cheese — 0.4–1.5μg per 30g depending on variety",
+        "Eggs — 0.6μg each",
+        "Greek yogurt — 0.8μg per cup",
+        "Beef in bolognese — 2.5μg per 100g",
+        "Salmon — 3.8μg per 100g, well over a day's requirement",
+        "Nutritional yeast — fortified, and the practical vegan route",
+        "Vegans eating continental food face the same B12 gap as Indian vegetarians — a supplement is the answer either way",
+      ]},
+      { h: "🫒 Fats worth eating", items: [
+        "Olive oil — monounsaturated, the backbone of Mediterranean cooking",
+        "Avocado — fat plus fiber plus potassium",
+        "Nuts in pesto and salads — walnuts, pine nuts, almonds",
+        "Fatty fish — salmon, mackerel, sardines for omega-3",
+        "Use olive oil for dressings and finishing; it degrades at high heat, so cook with something more stable",
+      ]},
+      { h: "🍽️ Smarter versions of familiar dishes", items: [
+        "Pizza — thin crust, load vegetables, go easy on extra cheese; the base is fine, the toppings decide",
+        "Pasta — tomato-based over cream-based saves 200+ kcal a plate",
+        "Whole wheat or lentil pasta instead of refined",
+        "Burrito bowl instead of the wrapped version — skips a 300 kcal tortilla",
+        "Grilled chicken instead of fried or crumbed",
+        "Baked potato wedges rather than deep-fried chips",
+        "Dressing on the side — a salad can carry more calories than the main",
+        "Soup before the main course genuinely reduces total intake",
+      ]},
+      { h: "🥗 Genuinely healthy choices", items: [
+        "Greek salad — vegetables, olive oil, feta for calcium",
+        "Minestrone — vegetables, beans, high fiber, low calorie",
+        "Grilled fish with vegetables — protein, omega-3, minimal oil",
+        "Chicken and vegetable soup",
+        "Mediterranean grain bowls — quinoa, chickpeas, vegetables, olive oil",
+        "Baked vegetables with herbs",
+        "Omelette with vegetables and a little cheese",
+      ]},
+      { h: "⚠️ Where continental food goes wrong", items: [
+        "Cream sauces — alfredo carries 620 kcal a plate against 380 for arrabbiata",
+        "Cheese as a main ingredient rather than a seasoning",
+        "Deep-fried sides — fries, nuggets, crumbed anything",
+        "Restaurant portions, which often run to two or three servings",
+        "Sugary drinks alongside, which add 150–200 kcal invisibly",
+        "Garlic bread as a starter — 340 kcal before the meal arrives",
+      ]},
+      { h: "🇮🇳 Indian equivalents worth knowing", items: [
+        "Curd does what Greek yogurt does, at lower cost — strain it for thickness",
+        "Paneer and cottage cheese are nutritionally close",
+        "Rajma and black beans are near-identical in protein and fiber",
+        "Whole wheat atta and whole wheat pasta serve the same role",
+        "Mustard or groundnut oil handles heat better than olive oil",
+        "You don't need imported ingredients to eat this way",
+      ]},
+    ],
+  },
+
   avoid: {
     icon: "🚫", title: "Things to Avoid", color: T.red,
     intro: "Not a ban list — these are the items that quietly derail progress when they become routine rather than occasional.",
@@ -2426,7 +2679,7 @@ function GuideView({ guide, onBack, guideKey }) {
 }
 
 // ─── Hamburger Drawer ─────────────────────────────────────────────────────────
-function Drawer({ open, onClose, onSelect, onEditProfile, onReset, onExport, profile }) {
+function Drawer({ open, onClose, onSelect, onEditProfile, onReset, onExport, onOpenGroups, profile }) {
   const { t, lang } = useLang();
   const [confirmReset, setConfirmReset] = useState(false);
   if (!open) return null;
@@ -2467,6 +2720,21 @@ function Drawer({ open, onClose, onSelect, onEditProfile, onReset, onExport, pro
             <span style={{ color:T.textMuted, fontSize:16 }}>›</span>
           </button>
         ))}
+
+        <div style={{ padding:"18px 20px 8px", fontSize:10, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
+          {t("grp_header")}
+        </div>
+        <button onClick={() => { onOpenGroups(); onClose(); }} style={{
+          width:"100%", background:"none", border:"none", borderBottom:`1px solid ${T.border}`,
+          padding:"14px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:14, textAlign:"left"
+        }}>
+          <span style={{ fontSize:22 }}>👥</span>
+          <div style={{ flex:1 }}>
+            <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{t("grp_title")}</div>
+            <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:2 }}>{t("grp_sub")}</div>
+          </div>
+          <span style={{ color:T.textMuted, fontSize:16 }}>›</span>
+        </button>
 
         <div style={{ padding:"18px 20px 8px", fontSize:10, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
           {t("settings")}
@@ -3053,6 +3321,334 @@ function WeeklySummary({ history, goals, todayNutrition }) {
   );
 }
 
+// ─── Groups ───────────────────────────────────────────────────────────────────
+// Shared groups need a server to be genuinely multi-user. In the artifact
+// sandbox we can use window.storage's shared scope; in a plain browser this
+// falls back to local-only, so a group is visible to you alone. The UI says
+// which mode is active rather than implying company that isn't there.
+const GROUPS_KEY = "nutrivision:groups";
+const GROUP_PREFIX = "nvgroup:";
+
+const sharedStore = {
+  available() {
+    return typeof window !== "undefined" && !!window.storage?.set;
+  },
+  async get(key) {
+    try {
+      const r = await window.storage.get(key, true);
+      return r?.value ? JSON.parse(r.value) : null;
+    } catch { return null; }
+  },
+  async set(key, value) {
+    try { await window.storage.set(key, JSON.stringify(value), true); return true; }
+    catch { return false; }
+  },
+  async list(prefix) {
+    try {
+      const r = await window.storage.list(prefix, true);
+      return r?.keys || [];
+    } catch { return []; }
+  }
+};
+
+const slugify = (str) =>
+  str.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
+
+function GroupsView({ onBack, profile, nutrition, goals, history }) {
+  const { t } = useLang();
+  const [groups, setGroups] = useState([]);          // groups I've joined
+  const [loading, setLoading] = useState(true);
+  const [mode, setMode] = useState("list");          // list | create | join | detail
+  const [active, setActive] = useState(null);
+  const [members, setMembers] = useState([]);
+  const [title, setTitle] = useState("");
+  const [alias, setAlias] = useState("");
+  const [joinCode, setJoinCode] = useState("");
+  const [error, setError] = useState(null);
+  const [busy, setBusy] = useState(false);
+
+  const canShare = sharedStore.available();
+
+  useEffect(() => {
+    (async () => {
+      const saved = await store.get(GROUPS_KEY);
+      setGroups(saved || []);
+      setLoading(false);
+    })();
+  }, []);
+
+  const persist = async (next) => {
+    setGroups(next);
+    await store.set(GROUPS_KEY, next);
+  };
+
+  // A member record carries an alias and progress only — never a real name,
+  // and never weight or BMI.
+  const myEntry = () => ({
+    alias: alias.trim() || "Anonymous",
+    kcalPct: goals.tdee ? Math.round((nutrition.kcal / goals.tdee) * 100) : 0,
+    proteinPct: goals.protein ? Math.round((nutrition.protein / goals.protein) * 100) : 0,
+    daysLogged: Object.keys(history || {}).length,
+    updated: Date.now()
+  });
+
+  const createGroup = async () => {
+    setError(null);
+    if (!title.trim()) { setError(t("grp_need_title")); return; }
+    if (!alias.trim()) { setError(t("grp_need_alias")); return; }
+    setBusy(true);
+
+    const code = slugify(title) + "-" + Math.random().toString(36).slice(2, 6);
+    const group = { code, title: title.trim(), alias: alias.trim(), created: Date.now(), owner: true };
+
+    if (canShare) {
+      await sharedStore.set(GROUP_PREFIX + code, {
+        title: title.trim(),
+        created: Date.now(),
+        members: { [alias.trim()]: myEntry() }
+      });
+    }
+
+    await persist([...groups, group]);
+    setTitle(""); setAlias(""); setBusy(false); setMode("list");
+  };
+
+  const joinGroup = async () => {
+    setError(null);
+    const code = joinCode.trim().toLowerCase();
+    if (!code) { setError(t("grp_need_code")); return; }
+    if (!alias.trim()) { setError(t("grp_need_alias")); return; }
+    if (groups.some(g => g.code === code)) { setError(t("grp_already")); return; }
+    setBusy(true);
+
+    if (!canShare) {
+      setError(t("grp_no_server"));
+      setBusy(false);
+      return;
+    }
+
+    const remote = await sharedStore.get(GROUP_PREFIX + code);
+    if (!remote) { setError(t("grp_not_found")); setBusy(false); return; }
+
+    remote.members = { ...(remote.members || {}), [alias.trim()]: myEntry() };
+    await sharedStore.set(GROUP_PREFIX + code, remote);
+
+    await persist([...groups, { code, title: remote.title, alias: alias.trim(), created: Date.now() }]);
+    setJoinCode(""); setAlias(""); setBusy(false); setMode("list");
+  };
+
+  const openGroup = async (g) => {
+    setActive(g);
+    setMode("detail");
+    setMembers([]);
+    if (!canShare) return;
+    const remote = await sharedStore.get(GROUP_PREFIX + g.code);
+    if (remote?.members) {
+      // Push my latest numbers, then show everyone.
+      remote.members[g.alias] = {
+        alias: g.alias,
+        kcalPct: goals.tdee ? Math.round((nutrition.kcal / goals.tdee) * 100) : 0,
+        proteinPct: goals.protein ? Math.round((nutrition.protein / goals.protein) * 100) : 0,
+        daysLogged: Object.keys(history || {}).length,
+        updated: Date.now()
+      };
+      await sharedStore.set(GROUP_PREFIX + g.code, remote);
+      setMembers(Object.values(remote.members).sort((a, b) => b.daysLogged - a.daysLogged));
+    }
+  };
+
+  const leaveGroup = async (code) => {
+    await persist(groups.filter(g => g.code !== code));
+    setMode("list");
+    setActive(null);
+  };
+
+  const Btn = ({ children, onClick, primary, disabled }) => (
+    <button onClick={onClick} disabled={disabled} style={{
+      flex: 1, background: primary ? T.teal : T.card,
+      border: `1px solid ${primary ? T.teal : T.border}`, borderRadius: 11,
+      color: primary ? T.bg : T.textSecondary, fontSize: 13, fontWeight: 700,
+      padding: "12px", cursor: disabled ? "not-allowed" : "pointer", opacity: disabled ? 0.5 : 1
+    }}>{children}</button>
+  );
+
+  const Field = ({ value, onChange, placeholder, maxLength }) => (
+    <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} maxLength={maxLength}
+      style={{
+        width: "100%", background: T.card, border: `1px solid ${T.border}`, borderRadius: 10,
+        color: T.textPrimary, fontSize: 13.5, padding: "12px 14px", outline: "none",
+        marginBottom: 10, boxSizing: "border-box"
+      }} />
+  );
+
+  if (loading) return <div style={{ padding: 30, textAlign: "center", color: T.textSecondary, fontSize: 13 }}>…</div>;
+
+  return (
+    <div>
+      <button onClick={mode === "list" ? onBack : () => { setMode("list"); setError(null); }} style={{
+        background: T.card, border: `1px solid ${T.border}`, borderRadius: 10,
+        color: T.textSecondary, fontSize: 12, padding: "8px 14px", cursor: "pointer", marginBottom: 16
+      }}>{t("back_to_menu")}</button>
+
+      {/* Honest note about what sharing actually does here */}
+      {!canShare && (
+        <div style={{
+          background: `${T.amber}12`, border: `1px solid ${T.amber}35`, borderRadius: 12,
+          padding: "12px 14px", marginBottom: 16, fontSize: 11.5, color: T.textSecondary, lineHeight: 1.55
+        }}>
+          {t("grp_local_only")}
+        </div>
+      )}
+
+      {mode === "list" && (
+        <>
+          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 1, marginBottom: 10 }}>
+            {t("grp_your_groups")}
+          </div>
+
+          {groups.length === 0 ? (
+            <div style={{ textAlign: "center", padding: "28px 20px 24px" }}>
+              <div style={{ fontSize: 34, marginBottom: 12 }}>👥</div>
+              <div style={{ fontSize: 14.5, fontWeight: 800, color: T.textPrimary, marginBottom: 7 }}>{t("grp_empty")}</div>
+              <p style={{ fontSize: 12.5, color: T.textSecondary, lineHeight: 1.6, margin: 0 }}>{t("grp_empty_body")}</p>
+            </div>
+          ) : (
+            groups.map(g => (
+              <button key={g.code} onClick={() => openGroup(g)} style={{
+                width: "100%", background: T.card, border: `1px solid ${T.border}`, borderRadius: 14,
+                padding: "14px 16px", marginBottom: 10, cursor: "pointer", textAlign: "left",
+                display: "flex", alignItems: "center", gap: 12
+              }}>
+                <span style={{ fontSize: 20 }}>👥</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 13.5, fontWeight: 700, color: T.textPrimary }}>{g.title}</div>
+                  <div style={{ fontSize: 10.5, color: T.textSecondary, marginTop: 2 }}>
+                    {t("grp_as")} {g.alias} · {g.code}
+                  </div>
+                </div>
+                <span style={{ color: T.textMuted, fontSize: 16 }}>›</span>
+              </button>
+            ))
+          )}
+
+          <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
+            <Btn primary onClick={() => { setMode("create"); setError(null); }}>{t("grp_create")}</Btn>
+            <Btn onClick={() => { setMode("join"); setError(null); }}>{t("grp_join")}</Btn>
+          </div>
+        </>
+      )}
+
+      {mode === "create" && (
+        <>
+          <div style={{ fontSize: 15, fontWeight: 800, color: T.textPrimary, marginBottom: 6 }}>{t("grp_create_title")}</div>
+          <p style={{ fontSize: 12, color: T.textSecondary, lineHeight: 1.55, margin: "0 0 16px" }}>{t("grp_create_body")}</p>
+
+          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_title_label")}</div>
+          <Field value={title} onChange={setTitle} placeholder={t("grp_title_ph")} maxLength={40} />
+
+          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_alias_label")}</div>
+          <Field value={alias} onChange={setAlias} placeholder={t("grp_alias_ph")} maxLength={20} />
+          <div style={{ fontSize: 10.5, color: T.textMuted, lineHeight: 1.5, marginBottom: 16 }}>{t("grp_alias_hint")}</div>
+
+          {error && <div style={{ background: `${T.red}15`, border: `1px solid ${T.red}35`, borderRadius: 10, padding: "10px 13px", marginBottom: 12, fontSize: 12, color: T.red }}>{error}</div>}
+
+          <div style={{ display: "flex", gap: 8 }}>
+            <Btn onClick={() => setMode("list")}>{t("cancel")}</Btn>
+            <Btn primary onClick={createGroup} disabled={busy}>{busy ? "…" : t("grp_create")}</Btn>
+          </div>
+        </>
+      )}
+
+      {mode === "join" && (
+        <>
+          <div style={{ fontSize: 15, fontWeight: 800, color: T.textPrimary, marginBottom: 6 }}>{t("grp_join_title")}</div>
+          <p style={{ fontSize: 12, color: T.textSecondary, lineHeight: 1.55, margin: "0 0 16px" }}>{t("grp_join_body")}</p>
+
+          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_code_label")}</div>
+          <Field value={joinCode} onChange={setJoinCode} placeholder="workout-a3f9" maxLength={50} />
+
+          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_alias_label")}</div>
+          <Field value={alias} onChange={setAlias} placeholder={t("grp_alias_ph")} maxLength={20} />
+          <div style={{ fontSize: 10.5, color: T.textMuted, lineHeight: 1.5, marginBottom: 16 }}>{t("grp_alias_hint")}</div>
+
+          {error && <div style={{ background: `${T.red}15`, border: `1px solid ${T.red}35`, borderRadius: 10, padding: "10px 13px", marginBottom: 12, fontSize: 12, color: T.red }}>{error}</div>}
+
+          <div style={{ display: "flex", gap: 8 }}>
+            <Btn onClick={() => setMode("list")}>{t("cancel")}</Btn>
+            <Btn primary onClick={joinGroup} disabled={busy}>{busy ? "…" : t("grp_join")}</Btn>
+          </div>
+        </>
+      )}
+
+      {mode === "detail" && active && (
+        <>
+          <div style={{ background: T.card, border: `1px solid ${T.border}`, borderRadius: 16, padding: "16px", marginBottom: 14 }}>
+            <div style={{ fontSize: 17, fontWeight: 800, color: T.textPrimary }}>{active.title}</div>
+            <div style={{ fontSize: 11, color: T.textSecondary, marginTop: 4 }}>
+              {t("grp_as")} <span style={{ color: T.teal, fontWeight: 700 }}>{active.alias}</span>
+            </div>
+            <div style={{
+              marginTop: 12, paddingTop: 12, borderTop: `1px solid ${T.border}`,
+              display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10
+            }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 9.5, color: T.textMuted, letterSpacing: 0.8, marginBottom: 3 }}>{t("grp_share_code")}</div>
+                <div style={{ fontSize: 12.5, fontFamily: "monospace", color: T.textPrimary, wordBreak: "break-all" }}>{active.code}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 1, marginBottom: 10 }}>
+            {t("grp_members")} ({members.length || 1})
+          </div>
+
+          {(members.length ? members : [{ alias: active.alias, kcalPct: goals.tdee ? Math.round((nutrition.kcal/goals.tdee)*100) : 0, proteinPct: goals.protein ? Math.round((nutrition.protein/goals.protein)*100) : 0, daysLogged: Object.keys(history || {}).length }]).map((m, i) => {
+            const isMe = m.alias === active.alias;
+            return (
+              <div key={m.alias + i} style={{
+                background: T.card, border: `1px solid ${isMe ? `${T.teal}40` : T.border}`,
+                borderRadius: 13, padding: "12px 14px", marginBottom: 9
+              }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ fontSize: 15 }}>{isMe ? "🙋" : "👤"}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: isMe ? T.teal : T.textPrimary }}>{m.alias}</span>
+                  </div>
+                  <span style={{ fontSize: 10.5, color: T.textMuted }}>
+                    {m.daysLogged} {m.daysLogged === 1 ? t("day") : t("days")}
+                  </span>
+                </div>
+                <div style={{ display: "flex", gap: 14 }}>
+                  {[[t("calories"), m.kcalPct, T.teal], [t("protein"), m.proteinPct, T.orange]].map(([lbl, pct, c]) => (
+                    <div key={lbl} style={{ flex: 1 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+                        <span style={{ fontSize: 9.5, color: T.textSecondary }}>{lbl}</span>
+                        <span style={{ fontSize: 10, fontFamily: "monospace", fontWeight: 700, color: c }}>{pct}%</span>
+                      </div>
+                      <div style={{ background: T.border, borderRadius: 3, height: 4, overflow: "hidden" }}>
+                        <div style={{ width: `${Math.min(pct, 100)}%`, height: "100%", background: c, borderRadius: 3 }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          <div style={{ fontSize: 10.5, color: T.textMuted, lineHeight: 1.55, margin: "14px 0" }}>
+            {t("grp_privacy_note")}
+          </div>
+
+          <button onClick={() => leaveGroup(active.code)} style={{
+            width: "100%", background: "none", border: `1px solid ${T.red}40`, borderRadius: 11,
+            color: T.red, fontSize: 12.5, fontWeight: 700, padding: "12px", cursor: "pointer"
+          }}>{t("grp_leave")}</button>
+        </>
+      )}
+    </div>
+  );
+}
+
 // ─── Main App ─────────────────────────────────────────────────────────────────
 const EMPTY_MEALS = {
   Breakfast: { icon:"🌅", name:"Breakfast", items:[] },
@@ -3069,6 +3665,7 @@ export default function NutriVisionAI() {
   const [activeTab, setActiveTab] = useState("home");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeGuide, setActiveGuide] = useState(null);
+  const [showGroups, setShowGroups] = useState(false);
   const [meals, setMeals] = useState(EMPTY_MEALS);
   const [history, setHistory] = useState({});
   const [water, setWater] = useState(0);
@@ -3261,14 +3858,22 @@ export default function NutriVisionAI() {
     <LangCtx.Provider value={{ lang, t, setLang }}>
     <div style={{ fontFamily:"system-ui,-apple-system,sans-serif", background:T.bg, minHeight:"100vh", color:T.textPrimary, maxWidth:430, margin:"0 auto", position:"relative" }}>
       <div style={{ padding:"20px 20px 0", display:"flex", justifyContent:"space-between", alignItems:"center", gap:12 }}>
-        <button onClick={() => setDrawerOpen(true)} style={{
-          background:T.card, border:`1px solid ${T.border}`, borderRadius:10,
-          color:T.textPrimary, fontSize:18, padding:"7px 11px", cursor:"pointer", lineHeight:1, flexShrink:0
-        }}>☰</button>
+        {/* In a sub-view the header button goes back; otherwise it opens the menu. */}
+        <button
+          onClick={() => {
+            if (showGroups) { setShowGroups(false); return; }
+            if (activeGuide) { setActiveGuide(null); return; }
+            setDrawerOpen(true);
+          }}
+          style={{
+            background:T.card, border:`1px solid ${T.border}`, borderRadius:10,
+            color:T.textPrimary, fontSize:18, padding:"7px 11px", cursor:"pointer", lineHeight:1, flexShrink:0
+          }}>{showGroups || activeGuide ? "←" : "☰"}</button>
         <div style={{ flex:1, minWidth:0 }}>
           <div style={{ fontSize:11, fontWeight:700, color:T.teal, letterSpacing:1.5 }}>{t("appName")}</div>
           <div style={{ fontSize:18, fontWeight:800, color:T.textPrimary, marginTop:2, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
-            {activeGuide ? (lang === "hi" ? GUIDE_TITLES_HI[activeGuide] || GUIDES[activeGuide].title : GUIDES[activeGuide].title)
+            {showGroups ? t("grp_title")
+              : activeGuide ? (lang === "hi" ? GUIDE_TITLES_HI[activeGuide] || GUIDES[activeGuide].title : GUIDES[activeGuide].title)
               : activeTab==="home"?t("title_today"):activeTab==="meals"?t("title_meals"):activeTab==="plan"?t("title_plan"):activeTab==="micros"?t("title_micros"):activeTab==="history"?t("title_history"):t("title_weight")}
           </div>
         </div>
@@ -3276,9 +3881,19 @@ export default function NutriVisionAI() {
 
       <div style={{ padding:"20px 20px 110px", overflowY:"auto" }}>
 
-        {activeGuide && <GuideView guide={GUIDES[activeGuide]} guideKey={activeGuide} onBack={() => setActiveGuide(null)} />}
+        {showGroups && (
+          <GroupsView
+            onBack={() => setShowGroups(false)}
+            profile={profile}
+            nutrition={nutrition}
+            goals={goals}
+            history={history}
+          />
+        )}
 
-        {!activeGuide && activeTab==="home" && (
+        {!showGroups && activeGuide && <GuideView guide={GUIDES[activeGuide]} guideKey={activeGuide} onBack={() => setActiveGuide(null)} />}
+
+        {!activeGuide && !showGroups && activeTab==="home" && (
           <>
             <div style={{ display:"flex", justifyContent:"center", margin:"8px 0 16px" }}>
               <CalorieRing consumed={nutrition.kcal} goal={goals.tdee} />
@@ -3374,17 +3989,17 @@ export default function NutriVisionAI() {
           </>
         )}
 
-        {!activeGuide && activeTab==="meals" && (
+        {!activeGuide && !showGroups && activeTab==="meals" && (
           <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
             {Object.values(meals).map(meal => <MealCard key={meal.name} meal={meal} onAdd={() => setScanner(true)} />)}
           </div>
         )}
 
-        {!activeGuide && activeTab==="plan" && (
+        {!activeGuide && !showGroups && activeTab==="plan" && (
           <MealPlanTab nutrition={nutrition} goals={goals} onAddMeal={addMeal} />
         )}
 
-        {!activeGuide && activeTab==="micros" && (
+        {!activeGuide && !showGroups && activeTab==="micros" && (
           <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
             <MicroCard icon="🌿" label="Fiber"   value={nutrition.fiber}   goal={goals.fiber}   color={T.lime} unit="g"  />
             <MicroCard icon="🦴" label="Calcium" value={nutrition.calcium} goal={goals.calcium} color={T.sky}  unit="mg" />
@@ -3410,7 +4025,7 @@ export default function NutriVisionAI() {
           </div>
         )}
 
-        {!activeGuide && activeTab==="history" && (
+        {!activeGuide && !showGroups && activeTab==="history" && (
           <CalendarTab
             goals={goals}
             history={history}
@@ -3460,11 +4075,11 @@ export default function NutriVisionAI() {
           </div>
         )}
 
-        {!activeGuide && activeTab==="weight" && <WeightTracker weights={weights} setWeights={setWeights} />}
+        {!activeGuide && !showGroups && activeTab==="weight" && <WeightTracker weights={weights} setWeights={setWeights} />}
       </div>
 
       {/* FAB */}
-      {!activeGuide && <button onClick={() => setScanner(true)} style={{
+      {!activeGuide && !showGroups && <button onClick={() => setScanner(true)} style={{
         position:"fixed", bottom:80, left:"50%", transform:"translateX(-50%)",
         background:T.teal, border:"none", borderRadius:50, width:60, height:60,
         fontSize:24, cursor:"pointer", boxShadow:`0 0 24px ${T.teal}60`,
@@ -3474,7 +4089,7 @@ export default function NutriVisionAI() {
       {/* Bottom nav */}
       <div style={{ position:"fixed", bottom:0, left:"50%", transform:"translateX(-50%)", width:"100%", maxWidth:430, background:T.surface, borderTop:`1px solid ${T.border}`, display:"flex", zIndex:40 }}>
         {tabs.map(tab => (
-          <button key={tab.id} onClick={() => { setActiveTab(tab.id); setActiveGuide(null); }} style={{ flex:1, background:"none", border:"none", padding:"9px 0 13px", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:3, minWidth:0 }}>
+          <button key={tab.id} onClick={() => { setActiveTab(tab.id); setActiveGuide(null); setShowGroups(false); }} style={{ flex:1, background:"none", border:"none", padding:"9px 0 13px", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:3, minWidth:0 }}>
             <span style={{ fontSize:15 }}>{tab.icon}</span>
             <span style={{ fontSize:7.5, fontWeight:700, letterSpacing:0.2, color:(!activeGuide && activeTab===tab.id)?T.teal:T.textMuted }}>{tab.label}</span>
           </button>
@@ -3497,10 +4112,11 @@ export default function NutriVisionAI() {
       <Drawer
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        onSelect={key => setActiveGuide(key)}
-        onEditProfile={() => setEditingProfile(true)}
+        onSelect={key => { setActiveGuide(key); setShowGroups(false); }}
+        onEditProfile={() => { setEditingProfile(true); setShowGroups(false); }}
         onReset={resetEverything}
         onExport={exportCSV}
+        onOpenGroups={() => { setShowGroups(true); setActiveGuide(null); }}
         profile={profile}
       />
     </div>
