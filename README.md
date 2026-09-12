@@ -52,7 +52,12 @@ cd nutrivision-ai
 npm install
 ```
 
-Get an API key from [console.anthropic.com](https://console.anthropic.com/settings/keys), then:
+Get an API key. Two options:
+
+- **Google Gemini** — [aistudio.google.com/apikey](https://aistudio.google.com/apikey). Free tier, no card needed, roughly 15 requests/min and 1,500/day. Good enough for food photo analysis.
+- **Anthropic Claude** — [console.anthropic.com](https://console.anthropic.com/settings/keys). Paid, around $0.01–0.02 per photo.
+
+The proxy uses whichever key is present. If both are set, `PROVIDER` decides (defaults to Gemini). Then:
 
 ```bash
 cp .env.example .env.local
@@ -84,7 +89,9 @@ npm i -g vercel
 vercel
 ```
 
-Add `ANTHROPIC_API_KEY` under Settings → Environment Variables, then redeploy. The `api/` folder becomes a serverless function automatically.
+Add `GEMINI_API_KEY` (or `ANTHROPIC_API_KEY`) under Settings → Environment Variables, then **redeploy** — Vercel doesn't apply new variables to existing deployments. The `api/` folder becomes a serverless function automatically.
+
+To check it's working, open `your-app.vercel.app/api/analyze` in a browser. "Method not allowed" means the key is configured; a message about a missing key means it isn't.
 
 ### Netlify
 
@@ -95,7 +102,7 @@ npm i -g netlify-cli
 netlify deploy --prod
 ```
 
-Add `ANTHROPIC_API_KEY` under Site settings → Environment variables.
+Add `GEMINI_API_KEY` (or `ANTHROPIC_API_KEY`) under Site settings → Environment variables.
 
 ### GitHub Pages — not suitable
 
@@ -115,7 +122,7 @@ The proxy caps request size at 5 MB, caps `max_tokens` at 2000, and rate-limits 
 
 It holds state in memory on a single serverless instance. Instances are ephemeral and run in parallel, so a determined caller routes around it. Before sharing a public URL:
 
-- Set a **spend cap in the Anthropic console** — this is what actually bounds your exposure
+- Set a **spend cap** with your provider — this is what actually bounds your exposure. Gemini's free tier caps itself, but paid usage does not
 - Add Upstash Redis for distributed rate limiting, or put the app behind a login
 
 A public endpoint calling a paid API on demand is how people end up with surprising bills.
@@ -134,7 +141,7 @@ If you add accounts and sync, you're then storing health data on a server, which
 
 ```
 ├── api/
-│   ├── analyze.js           Serverless proxy (Vercel) — holds the API key
+│   ├── analyze.js           Serverless proxy (Vercel) — Gemini or Anthropic
 │   └── analyze.netlify.js   Same logic, Netlify signature
 ├── src/
 │   ├── NutriVisionAI.jsx    The app
