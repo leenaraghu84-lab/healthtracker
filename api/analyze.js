@@ -84,27 +84,43 @@ async function callGemini(apiKey, messages, maxTokens) {
   const url =
     `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-goog-api-key": apiKey
-    },
-    body: JSON.stringify({
-      contents: toGemini(messages),
-      generationConfig: {
-        maxOutputTokens: maxTokens,
-        temperature: 0.2,
-        // Ask for JSON directly — the app parses the reply as JSON.
-        responseMimeType: "application/json",
-        // Nutrition estimation doesn't need extended reasoning, and thinking
-        // tokens count against maxOutputTokens — which can truncate the JSON.
-        thinkingConfig: { thinkingBudget: 0 }
-      }
-    })
-  });
+  const headers = {
+    "Content-Type": "application/json",
+    "x-goog-api-key": apiKey
+  };
 
-  const data = await res.json();
+  // Model families differ on which generationConfig fields they accept —
+  // thinking controls in particular changed name and semantics between
+  // Gemini 2.x and 3.x, and some models reject attempts to disable it.
+  // Rather than guess, start with the richest config and drop optional
+  // fields on INVALID_ARGUMENT until the request is accepted.
+  const attempts = [
+    { responseMimeType: "application/json", temperature: 0.2, maxOutputTokens: maxTokens },
+    { temperature: 0.2, maxOutputTokens: maxTokens },
+    { maxOutputTokens: maxTokens }
+  ];
+
+  let res, data;
+  for (let i = 0; i < attempts.length; i++) {
+    res = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        contents: toGemini(messages),
+        generationConfig: attempts[i]
+      })
+    });
+    data = await res.json();
+
+    if (res.ok) break;
+
+    const isConfigError =
+      res.status === 400 &&
+      /invalid argument|unknown name|not supported|unsupported/i.test(data?.error?.message || "");
+
+    // Only a config problem is worth retrying; auth and quota errors are final.
+    if (!isConfigError || i === attempts.length - 1) break;
+  }
 
   if (!res.ok) {
     let msg = data?.error?.message || `Gemini request failed (${res.status})`;
@@ -121,6 +137,10 @@ async function callGemini(apiKey, messages, maxTokens) {
       msg =
         `Model "${GEMINI_MODEL}" was not found. Set GEMINI_MODEL to a current ` +
         `model name in your environment variables.`;
+    } else if (res.status === 400) {
+      // Keep the provider's own wording — it names the offending field,
+      // which a generic message would hide.
+      msg = `Gemini rejected the request for model "${GEMINI_MODEL}": ${msg}`;
     }
 
     const err = new Error(msg);
