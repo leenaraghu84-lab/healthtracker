@@ -470,7 +470,7 @@ function LanguageToggle({ compact }) {
         <button key={code} onClick={() => setLang(code)} style={{
           background: lang===code ? T.teal : "transparent",
           border:"none", color: lang===code ? T.bg : T.textSecondary,
-          fontSize:11, fontWeight:800, padding:"6px 12px", cursor:"pointer"
+          fontSize:13, fontWeight:800, padding:"6px 12px", cursor:"pointer"
         }}>{label}</button>
       ))}
     </div>
@@ -478,7 +478,7 @@ function LanguageToggle({ compact }) {
 }
 
 // ─── Ring ─────────────────────────────────────────────────────────────────────
-function Ring({ value, max, color, size = 80, stroke = 7, label, sub, icon }) {
+function Ring({ value, max, color, size = 92, stroke = 8, label, sub, icon }) {
   const r = (size - stroke) / 2;
   const circ = 2 * Math.PI * r;
   const pct = Math.min(value / max, 1);
@@ -495,15 +495,15 @@ function Ring({ value, max, color, size = 80, stroke = 7, label, sub, icon }) {
             style={{ transition: "stroke-dasharray 0.8s cubic-bezier(.4,0,.2,1), stroke 0.4s" }} />
         </svg>
         <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center" }}>
-          {icon && <span style={{ fontSize: 10 }}>{icon}</span>}
-          <span style={{ fontSize: 12, fontWeight: 700, color: over ? T.red : color, fontFamily: "monospace", lineHeight: 1 }}>
+          {icon && <span style={{ fontSize: 12 }}>{icon}</span>}
+          <span style={{ fontSize: 14, fontWeight: 700, color: over ? T.red : color, fontFamily: "monospace", lineHeight: 1 }}>
             {Math.round(pct * 100)}%
           </span>
         </div>
       </div>
       <div style={{ textAlign: "center" }}>
-        <div style={{ fontSize: 10, fontWeight: 600, color: T.textPrimary }}>{label}</div>
-        <div style={{ fontSize: 9, color: T.textSecondary, fontFamily: "monospace" }}>{sub}</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: T.textPrimary }}>{label}</div>
+        <div style={{ fontSize: 11, color: T.textSecondary, fontFamily: "monospace" }}>{sub}</div>
       </div>
     </div>
   );
@@ -512,7 +512,7 @@ function Ring({ value, max, color, size = 80, stroke = 7, label, sub, icon }) {
 // ─── Hero Calorie Ring ────────────────────────────────────────────────────────
 function CalorieRing({ consumed, goal }) {
   const { t } = useLang();
-  const size = 180, stroke = 14;
+  const size = 200, stroke = 15;
   const r = (size - stroke) / 2, circ = 2 * Math.PI * r;
   const rawPct = goal > 0 ? consumed / goal : 0;
   const pct = Math.min(rawPct, 1);
@@ -530,24 +530,24 @@ function CalorieRing({ consumed, goal }) {
       <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:1 }}>
         {/* Percentage of the day's requirement */}
         <div style={{
-          fontSize:30, fontWeight:800, fontFamily:"monospace", lineHeight:1,
+          fontSize:32, fontWeight:800, fontFamily:"monospace", lineHeight:1,
           color: over ? T.red : rawPct > 0.85 ? T.orange : T.teal
         }}>
-          {Math.round(rawPct * 100)}<span style={{ fontSize:16 }}>%</span>
+          {Math.round(rawPct * 100)}<span style={{ fontSize:18 }}>%</span>
         </div>
-        <div style={{ fontSize:9, color:T.textMuted, fontWeight:600, letterSpacing:1, marginTop:1 }}>{t("of_daily_goal")}</div>
+        <div style={{ fontSize:11, color:T.textMuted, fontWeight:600, letterSpacing:1, marginTop:1 }}>{t("of_daily_goal")}</div>
 
         <div style={{ width:64, height:1, background:T.border, margin:"7px 0 6px" }} />
 
         {/* Consumed against requirement */}
-        <div style={{ fontSize:14, fontWeight:800, color:T.textPrimary, fontFamily:"monospace", lineHeight:1 }}>
+        <div style={{ fontSize:16, fontWeight:800, color:T.textPrimary, fontFamily:"monospace", lineHeight:1 }}>
           {consumed.toLocaleString()}
           <span style={{ color:T.textMuted, fontWeight:400 }}> / </span>
           {goal.toLocaleString()}
         </div>
-        <div style={{ fontSize:9.5, color:T.textSecondary, marginTop:2 }}>kcal consumed / required</div>
+        <div style={{ fontSize:11.5, color:T.textSecondary, marginTop:2 }}>kcal consumed / required</div>
 
-        <div style={{ marginTop:5, fontSize:10, color: over ? T.red : T.teal, fontWeight:700 }}>
+        <div style={{ marginTop:5, fontSize:12, color: over ? T.red : T.teal, fontWeight:700 }}>
           {over ? `${consumed-goal} over` : `${goal-consumed} left`}
         </div>
       </div>
@@ -561,13 +561,13 @@ function MacroPill({ label, value, goal, color, unit = "g" }) {
   return (
     <div style={{ flex: 1, background: T.card, borderRadius: 12, padding: "10px 8px", border:`1px solid ${T.border}`, minWidth: 0 }}>
       <div style={{ display:"flex", justifyContent:"space-between", marginBottom:6 }}>
-        <span style={{ fontSize:10, color:T.textSecondary, fontWeight:600 }}>{label}</span>
-        <span style={{ fontSize:10, color, fontFamily:"monospace", fontWeight:700 }}>{value}{unit}</span>
+        <span style={{ fontSize:12, color:T.textSecondary, fontWeight:600 }}>{label}</span>
+        <span style={{ fontSize:12, color, fontFamily:"monospace", fontWeight:700 }}>{value}{unit}</span>
       </div>
       <div style={{ background:T.border, borderRadius:4, height:4, overflow:"hidden" }}>
         <div style={{ width:`${pct*100}%`, height:"100%", background:color, borderRadius:4, transition:"width 0.8s cubic-bezier(.4,0,.2,1)" }} />
       </div>
-      <div style={{ marginTop:4, fontSize:9, color:T.textMuted, fontFamily:"monospace" }}>/{goal}{unit}</div>
+      <div style={{ marginTop:4, fontSize:11, color:T.textMuted, fontFamily:"monospace" }}>/{goal}{unit}</div>
     </div>
   );
 }
@@ -580,15 +580,15 @@ function MicroCard({ icon, label, value, goal, color, unit }) {
     <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:14, padding:"14px 16px" }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
         <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-          <span style={{ fontSize:18 }}>{icon}</span>
+          <span style={{ fontSize:20 }}>{icon}</span>
           <div>
-            <div style={{ fontSize:13, fontWeight:700, color:T.textPrimary }}>{label}</div>
-            <div style={{ fontSize:10, color:T.textSecondary }}>Daily target: {goal}{unit}</div>
+            <div style={{ fontSize:15, fontWeight:700, color:T.textPrimary }}>{label}</div>
+            <div style={{ fontSize:12, color:T.textSecondary }}>Daily target: {goal}{unit}</div>
           </div>
         </div>
         <div style={{ textAlign:"right" }}>
-          <div style={{ fontSize:16, fontWeight:800, color: over ? T.red : color, fontFamily:"monospace" }}>{value}<span style={{ fontSize:10, fontWeight:400 }}>{unit}</span></div>
-          <div style={{ fontSize:10, color:T.textSecondary }}>{Math.round(pct*100)}%</div>
+          <div style={{ fontSize:18, fontWeight:800, color: over ? T.red : color, fontFamily:"monospace" }}>{value}<span style={{ fontSize:12, fontWeight:400 }}>{unit}</span></div>
+          <div style={{ fontSize:12, color:T.textSecondary }}>{Math.round(pct*100)}%</div>
         </div>
       </div>
       <div style={{ background:T.border, borderRadius:6, height:6, overflow:"hidden" }}>
@@ -599,8 +599,8 @@ function MicroCard({ icon, label, value, goal, color, unit }) {
           boxShadow: `0 0 6px ${color}60`
         }} />
       </div>
-      {over && <div style={{ marginTop:6, fontSize:10, color:T.red }}>Exceeded by {Math.round(value-goal)}{unit}</div>}
-      {!over && pct < 0.4 && value > 0 && <div style={{ marginTop:6, fontSize:10, color:T.amber }}>Only {Math.round(pct*100)}% reached — aim for more</div>}
+      {over && <div style={{ marginTop:6, fontSize:12, color:T.red }}>Exceeded by {Math.round(value-goal)}{unit}</div>}
+      {!over && pct < 0.4 && value > 0 && <div style={{ marginTop:6, fontSize:12, color:T.amber }}>Only {Math.round(pct*100)}% reached — aim for more</div>}
     </div>
   );
 }
@@ -619,14 +619,14 @@ function MealCard({ meal, onAdd }) {
     <div style={{ background:T.card, borderRadius:16, border:`1px solid ${T.border}`, overflow:"hidden" }}>
       <div style={{ padding:"14px 16px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <div>
-          <div style={{ fontSize:13, fontWeight:700, color:T.textPrimary }}>{meal.icon} {t(meal.name.toLowerCase())}</div>
-          <div style={{ fontSize:11, color:T.textSecondary, marginTop:2 }}>
+          <div style={{ fontSize:15, fontWeight:700, color:T.textPrimary }}>{meal.icon} {t(meal.name.toLowerCase())}</div>
+          <div style={{ fontSize:13, color:T.textSecondary, marginTop:2 }}>
             {meal.items.length} {t("items")} · <span style={{ color:T.teal, fontFamily:"monospace" }}>{total.kcal} kcal</span>
           </div>
         </div>
         <button onClick={() => onAdd(meal.name)} style={{
           background:T.tealDim, border:`1px solid ${T.teal}40`, borderRadius:8,
-          color:T.teal, fontSize:11, fontWeight:700, padding:"6px 12px", cursor:"pointer"
+          color:T.teal, fontSize:13, fontWeight:700, padding:"6px 12px", cursor:"pointer"
         }}>{t("add")}</button>
       </div>
       {meal.items.length > 0 && (
@@ -637,13 +637,13 @@ function MealCard({ meal, onAdd }) {
               borderBottom: i < meal.items.length-1 ? `1px solid ${T.border}` : "none"
             }}>
               <div>
-                <div style={{ fontSize:12, fontWeight:600, color:T.textPrimary }}>{foodName(item.name, lang)}</div>
-                <div style={{ fontSize:10, color:T.textSecondary }}>{item.weight}g</div>
+                <div style={{ fontSize:14, fontWeight:600, color:T.textPrimary }}>{foodName(item.name, lang)}</div>
+                <div style={{ fontSize:12, color:T.textSecondary }}>{item.weight}g</div>
               </div>
               <div style={{ textAlign:"right" }}>
-                <div style={{ fontSize:12, fontFamily:"monospace", color:T.textPrimary, fontWeight:700 }}>{item.kcal} kcal</div>
-                <div style={{ fontSize:10, color:T.textSecondary }}>P:{d1(item.protein)}g C:{d1(item.carbs)}g F:{d1(item.fat)}g</div>
-                <div style={{ fontSize:9, color:T.textMuted }}>
+                <div style={{ fontSize:14, fontFamily:"monospace", color:T.textPrimary, fontWeight:700 }}>{item.kcal} kcal</div>
+                <div style={{ fontSize:12, color:T.textSecondary }}>P:{d1(item.protein)}g C:{d1(item.carbs)}g F:{d1(item.fat)}g</div>
+                <div style={{ fontSize:11, color:T.textMuted }}>
                   Fib:{d1(item.fiber)}g Ca:{d1(item.calcium)}mg B12:{d1(item.b12)}μg
                 </div>
               </div>
@@ -653,7 +653,7 @@ function MealCard({ meal, onAdd }) {
             {[[t("protein"),d1(total.protein),"g",T.orange],[t("carbs"),d1(total.carbs),"g",T.violet],[t("fat"),d1(total.fat),"g",T.amber],
               [t("fiber"),d1(total.fiber),"g",T.lime],[t("calcium"),d1(total.calcium),"mg",T.sky],[t("b12"),d1(total.b12),"μg",T.pink]
             ].map(([l,v,u,c]) => (
-              <div key={l} style={{ fontSize:10, color:T.textSecondary }}>
+              <div key={l} style={{ fontSize:12, color:T.textSecondary }}>
                 {l}: <span style={{ color:c, fontFamily:"monospace", fontWeight:700 }}>{v}{u}</span>
               </div>
             ))}
@@ -1106,9 +1106,9 @@ function ScannerModal({ onClose, onAddMeal }) {
           { type:"image", source:{ type:"base64", media_type: mediaType, data: base64Data } },
           { type:"text", text:`You are a nutrition AI. Analyze this food image. Return ONLY valid JSON, no markdown:
 {"items": [${ITEM_SCHEMA}], "confidence": "high"}
-Rules: estimate realistic Indian/global portions, all numbers integers, fiber in grams, calcium in mg, b12 in micrograms (μg). If no food visible return {"items":[],"confidence":"low"}` }
+Rules: estimate realistic Indian/global portions; all numbers integers; fiber in grams, calcium in mg, b12 in micrograms. Combine similar items rather than listing each piece separately, and return at most 8 items. Output JSON only, no commentary. If no food is visible return {"items":[],"confidence":"low"}` }
         ]
-      }]);
+      }], 2500);
       let parsed;
       try {
         parsed = JSON.parse(clean);
@@ -1238,15 +1238,15 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
         </div>
         <div style={{ padding:"16px 20px 32px" }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:20 }}>
-            <div style={{ fontSize:18, fontWeight:800, color:T.textPrimary }}>
+            <div style={{ fontSize:20, fontWeight:800, color:T.textPrimary }}>
               {phase==="scanning" ? t("analyzing") : phase==="result" ? t("detected") : t("log_food")}
             </div>
-            <button onClick={onClose} style={{ background:T.border, border:"none", borderRadius:8, color:T.textSecondary, fontSize:12, padding:"6px 10px", cursor:"pointer" }}>✕</button>
+            <button onClick={onClose} style={{ background:T.border, border:"none", borderRadius:8, color:T.textSecondary, fontSize:14, padding:"6px 10px", cursor:"pointer" }}>✕</button>
           </div>
 
           {phase==="upload" && (
             <div>
-              {error && <div style={{ background:"#EF444420", border:`1px solid ${T.red}40`, borderRadius:10, padding:"10px 14px", marginBottom:16, fontSize:12, color:T.red }}>{error}</div>}
+              {error && <div style={{ background:"#EF444420", border:`1px solid ${T.red}40`, borderRadius:10, padding:"10px 14px", marginBottom:16, fontSize:14, color:T.red }}>{error}</div>}
               <div
                 onDragOver={e => e.preventDefault()}
                 onDrop={e => { e.preventDefault(); handleFile(e.dataTransfer.files[0]); }}
@@ -1255,8 +1255,8 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                   if (item) handleFile(item.getAsFile());
                 }}
                 style={{ border:`2px dashed ${T.teal}60`, borderRadius:16, padding:"22px 16px", textAlign:"center", marginBottom:16, background:T.card }}>
-                <div style={{ fontSize:34, marginBottom:8 }}>📸</div>
-                <div style={{ fontSize:15, fontWeight:700, color:T.textPrimary, marginBottom:14 }}>{t("choose_photo")}</div>
+                <div style={{ fontSize:35, marginBottom:8 }}>📸</div>
+                <div style={{ fontSize:17, fontWeight:700, color:T.textPrimary, marginBottom:14 }}>{t("choose_photo")}</div>
 
                 {/* Two separate inputs: `capture` opens the camera directly,
                     while the plain one opens the gallery/file picker. One
@@ -1264,7 +1264,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                 <div style={{ display:"flex", gap:10, marginBottom:12 }}>
                   <label style={{
                     flex:1, position:"relative", background:T.teal, borderRadius:11,
-                    color:T.bg, fontSize:13, fontWeight:800, padding:"13px 8px",
+                    color:T.bg, fontSize:15, fontWeight:800, padding:"13px 8px",
                     cursor:"pointer", display:"flex", alignItems:"center",
                     justifyContent:"center", gap:6
                   }}>
@@ -1281,7 +1281,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                   <label style={{
                     flex:1, position:"relative", background:T.surface,
                     border:`1px solid ${T.border}`, borderRadius:11,
-                    color:T.textPrimary, fontSize:13, fontWeight:700, padding:"13px 8px",
+                    color:T.textPrimary, fontSize:15, fontWeight:700, padding:"13px 8px",
                     cursor:"pointer", display:"flex", alignItems:"center",
                     justifyContent:"center", gap:6
                   }}>
@@ -1301,12 +1301,12 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                   type="file"
                   accept="image/*"
                   onChange={e => { if (e.target.files?.[0]) handleFile(e.target.files[0]); e.target.value = ""; }}
-                  style={{ width:"100%", color:T.textMuted, fontSize:11, cursor:"pointer" }}
+                  style={{ width:"100%", color:T.textMuted, fontSize:13, cursor:"pointer" }}
                 />
-                <div style={{ fontSize:10.5, color:T.textMuted, marginTop:10 }}>{t("drag_drop")}</div>
+                <div style={{ fontSize:12.5, color:T.textMuted, marginTop:10 }}>{t("drag_drop")}</div>
               </div>
               <div style={{ display:"flex", alignItems:"center", gap:12, margin:"16px 0" }}>
-                <div style={{ flex:1, height:1, background:T.border }} /><span style={{ fontSize:11, color:T.textMuted }}>{t("or_type")}</span><div style={{ flex:1, height:1, background:T.border }} />
+                <div style={{ flex:1, height:1, background:T.border }} /><span style={{ fontSize:13, color:T.textMuted }}>{t("or_type")}</span><div style={{ flex:1, height:1, background:T.border }} />
               </div>
               <div style={{ position:"relative" }}>
                 <div style={{ display:"flex", gap:10 }}>
@@ -1319,9 +1319,9 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                       if (e.key === "Escape") setShowMatches(false);
                     }}
                     placeholder={t("search_placeholder")}
-                    style={{ flex:1, background:T.card, border:`1px solid ${matches.length ? `${T.teal}50` : T.border}`, borderRadius:10, color:T.textPrimary, fontSize:13, padding:"12px 14px", outline:"none" }}
+                    style={{ flex:1, background:T.card, border:`1px solid ${matches.length ? `${T.teal}50` : T.border}`, borderRadius:10, color:T.textPrimary, fontSize:15, padding:"12px 14px", outline:"none" }}
                   />
-                  <button onClick={() => { setShowMatches(false); analyzeManual(); }} disabled={loading} style={{ background:T.teal, border:"none", borderRadius:10, color:T.bg, fontSize:13, fontWeight:700, padding:"12px 16px", cursor:"pointer" }}>
+                  <button onClick={() => { setShowMatches(false); analyzeManual(); }} disabled={loading} style={{ background:T.teal, border:"none", borderRadius:10, color:T.bg, fontSize:15, fontWeight:700, padding:"12px 16px", cursor:"pointer" }}>
                     {loading ? "..." : "→"}
                   </button>
                 </div>
@@ -1332,7 +1332,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                     marginTop:8, background:T.card, border:`1px solid ${T.border}`,
                     borderRadius:12, overflow:"hidden"
                   }}>
-                    <div style={{ padding:"8px 13px", fontSize:9.5, fontWeight:700, color:T.textMuted, letterSpacing:0.8, borderBottom:`1px solid ${T.border}` }}>
+                    <div style={{ padding:"8px 13px", fontSize:11.5, fontWeight:700, color:T.textMuted, letterSpacing:0.8, borderBottom:`1px solid ${T.border}` }}>
                       {t("did_you_mean")}
                     </div>
                     {matches.map(f => (
@@ -1347,16 +1347,16 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                         }}
                       >
                         <div style={{ minWidth:0, flex:1 }}>
-                          <div style={{ fontSize:12.5, fontWeight:700, color:T.textPrimary }}>{foodName(f.name, lang)}</div>
-                          <div style={{ fontSize:10, color:T.textSecondary, marginTop:2 }}>{servingName(f.serving, lang)}</div>
+                          <div style={{ fontSize:14.5, fontWeight:700, color:T.textPrimary }}>{foodName(f.name, lang)}</div>
+                          <div style={{ fontSize:12, color:T.textSecondary, marginTop:2 }}>{servingName(f.serving, lang)}</div>
                         </div>
                         <div style={{ textAlign:"right", flexShrink:0 }}>
-                          <div style={{ fontSize:12, fontFamily:"monospace", fontWeight:700, color:T.teal }}>{f.kcal} kcal</div>
-                          <div style={{ fontSize:9.5, color:T.textMuted }}>P{f.protein} F{f.fiber} B12 {f.b12}</div>
+                          <div style={{ fontSize:14, fontFamily:"monospace", fontWeight:700, color:T.teal }}>{f.kcal} kcal</div>
+                          <div style={{ fontSize:11.5, color:T.textMuted }}>P{f.protein} F{f.fiber} B12 {f.b12}</div>
                         </div>
                       </button>
                     ))}
-                    <div style={{ padding:"9px 13px", fontSize:10, color:T.textMuted }}>
+                    <div style={{ padding:"9px 13px", fontSize:12, color:T.textMuted }}>
                       {t("not_listed")}
                     </div>
                   </div>
@@ -1371,7 +1371,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
               <div style={{ display:"flex", justifyContent:"center", gap:6, marginBottom:16 }}>
                 {[0,1,2].map(i => <div key={i} style={{ width:8, height:8, borderRadius:"50%", background:T.teal, animation:`pulse 1.2s ${i*0.2}s infinite` }} />)}
               </div>
-              <div style={{ fontSize:14, color:T.textSecondary }}>{t("identifying")}</div>
+              <div style={{ fontSize:16, color:T.textSecondary }}>{t("identifying")}</div>
               <style>{`@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}`}</style>
             </div>
           )}
@@ -1380,8 +1380,8 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
             <div>
               {image && <img src={image} alt="" style={{ width:"100%", maxHeight:140, objectFit:"cover", borderRadius:12, marginBottom:14 }} />}
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:7 }}>
-                <span style={{ fontSize:9.5, fontWeight:700, color:T.textMuted, letterSpacing:0.8 }}>{t("meal")}</span>
-                <span style={{ fontSize:9.5, color:T.textMuted }}>
+                <span style={{ fontSize:11.5, fontWeight:700, color:T.textMuted, letterSpacing:0.8 }}>{t("meal")}</span>
+                <span style={{ fontSize:11.5, color:T.textMuted }}>
                   {mealType === autoSlot
                     ? t("auto_set", { t: new Date().toLocaleTimeString([], { hour:"numeric", minute:"2-digit" }) })
                     : t("changed_from", { m: t(autoSlot.toLowerCase()) })}
@@ -1392,7 +1392,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                   <button key={m} onClick={() => setMealType(m)} style={{
                     position:"relative",
                     background:mealType===m ? T.teal : T.card, border:`1px solid ${mealType===m?T.teal:T.border}`,
-                    borderRadius:8, color:mealType===m?T.bg:T.textSecondary, fontSize:11, fontWeight:700, padding:"6px 12px", cursor:"pointer", whiteSpace:"nowrap"
+                    borderRadius:8, color:mealType===m?T.bg:T.textSecondary, fontSize:13, fontWeight:700, padding:"6px 12px", cursor:"pointer", whiteSpace:"nowrap"
                   }}>
                     {t(m.toLowerCase())}
                     {m === autoSlot && mealType !== m && (
@@ -1410,22 +1410,22 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                   <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:8 }}>
                     <div style={{ flex:1 }}>
                       <input value={item.name} onChange={e => updateItem(i,"name",e.target.value)}
-                        style={{ background:"transparent", border:"none", color:T.textPrimary, fontSize:13, fontWeight:600, outline:"none", width:"100%" }} />
-                      <div style={{ fontSize:10, color:T.textSecondary }}>
+                        style={{ background:"transparent", border:"none", color:T.textPrimary, fontSize:15, fontWeight:600, outline:"none", width:"100%" }} />
+                      <div style={{ fontSize:12, color:T.textSecondary }}>
                         <input type="number" value={item.weight} onChange={e => updateItem(i,"weight",+e.target.value)}
-                          style={{ background:"transparent", border:"none", color:T.textSecondary, fontSize:10, width:40, outline:"none" }} />g
+                          style={{ background:"transparent", border:"none", color:T.textSecondary, fontSize:12, width:40, outline:"none" }} />g
                       </div>
                     </div>
                     <div style={{ textAlign:"right" }}>
-                      <div style={{ fontSize:13, fontFamily:"monospace", color:T.teal, fontWeight:700 }}>{item.kcal} kcal</div>
-                      <div style={{ fontSize:10, color:T.textSecondary }}>P:{d1(item.protein)} C:{d1(item.carbs)} F:{d1(item.fat)}</div>
+                      <div style={{ fontSize:15, fontFamily:"monospace", color:T.teal, fontWeight:700 }}>{item.kcal} kcal</div>
+                      <div style={{ fontSize:12, color:T.textSecondary }}>P:{d1(item.protein)} C:{d1(item.carbs)} F:{d1(item.fat)}</div>
                     </div>
                     <button onClick={() => setEditItems(prev => prev.filter((_,j) => j!==i))}
-                      style={{ background:"none", border:"none", color:T.textMuted, fontSize:16, cursor:"pointer", marginLeft:8 }}>×</button>
+                      style={{ background:"none", border:"none", color:T.textMuted, fontSize:18, cursor:"pointer", marginLeft:8 }}>×</button>
                   </div>
                   {/* Portion stepper */}
                   <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:8 }}>
-                    <span style={{ fontSize:9.5, color:T.textMuted, fontWeight:700, letterSpacing:0.5, marginRight:2 }}>{t("portion")}</span>
+                    <span style={{ fontSize:11.5, color:T.textMuted, fontWeight:700, letterSpacing:0.5, marginRight:2 }}>{t("portion")}</span>
                     {[0.5, 1, 1.5, 2].map(m => {
                       const active = (item.portion || 1) === m;
                       return (
@@ -1433,7 +1433,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                           flex:1, background: active ? T.teal : T.surface,
                           border:`1px solid ${active ? T.teal : T.border}`,
                           borderRadius:7, color: active ? T.bg : T.textSecondary,
-                          fontSize:11, fontWeight:800, padding:"6px 0", cursor:"pointer"
+                          fontSize:13, fontWeight:800, padding:"6px 0", cursor:"pointer"
                         }}>×{m}</button>
                       );
                     })}
@@ -1443,11 +1443,11 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
                   <div style={{ display:"flex", gap:8, borderTop:`1px solid ${T.border}`, paddingTop:8 }}>
                     {[["🌿 Fiber","fiber","g",T.lime],["🦴 Calcium","calcium","mg",T.sky],["💊 B12","b12","μg",T.pink]].map(([lbl,key,unit,color]) => (
                       <div key={key} style={{ flex:1, background:T.surface, borderRadius:8, padding:"6px 8px" }}>
-                        <div style={{ fontSize:9, color:T.textSecondary, marginBottom:2 }}>{lbl}</div>
+                        <div style={{ fontSize:11, color:T.textSecondary, marginBottom:2 }}>{lbl}</div>
                         <div style={{ display:"flex", alignItems:"center", gap:2 }}>
                           <input type="number" step="0.1" value={item[key]||0} onChange={e => updateItem(i,key,parseFloat(e.target.value)||0)}
-                            style={{ background:"transparent", border:"none", color, fontFamily:"monospace", fontSize:11, fontWeight:700, width:36, outline:"none" }} />
-                          <span style={{ fontSize:9, color:T.textMuted }}>{unit}</span>
+                            style={{ background:"transparent", border:"none", color, fontFamily:"monospace", fontSize:13, fontWeight:700, width:36, outline:"none" }} />
+                          <span style={{ fontSize:11, color:T.textMuted }}>{unit}</span>
                         </div>
                       </div>
                     ))}
@@ -1456,30 +1456,30 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
               ))}
 
               <button onClick={() => setEditItems(prev => [...prev, { id:Date.now(), name:"Custom item", weight:100, kcal:100, protein:5, carbs:15, fat:3, fiber:1, calcium:20, b12:0 }])}
-                style={{ background:"none", border:`1px dashed ${T.border}`, borderRadius:10, color:T.textSecondary, fontSize:12, padding:"10px 16px", cursor:"pointer", width:"100%", marginBottom:16 }}>
+                style={{ background:"none", border:`1px dashed ${T.border}`, borderRadius:10, color:T.textSecondary, fontSize:14, padding:"10px 16px", cursor:"pointer", width:"100%", marginBottom:16 }}>
                 {t("add_item")}
               </button>
 
               {/* Totals summary */}
               <div style={{ background:T.tealDim, border:`1px solid ${T.teal}30`, borderRadius:12, padding:"14px 16px", marginBottom:20 }}>
-                <div style={{ fontSize:11, fontWeight:700, color:T.teal, marginBottom:10 }}>{t("meal_total")}</div>
+                <div style={{ fontSize:13, fontWeight:700, color:T.teal, marginBottom:10 }}>{t("meal_total")}</div>
                 <div style={{ display:"flex", justifyContent:"space-between", marginBottom:10 }}>
                   <div style={{ textAlign:"center" }}>
-                    <div style={{ fontSize:20, fontWeight:800, color:T.textPrimary, fontFamily:"monospace" }}>{totals.kcal}</div>
-                    <div style={{ fontSize:10, color:T.textSecondary }}>kcal</div>
+                    <div style={{ fontSize:22, fontWeight:800, color:T.textPrimary, fontFamily:"monospace" }}>{totals.kcal}</div>
+                    <div style={{ fontSize:12, color:T.textSecondary }}>kcal</div>
                   </div>
                   {[["P",totals.protein,"g",T.orange],["C",totals.carbs,"g",T.violet],["F",totals.fat,"g",T.amber]].map(([l,v,u,c]) => (
                     <div key={l} style={{ textAlign:"center" }}>
-                      <div style={{ fontSize:18, fontWeight:800, color:c, fontFamily:"monospace" }}>{v}{u}</div>
-                      <div style={{ fontSize:10, color:T.textSecondary }}>{l==="P"?"Protein":l==="C"?"Carbs":"Fat"}</div>
+                      <div style={{ fontSize:20, fontWeight:800, color:c, fontFamily:"monospace" }}>{v}{u}</div>
+                      <div style={{ fontSize:12, color:T.textSecondary }}>{l==="P"?"Protein":l==="C"?"Carbs":"Fat"}</div>
                     </div>
                   ))}
                 </div>
                 <div style={{ display:"flex", gap:10, borderTop:`1px solid ${T.teal}30`, paddingTop:10 }}>
                   {[["🌿 Fiber",totals.fiber,"g",T.lime],["🦴 Calcium",totals.calcium,"mg",T.sky],["💊 B12",totals.b12,"μg",T.pink]].map(([l,v,u,c]) => (
                     <div key={l} style={{ flex:1, textAlign:"center" }}>
-                      <div style={{ fontSize:14, fontWeight:800, color:c, fontFamily:"monospace" }}>{v}{u}</div>
-                      <div style={{ fontSize:9, color:T.textSecondary }}>{l}</div>
+                      <div style={{ fontSize:16, fontWeight:800, color:c, fontFamily:"monospace" }}>{v}{u}</div>
+                      <div style={{ fontSize:11, color:T.textSecondary }}>{l}</div>
                     </div>
                   ))}
                 </div>
@@ -1487,7 +1487,7 @@ Rules: estimate realistic Indian/global portions, all numbers integers, fiber in
 
               <button onClick={() => { onAddMeal(mealType, editItems); onClose(); }} style={{
                 background:T.teal, border:"none", borderRadius:14, color:T.bg,
-                fontSize:15, fontWeight:800, padding:"16px", cursor:"pointer", width:"100%"
+                fontSize:17, fontWeight:800, padding:"16px", cursor:"pointer", width:"100%"
               }}>{t("add_to", { m: t(mealType.toLowerCase()) })}</button>
             </div>
           )}
@@ -1661,14 +1661,14 @@ function NumField({ label, field, unit, placeholder, min, max, value, onChange, 
       border:`1px solid ${missing ? `${T.amber}70` : T.border}`,
       borderRadius:12, padding:"10px 8px 8px", textAlign:"center", minWidth:0
     }}>
-      <div style={{ fontSize:9, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{label}</div>
+      <div style={{ fontSize:11, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{label}</div>
       <input
         type="number" inputMode="decimal" value={value}
         onChange={e => onChange(field, e.target.value)}
         placeholder={placeholder} min={min} max={max}
-        style={{ width:"100%", background:"transparent", border:"none", color: missing ? T.amber : T.teal, fontFamily:"monospace", fontSize:22, fontWeight:800, textAlign:"center", outline:"none", padding:0, boxSizing:"border-box" }}
+        style={{ width:"100%", background:"transparent", border:"none", color: missing ? T.amber : T.teal, fontFamily:"monospace", fontSize:24, fontWeight:800, textAlign:"center", outline:"none", padding:0, boxSizing:"border-box" }}
       />
-      <div style={{ fontSize:10, color:T.textMuted, marginTop:2 }}>{unit}</div>
+      <div style={{ fontSize:12, color:T.textMuted, marginTop:2 }}>{unit}</div>
     </div>
   );
 }
@@ -1676,7 +1676,7 @@ function NumField({ label, field, unit, placeholder, min, max, value, onChange, 
 function ToggleGroup({ label, field, opts, value, onChange }) {
   return (
     <div style={{ marginBottom:10 }}>
-      <div style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{label}</div>
+      <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{label}</div>
       <div style={{ display:"flex", gap:6, flexWrap:"wrap" }}>
         {opts.map(([val,lbl]) => (
           <button key={val} type="button" onClick={() => onChange(field,val)} style={{
@@ -1684,7 +1684,7 @@ function ToggleGroup({ label, field, opts, value, onChange }) {
             background: value===val ? T.teal : T.card,
             border:`1px solid ${value===val ? T.teal : T.border}`,
             borderRadius:8, color: value===val ? T.bg : T.textSecondary,
-            fontSize:11, fontWeight:700, padding:"8px 6px", cursor:"pointer", whiteSpace:"nowrap"
+            fontSize:13, fontWeight:700, padding:"8px 6px", cursor:"pointer", whiteSpace:"nowrap"
           }}>{lbl}</button>
         ))}
       </div>
@@ -1765,20 +1765,20 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
   return (
     <div style={{ minHeight:"100vh", background:T.bg, display:"flex", flexDirection:"column", fontFamily:"system-ui,-apple-system,sans-serif" }}>
       <div style={{ padding:"24px 20px 12px", flexShrink:0 }}>
-        <div style={{ fontSize:10, fontWeight:700, color:T.teal, letterSpacing:2, marginBottom:6 }}>{t("appName")}</div>
+        <div style={{ fontSize:12, fontWeight:700, color:T.teal, letterSpacing:2, marginBottom:6 }}>{t("appName")}</div>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12 }}>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:22, fontWeight:800, color:T.textPrimary }}>
+            <div style={{ fontSize:24, fontWeight:800, color:T.textPrimary }}>
               {isEdit ? t("profile_edit_title") : t("profile_title")}
             </div>
-            <div style={{ fontSize:12, color:T.textSecondary, marginTop:4 }}>
+            <div style={{ fontSize:14, color:T.textSecondary, marginTop:4 }}>
 {isEdit ? t("profile_edit_sub") : t("profile_sub")}
             </div>
           </div>
           {isEdit && onCancel && (
             <button onClick={onCancel} style={{
               background:T.card, border:`1px solid ${T.border}`, borderRadius:9,
-              color:T.textSecondary, fontSize:11, fontWeight:700, padding:"7px 12px",
+              color:T.textSecondary, fontSize:13, fontWeight:700, padding:"7px 12px",
               cursor:"pointer", flexShrink:0
             }}>{t("cancel")}</button>
           )}
@@ -1789,13 +1789,13 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
             marginTop:14, background:T.card, border:`1px solid ${T.border}`,
             borderRadius:12, padding:"11px 14px"
           }}>
-            <div style={{ fontSize:9.5, fontWeight:700, color:T.textMuted, letterSpacing:0.8, marginBottom:7 }}>{t("current_targets")}</div>
+            <div style={{ fontSize:11.5, fontWeight:700, color:T.textMuted, letterSpacing:0.8, marginBottom:7 }}>{t("current_targets")}</div>
             <div style={{ display:"flex", justifyContent:"space-between" }}>
               {[["Cal", existing.tdee, T.teal], ["Protein", existing.protein + "g", T.orange],
                 ["Carbs", existing.carbs + "g", T.violet], ["Fat", existing.fat + "g", T.amber]].map(([l,v,c]) => (
                 <div key={l} style={{ textAlign:"center" }}>
-                  <div style={{ fontSize:13, fontWeight:800, color:c, fontFamily:"monospace" }}>{v}</div>
-                  <div style={{ fontSize:9, color:T.textSecondary }}>{l}</div>
+                  <div style={{ fontSize:15, fontWeight:800, color:c, fontFamily:"monospace" }}>{v}</div>
+                  <div style={{ fontSize:11, color:T.textSecondary }}>{l}</div>
                 </div>
               ))}
             </div>
@@ -1804,7 +1804,7 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
       </div>
 
       <div style={{ flex:1, overflowY:"auto", padding:"0 20px 20px" }}>
-        <div style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{t("body_stats")}</div>
+        <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:0.8, marginBottom:6 }}>{t("body_stats")}</div>
         <div style={{ display:"flex", gap:8, marginBottom:14 }}>
           <NumField label={t("age")}    field="age"    unit={t("years")} placeholder="28"  min={10}  max={100} value={form.age}    onChange={set} missing={!form.age} />
           <NumField label={t("weight")} field="weight" unit={t("kg")} placeholder="70"  min={20}  max={250} value={form.weight} onChange={set} missing={!form.weight} />
@@ -1835,10 +1835,10 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
               borderRadius:12, padding:"13px 14px", marginBottom:14
             }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:11 }}>
-                <span style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:0.8 }}>{t("bmi_title")}</span>
-                <span style={{ fontSize:15, fontFamily:"monospace", fontWeight:800, color:current.color }}>
+                <span style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:0.8 }}>{t("bmi_title")}</span>
+                <span style={{ fontSize:17, fontFamily:"monospace", fontWeight:800, color:current.color }}>
                   {bmi.toFixed(1)}
-                  <span style={{ fontSize:10, fontWeight:600, marginLeft:6 }}>{current.label}</span>
+                  <span style={{ fontSize:12, fontWeight:600, marginLeft:6 }}>{current.label}</span>
                 </span>
               </div>
 
@@ -1865,10 +1865,10 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
                 {bands.map(b => (
                   <div key={b.label} style={{ flex: b.to - b.from, textAlign:"center" }}>
                     <div style={{
-                      fontSize:8, fontWeight:700,
+                      fontSize:10.5, fontWeight:700,
                       color: b.label === current.label ? b.color : T.textMuted
                     }}>{b.label}</div>
-                    <div style={{ fontSize:7.5, color:T.textMuted, fontFamily:"monospace", marginTop:1 }}>
+                    <div style={{ fontSize:10, color:T.textMuted, fontFamily:"monospace", marginTop:1 }}>
                       {b.display}
                     </div>
                   </div>
@@ -1876,11 +1876,11 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
               </div>
 
               {/* Target weight for this height */}
-              <div style={{ borderTop:`1px solid ${T.border}`, paddingTop:9, fontSize:10.5, color:T.textSecondary, lineHeight:1.5 }}>
+              <div style={{ borderTop:`1px solid ${T.border}`, paddingTop:9, fontSize:12.5, color:T.textSecondary, lineHeight:1.5 }}>
 {t("bmi_range_note", { h, lo: healthyLow, hi: healthyHigh })}
               </div>
 
-              <div style={{ fontSize:9.5, color:T.textMuted, lineHeight:1.5, marginTop:7 }}>
+              <div style={{ fontSize:11.5, color:T.textMuted, lineHeight:1.5, marginTop:7 }}>
 {t("bmi_caveat")}
               </div>
             </div>
@@ -1895,7 +1895,7 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
       <div style={{ padding:"12px 20px 24px", flexShrink:0, borderTop:`1px solid ${T.border}`, background:T.bg }}>
         <button onClick={attemptSave} disabled={!valid} style={{
           background:valid ? T.teal : T.border, border:"none", borderRadius:14,
-          color:valid ? T.bg : T.textMuted, fontSize:15, fontWeight:800,
+          color:valid ? T.bg : T.textMuted, fontSize:17, fontWeight:800,
           padding:"15px", cursor:valid ? "pointer" : "not-allowed", width:"100%"
         }}>
 {!valid ? t("fill_required") : isEdit ? t("save_changes") : t("calculate")}
@@ -1913,28 +1913,28 @@ function ProfileSetup({ onComplete, existing, onCancel }) {
             background:T.surface, border:`1px solid ${T.amber}40`, borderRadius:18,
             padding:"22px 20px", maxWidth:360, width:"100%"
           }}>
-            <div style={{ fontSize:30, marginBottom:12 }}>⚠️</div>
-            <div style={{ fontSize:16, fontWeight:800, color:T.textPrimary, marginBottom:10, lineHeight:1.35 }}>
+            <div style={{ fontSize:32, marginBottom:12 }}>⚠️</div>
+            <div style={{ fontSize:18, fontWeight:800, color:T.textPrimary, marginBottom:10, lineHeight:1.35 }}>
               {warning.title}
             </div>
-            <p style={{ fontSize:13, color:T.textSecondary, lineHeight:1.6, margin:"0 0 20px" }}>
+            <p style={{ fontSize:15, color:T.textSecondary, lineHeight:1.6, margin:"0 0 20px" }}>
               {warning.body}
             </p>
 
             {warning.block ? (
               <button onClick={() => setWarning(null)} style={{
                 width:"100%", background:T.teal, border:"none", borderRadius:12,
-                color:T.bg, fontSize:14, fontWeight:800, padding:"13px", cursor:"pointer"
+                color:T.bg, fontSize:16, fontWeight:800, padding:"13px", cursor:"pointer"
               }}>{t("go_back_change")}</button>
             ) : (
               <div style={{ display:"flex", gap:8 }}>
                 <button onClick={() => setWarning(null)} style={{
                   flex:1, background:T.card, border:`1px solid ${T.border}`, borderRadius:11,
-                  color:T.textSecondary, fontSize:13, fontWeight:700, padding:"12px", cursor:"pointer"
+                  color:T.textSecondary, fontSize:15, fontWeight:700, padding:"12px", cursor:"pointer"
                 }}>{t("go_back")}</button>
                 <button onClick={() => { setWarning(null); calculate(); }} style={{
                   flex:1, background:T.teal, border:"none", borderRadius:11,
-                  color:T.bg, fontSize:13, fontWeight:800, padding:"12px", cursor:"pointer"
+                  color:T.bg, fontSize:15, fontWeight:800, padding:"12px", cursor:"pointer"
                 }}>{t("continue_anyway")}</button>
               </div>
             )}
@@ -1966,11 +1966,11 @@ function Insights({ nutrition, goals }) {
 
   return (
     <div style={{ marginBottom:24 }}>
-      <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:12 }}>{t("ai_coach")}</div>
+      <div style={{ fontSize:14, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:12 }}>{t("ai_coach")}</div>
       {hints.map((h,i) => (
         <div key={i} style={{ background:T.card, border:`1px solid ${h.color}25`, borderRadius:12, padding:"12px 14px", marginBottom:10, display:"flex", gap:12, alignItems:"flex-start" }}>
-          <span style={{ fontSize:18, lineHeight:1.2 }}>{h.icon}</span>
-          <p style={{ margin:0, fontSize:13, color:T.textPrimary, lineHeight:1.5 }}>{h.text}</p>
+          <span style={{ fontSize:20, lineHeight:1.2 }}>{h.icon}</span>
+          <p style={{ margin:0, fontSize:15, color:T.textPrimary, lineHeight:1.5 }}>{h.text}</p>
         </div>
       ))}
     </div>
@@ -1999,16 +1999,16 @@ function WeightTracker({ weights, setWeights }) {
     return (
       <div>
         <div style={{ textAlign:"center", padding:"36px 24px 24px" }}>
-          <div style={{ fontSize:36, marginBottom:14 }}>⚖️</div>
-          <div style={{ fontSize:15, fontWeight:800, color:T.textPrimary, marginBottom:7 }}>{t("no_weight")}</div>
-          <p style={{ fontSize:12.5, color:T.textSecondary, lineHeight:1.6, margin:0 }}>
+          <div style={{ fontSize:38, marginBottom:14 }}>⚖️</div>
+          <div style={{ fontSize:17, fontWeight:800, color:T.textPrimary, marginBottom:7 }}>{t("no_weight")}</div>
+          <p style={{ fontSize:14.5, color:T.textSecondary, lineHeight:1.6, margin:0 }}>
 {t("no_weight_body")}
           </p>
         </div>
         <div style={{ display:"flex", gap:10, padding:"0 4px" }}>
           <input type="number" value={newW} onChange={e=>setNewW(e.target.value)} placeholder={t("weight_kg")}
-            style={{ flex:1, background:T.card, border:`1px solid ${T.border}`, borderRadius:10, color:T.textPrimary, fontSize:13, padding:"12px 14px", outline:"none" }} />
-          <button onClick={add} style={{ background:T.teal, border:"none", borderRadius:10, color:T.bg, fontSize:13, fontWeight:700, padding:"12px 20px", cursor:"pointer" }}>{t("log")}</button>
+            style={{ flex:1, background:T.card, border:`1px solid ${T.border}`, borderRadius:10, color:T.textPrimary, fontSize:15, padding:"12px 14px", outline:"none" }} />
+          <button onClick={add} style={{ background:T.teal, border:"none", borderRadius:10, color:T.bg, fontSize:15, fontWeight:700, padding:"12px 20px", cursor:"pointer" }}>{t("log")}</button>
         </div>
       </div>
     );
@@ -2018,17 +2018,17 @@ function WeightTracker({ weights, setWeights }) {
   const change = shown.length > 1 ? shown[shown.length-1].w - shown[0].w : 0;
   return (
     <div>
-      <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:12 }}>{t("weight_tracking")}</div>
+      <div style={{ fontSize:14, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:12 }}>{t("weight_tracking")}</div>
       <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"16px" }}>
         {shown.length > 1 && (
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:10 }}>
             <div>
-              <span style={{ fontSize:20, fontWeight:800, color:T.textPrimary, fontFamily:"monospace" }}>
+              <span style={{ fontSize:22, fontWeight:800, color:T.textPrimary, fontFamily:"monospace" }}>
                 {shown[shown.length-1].w}
               </span>
-              <span style={{ fontSize:11, color:T.textSecondary, marginLeft:4 }}>kg</span>
+              <span style={{ fontSize:13, color:T.textSecondary, marginLeft:4 }}>kg</span>
             </div>
-            <span style={{ fontSize:11.5, fontWeight:700, color: change < 0 ? T.teal : change > 0 ? T.orange : T.textSecondary }}>
+            <span style={{ fontSize:13.5, fontWeight:700, color: change < 0 ? T.teal : change > 0 ? T.orange : T.textSecondary }}>
 {change > 0 ? "▲" : change < 0 ? "▼" : "–"} {t("kg_over", { n: Math.abs(change).toFixed(1), c: shown.length })}
             </span>
           </div>
@@ -2046,8 +2046,8 @@ function WeightTracker({ weights, setWeights }) {
         </svg>
         <div style={{ display:"flex", gap:10, marginTop:12 }}>
           <input type="number" value={newW} onChange={e=>setNewW(e.target.value)} placeholder={t("weight_kg")}
-            style={{ flex:1, background:T.surface, border:`1px solid ${T.border}`, borderRadius:8, color:T.textPrimary, fontSize:13, padding:"10px 12px", outline:"none" }} />
-          <button onClick={add} style={{ background:T.teal, border:"none", borderRadius:8, color:T.bg, fontSize:13, fontWeight:700, padding:"10px 16px", cursor:"pointer" }}>{t("log")}</button>
+            style={{ flex:1, background:T.surface, border:`1px solid ${T.border}`, borderRadius:8, color:T.textPrimary, fontSize:15, padding:"10px 12px", outline:"none" }} />
+          <button onClick={add} style={{ background:T.teal, border:"none", borderRadius:8, color:T.bg, fontSize:15, fontWeight:700, padding:"10px 16px", cursor:"pointer" }}>{t("log")}</button>
         </div>
       </div>
     </div>
@@ -2087,9 +2087,9 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
   if (withData.length === 0) {
     return (
       <div style={{ textAlign:"center", padding:"48px 24px" }}>
-        <div style={{ fontSize:40, marginBottom:16 }}>📅</div>
-        <div style={{ fontSize:16, fontWeight:800, color:T.textPrimary, marginBottom:8 }}>{t("no_history")}</div>
-        <p style={{ fontSize:13, color:T.textSecondary, lineHeight:1.6, margin:0 }}>
+        <div style={{ fontSize:42, marginBottom:16 }}>📅</div>
+        <div style={{ fontSize:18, fontWeight:800, color:T.textPrimary, marginBottom:8 }}>{t("no_history")}</div>
+        <p style={{ fontSize:15, color:T.textSecondary, lineHeight:1.6, margin:0 }}>
 {t("no_history_body")}
         </p>
       </div>
@@ -2113,7 +2113,7 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
             flex:1, background: range===n ? T.teal : T.card,
             border:`1px solid ${range===n ? T.teal : T.border}`,
             borderRadius:8, color: range===n ? T.bg : T.textSecondary,
-            fontSize:11, fontWeight:700, padding:"8px 0", cursor:"pointer"
+            fontSize:13, fontWeight:700, padding:"8px 0", cursor:"pointer"
           }}>{t("days_n", { n })}</button>
         ))}
       </div>
@@ -2127,10 +2127,10 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
           [t("total_surplus"), `${totalSurplus}`, t("kcal_over"), T.orange, "📈"],
         ].map(([lbl, val, sub, color, icon]) => (
           <div key={lbl} style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:14, padding:"12px 14px" }}>
-            <div style={{ fontSize:15, marginBottom:4 }}>{icon}</div>
-            <div style={{ fontSize:19, fontWeight:800, color, fontFamily:"monospace" }}>{val}</div>
-            <div style={{ fontSize:9.5, color:T.textMuted }}>{sub}</div>
-            <div style={{ fontSize:10, color:T.textSecondary, marginTop:3 }}>{lbl}</div>
+            <div style={{ fontSize:17, marginBottom:4 }}>{icon}</div>
+            <div style={{ fontSize:21, fontWeight:800, color, fontFamily:"monospace" }}>{val}</div>
+            <div style={{ fontSize:11.5, color:T.textMuted }}>{sub}</div>
+            <div style={{ fontSize:12, color:T.textSecondary, marginTop:3 }}>{lbl}</div>
           </div>
         ))}
       </div>
@@ -2142,7 +2142,7 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
             background: filter===v ? T.teal : T.card,
             border:`1px solid ${filter===v?T.teal:T.border}`,
             borderRadius:8, color:filter===v?T.bg:T.textSecondary,
-            fontSize:11, fontWeight:700, padding:"6px 14px", cursor:"pointer"
+            fontSize:13, fontWeight:700, padding:"6px 14px", cursor:"pointer"
           }}>{l}</button>
         ))}
       </div>
@@ -2150,9 +2150,9 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
       {/* Diverging bars */}
       <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:20, padding:"18px 12px 12px", marginBottom:16 }}>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:12 }}>
-          <span style={{ fontSize:10, color:T.teal }}>{t("under_goal")}</span>
-          <span style={{ fontSize:9.5, color:T.textMuted }}>{t("goal_kcal", { n: GOAL })}</span>
-          <span style={{ fontSize:10, color:T.orange }}>{t("over_goal")}</span>
+          <span style={{ fontSize:12, color:T.teal }}>{t("under_goal")}</span>
+          <span style={{ fontSize:11.5, color:T.textMuted }}>{t("goal_kcal", { n: GOAL })}</span>
+          <span style={{ fontSize:12, color:T.orange }}>{t("over_goal")}</span>
         </div>
 
         <div style={{ display:"flex", alignItems:"flex-end", gap:2, overflowX:"auto" }}>
@@ -2180,10 +2180,10 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
                       transition:"height 0.6s cubic-bezier(.4,0,.2,1)" }} />
                   )}
                 </div>
-                <div style={{ fontSize:6.5, color, fontFamily:"monospace", fontWeight:700, marginTop:3 }}>
+                <div style={{ fontSize:9, color, fontFamily:"monospace", fontWeight:700, marginTop:3 }}>
                   {day.delta == null ? "–" : day.delta > 0 ? `+${day.delta}` : day.delta}
                 </div>
-                <div style={{ fontSize:6.5, color: day.isToday ? T.teal : T.textMuted, textAlign:"center", lineHeight:1.2, marginTop:1 }}>
+                <div style={{ fontSize:9, color: day.isToday ? T.teal : T.textMuted, textAlign:"center", lineHeight:1.2, marginTop:1 }}>
                   {day.shortLabel.split(" ").map((w,j) => <div key={j}>{w}</div>)}
                 </div>
               </div>
@@ -2194,7 +2194,7 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
 
       {/* Day list */}
       <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, overflow:"hidden", marginBottom:14 }}>
-        <div style={{ padding:"13px 16px", borderBottom:`1px solid ${T.border}`, fontSize:11, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>
+        <div style={{ padding:"13px 16px", borderBottom:`1px solid ${T.border}`, fontSize:13, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>
           {t("daily_breakdown")}
         </div>
         {[...filtered].reverse().filter(d => d.logged).map((day, i, arr) => {
@@ -2209,12 +2209,12 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
             }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
                 <div>
-                  <span style={{ fontSize:12, fontWeight:700, color: day.isToday ? T.teal : T.textPrimary }}>{day.label}</span>
-                  {day.isToday && <span style={{ marginLeft:6, fontSize:8.5, background:`${T.teal}20`, color:T.teal, borderRadius:4, padding:"2px 5px", fontWeight:800 }}>{t("today_badge")}</span>}
+                  <span style={{ fontSize:14, fontWeight:700, color: day.isToday ? T.teal : T.textPrimary }}>{day.label}</span>
+                  {day.isToday && <span style={{ marginLeft:6, fontSize:11, background:`${T.teal}20`, color:T.teal, borderRadius:4, padding:"2px 5px", fontWeight:800 }}>{t("today_badge")}</span>}
                 </div>
                 <div style={{ textAlign:"right" }}>
-                  <span style={{ fontSize:12.5, fontFamily:"monospace", fontWeight:800, color }}>{day.consumed}</span>
-                  <span style={{ marginLeft:7, fontSize:10.5, fontFamily:"monospace", color, fontWeight:700 }}>
+                  <span style={{ fontSize:14.5, fontFamily:"monospace", fontWeight:800, color }}>{day.consumed}</span>
+                  <span style={{ marginLeft:7, fontSize:12.5, fontFamily:"monospace", color, fontWeight:700 }}>
                     {day.delta > 0 ? `+${day.delta}` : day.delta}
                   </span>
                 </div>
@@ -2224,7 +2224,7 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
                 <div style={{ width:`${(pct/1.5)*100}%`, height:"100%", borderRadius:3, background:color, transition:"width 0.6s" }} />
               </div>
               {day.protein != null && (
-                <div style={{ fontSize:9.5, color:T.textMuted, marginTop:4 }}>
+                <div style={{ fontSize:11.5, color:T.textMuted, marginTop:4 }}>
 {t("protein")} {d1(day.protein)}g / {goals.protein}g
                 </div>
               )}
@@ -2236,7 +2236,7 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
       {/* Export */}
       <button onClick={onExport} style={{
         width:"100%", background:T.card, border:`1px solid ${T.border}`, borderRadius:12,
-        color:T.textPrimary, fontSize:13, fontWeight:700, padding:"13px", cursor:"pointer",
+        color:T.textPrimary, fontSize:15, fontWeight:700, padding:"13px", cursor:"pointer",
         display:"flex", alignItems:"center", justifyContent:"center", gap:8
       }}>
         {t("export_csv")}
@@ -2246,7 +2246,7 @@ function CalendarTab({ goals, history, todayNutrition, weights, onExport }) {
         {[[T.teal,t("deficit")],[T.orange,t("surplus")],[T.green,t("on_target_pm")]].map(([c,l]) => (
           <div key={l} style={{ display:"flex", alignItems:"center", gap:5 }}>
             <div style={{ width:9, height:9, borderRadius:2, background:c }} />
-            <span style={{ fontSize:9, color:T.textSecondary }}>{l}</span>
+            <span style={{ fontSize:11, color:T.textSecondary }}>{l}</span>
           </div>
         ))}
       </div>
@@ -2650,28 +2650,28 @@ function GuideView({ guide, onBack, guideKey }) {
     <div>
       <button onClick={onBack} style={{
         background:T.card, border:`1px solid ${T.border}`, borderRadius:10,
-        color:T.textSecondary, fontSize:12, padding:"8px 14px", cursor:"pointer", marginBottom:16
+        color:T.textSecondary, fontSize:14, padding:"8px 14px", cursor:"pointer", marginBottom:16
       }}>{t("back_to_menu")}</button>
 
       <div style={{ background:T.card, border:`1px solid ${guide.color}30`, borderRadius:16, padding:"18px 16px", marginBottom:16 }}>
-        <div style={{ fontSize:32, marginBottom:8 }}>{guide.icon}</div>
-        <div style={{ fontSize:20, fontWeight:800, color:guide.color, marginBottom:8 }}>{lang === "hi" ? (GUIDE_TITLES_HI[guideKey] || guide.title) : guide.title}</div>
-        <p style={{ margin:0, fontSize:13, color:T.textSecondary, lineHeight:1.6 }}>{guide.intro}</p>
+        <div style={{ fontSize:34, marginBottom:8 }}>{guide.icon}</div>
+        <div style={{ fontSize:22, fontWeight:800, color:guide.color, marginBottom:8 }}>{lang === "hi" ? (GUIDE_TITLES_HI[guideKey] || guide.title) : guide.title}</div>
+        <p style={{ margin:0, fontSize:15, color:T.textSecondary, lineHeight:1.6 }}>{guide.intro}</p>
       </div>
 
       {guide.sections.map((sec, i) => (
         <div key={i} style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"16px", marginBottom:12 }}>
-          <div style={{ fontSize:13, fontWeight:800, color:guide.color, marginBottom:12, letterSpacing:0.3 }}>{sec.h}</div>
+          <div style={{ fontSize:15, fontWeight:800, color:guide.color, marginBottom:12, letterSpacing:0.3 }}>{sec.h}</div>
           {sec.items.map((item, j) => (
             <div key={j} style={{ display:"flex", gap:10, marginBottom:10, alignItems:"flex-start" }}>
               <div style={{ width:5, height:5, borderRadius:"50%", background:guide.color, marginTop:6, flexShrink:0 }} />
-              <p style={{ margin:0, fontSize:12.5, color:T.textPrimary, lineHeight:1.55 }}>{item}</p>
+              <p style={{ margin:0, fontSize:14.5, color:T.textPrimary, lineHeight:1.55 }}>{item}</p>
             </div>
           ))}
         </div>
       ))}
 
-      <div style={{ fontSize:11, color:T.textMuted, textAlign:"center", padding:"8px 20px 0", lineHeight:1.5 }}>
+      <div style={{ fontSize:13, color:T.textMuted, textAlign:"center", padding:"8px 20px 0", lineHeight:1.5 }}>
 {t("guide_disclaimer")}
       </div>
     </div>
@@ -2694,16 +2694,16 @@ function Drawer({ open, onClose, onSelect, onEditProfile, onReset, onExport, onO
         borderRight:`1px solid ${T.border}`, overflowY:"auto", padding:"24px 0"
       }}>
         <div style={{ padding:"0 20px 20px", borderBottom:`1px solid ${T.border}` }}>
-          <div style={{ fontSize:10, fontWeight:700, color:T.teal, letterSpacing:2 }}>{t("appName")}</div>
-          <div style={{ fontSize:18, fontWeight:800, color:T.textPrimary, marginTop:4 }}>{t("guides_settings")}</div>
+          <div style={{ fontSize:12, fontWeight:700, color:T.teal, letterSpacing:2 }}>{t("appName")}</div>
+          <div style={{ fontSize:20, fontWeight:800, color:T.textPrimary, marginTop:4 }}>{t("guides_settings")}</div>
           {profile && (
-            <div style={{ fontSize:11, color:T.textSecondary, marginTop:6 }}>
+            <div style={{ fontSize:13, color:T.textSecondary, marginTop:6 }}>
               {profile.weight}kg · {profile.height}cm · Goal: {profile.tdee} kcal
             </div>
           )}
         </div>
 
-        <div style={{ padding:"14px 20px 8px", fontSize:10, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
+        <div style={{ padding:"14px 20px 8px", fontSize:12, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
           {t("guides_header")}
         </div>
 
@@ -2712,53 +2712,53 @@ function Drawer({ open, onClose, onSelect, onEditProfile, onReset, onExport, onO
             width:"100%", background:"none", border:"none", borderBottom:`1px solid ${T.border}`,
             padding:"14px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:14, textAlign:"left"
           }}>
-            <span style={{ fontSize:22 }}>{g.icon}</span>
+            <span style={{ fontSize:24 }}>{g.icon}</span>
             <div style={{ flex:1 }}>
-              <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{lang === "hi" ? (GUIDE_TITLES_HI[key] || g.title) : g.title}</div>
-              <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:2 }}>{t("sections", { n: g.sections.length })}</div>
+              <div style={{ fontSize:15.5, fontWeight:700, color:T.textPrimary }}>{lang === "hi" ? (GUIDE_TITLES_HI[key] || g.title) : g.title}</div>
+              <div style={{ fontSize:12.5, color:T.textSecondary, marginTop:2 }}>{t("sections", { n: g.sections.length })}</div>
             </div>
-            <span style={{ color:T.textMuted, fontSize:16 }}>›</span>
+            <span style={{ color:T.textMuted, fontSize:18 }}>›</span>
           </button>
         ))}
 
-        <div style={{ padding:"18px 20px 8px", fontSize:10, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
+        <div style={{ padding:"18px 20px 8px", fontSize:12, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
           {t("grp_header")}
         </div>
         <button onClick={() => { onOpenGroups(); onClose(); }} style={{
           width:"100%", background:"none", border:"none", borderBottom:`1px solid ${T.border}`,
           padding:"14px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:14, textAlign:"left"
         }}>
-          <span style={{ fontSize:22 }}>👥</span>
+          <span style={{ fontSize:24 }}>👥</span>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{t("grp_title")}</div>
-            <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:2 }}>{t("grp_sub")}</div>
+            <div style={{ fontSize:15.5, fontWeight:700, color:T.textPrimary }}>{t("grp_title")}</div>
+            <div style={{ fontSize:12.5, color:T.textSecondary, marginTop:2 }}>{t("grp_sub")}</div>
           </div>
-          <span style={{ color:T.textMuted, fontSize:16 }}>›</span>
+          <span style={{ color:T.textMuted, fontSize:18 }}>›</span>
         </button>
 
-        <div style={{ padding:"18px 20px 8px", fontSize:10, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
+        <div style={{ padding:"18px 20px 8px", fontSize:12, fontWeight:700, color:T.textMuted, letterSpacing:1 }}>
           {t("settings")}
         </div>
         <button onClick={() => { onEditProfile(); onClose(); }} style={{
           width:"100%", background:"none", border:"none", borderBottom:`1px solid ${T.border}`,
           padding:"14px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:14, textAlign:"left"
         }}>
-          <span style={{ fontSize:22 }}>👤</span>
+          <span style={{ fontSize:24 }}>👤</span>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{t("edit_profile")}</div>
-            <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:2 }}>{t("recalc")}</div>
+            <div style={{ fontSize:15.5, fontWeight:700, color:T.textPrimary }}>{t("edit_profile")}</div>
+            <div style={{ fontSize:12.5, color:T.textSecondary, marginTop:2 }}>{t("recalc")}</div>
           </div>
-          <span style={{ color:T.textMuted, fontSize:16 }}>›</span>
+          <span style={{ color:T.textMuted, fontSize:18 }}>›</span>
         </button>
 
         <div style={{
           padding:"13px 20px", borderBottom:`1px solid ${T.border}`,
           display:"flex", alignItems:"center", gap:14
         }}>
-          <span style={{ fontSize:22 }}>🌐</span>
+          <span style={{ fontSize:24 }}>🌐</span>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{t("language")}</div>
-            <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:2 }}>{t("lang_sub")}</div>
+            <div style={{ fontSize:15.5, fontWeight:700, color:T.textPrimary }}>{t("language")}</div>
+            <div style={{ fontSize:12.5, color:T.textSecondary, marginTop:2 }}>{t("lang_sub")}</div>
           </div>
           <LanguageToggle compact />
         </div>
@@ -2767,12 +2767,12 @@ function Drawer({ open, onClose, onSelect, onEditProfile, onReset, onExport, onO
           width:"100%", background:"none", border:"none", borderBottom:`1px solid ${T.border}`,
           padding:"14px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:14, textAlign:"left"
         }}>
-          <span style={{ fontSize:22 }}>⬇️</span>
+          <span style={{ fontSize:24 }}>⬇️</span>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{t("export_data")}</div>
-            <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:2 }}>{t("export_sub")}</div>
+            <div style={{ fontSize:15.5, fontWeight:700, color:T.textPrimary }}>{t("export_data")}</div>
+            <div style={{ fontSize:12.5, color:T.textSecondary, marginTop:2 }}>{t("export_sub")}</div>
           </div>
-          <span style={{ color:T.textMuted, fontSize:16 }}>›</span>
+          <span style={{ color:T.textMuted, fontSize:18 }}>›</span>
         </button>
 
         <button
@@ -2781,33 +2781,33 @@ function Drawer({ open, onClose, onSelect, onEditProfile, onReset, onExport, onO
             width:"100%", background:"none", border:"none", borderBottom:`1px solid ${T.border}`,
             padding:"14px 20px", cursor:"pointer", display:"flex", alignItems:"center", gap:14, textAlign:"left"
           }}>
-          <span style={{ fontSize:22 }}>🗑️</span>
+          <span style={{ fontSize:24 }}>🗑️</span>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{t("clear_data")}</div>
-            <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:2 }}>{t("clear_sub")}</div>
+            <div style={{ fontSize:15.5, fontWeight:700, color:T.textPrimary }}>{t("clear_data")}</div>
+            <div style={{ fontSize:12.5, color:T.textSecondary, marginTop:2 }}>{t("clear_sub")}</div>
           </div>
-          <span style={{ color:T.textMuted, fontSize:16 }}>›</span>
+          <span style={{ color:T.textMuted, fontSize:18 }}>›</span>
         </button>
 
         {confirmReset && (
           <div style={{ padding:"14px 20px", background:`${T.red}10`, borderBottom:`1px solid ${T.border}` }}>
-            <div style={{ fontSize:12, color:T.textPrimary, lineHeight:1.5, marginBottom:12 }}>
+            <div style={{ fontSize:14, color:T.textPrimary, lineHeight:1.5, marginBottom:12 }}>
 {t("clear_confirm")}
             </div>
             <div style={{ display:"flex", gap:8 }}>
               <button onClick={() => setConfirmReset(false)} style={{
                 flex:1, background:T.card, border:`1px solid ${T.border}`, borderRadius:9,
-                color:T.textSecondary, fontSize:12, fontWeight:700, padding:"10px", cursor:"pointer"
+                color:T.textSecondary, fontSize:14, fontWeight:700, padding:"10px", cursor:"pointer"
               }}>{t("keep_it")}</button>
               <button onClick={() => { setConfirmReset(false); onReset(); onClose(); }} style={{
                 flex:1, background:T.red, border:"none", borderRadius:9,
-                color:"#fff", fontSize:12, fontWeight:700, padding:"10px", cursor:"pointer"
+                color:"#fff", fontSize:14, fontWeight:700, padding:"10px", cursor:"pointer"
               }}>{t("delete")}</button>
             </div>
           </div>
         )}
 
-        <div style={{ padding:"20px", fontSize:10, color:T.textMuted, lineHeight:1.5 }}>
+        <div style={{ padding:"20px", fontSize:12, color:T.textMuted, lineHeight:1.5 }}>
 {t("device_only")}
           <br /><br />
           {t("disclaimer")}
@@ -2896,17 +2896,17 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
     <div>
       {/* Diet selector */}
       <div style={{ marginBottom:16 }}>
-        <div style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:8 }}>{t("your_diet")}</div>
+        <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:8 }}>{t("your_diet")}</div>
         <div style={{ display:"flex", gap:6 }}>
           {DIET_TYPES.map(d => (
             <button key={d.id} onClick={() => { setDiet(d.id); setAdded([]); }} style={{
               flex:1, background: diet===d.id ? T.teal : T.card,
               border:`1px solid ${diet===d.id ? T.teal : T.border}`,
               borderRadius:10, color: diet===d.id ? T.bg : T.textSecondary,
-              fontSize:10, fontWeight:700, padding:"10px 4px", cursor:"pointer",
+              fontSize:12, fontWeight:700, padding:"10px 4px", cursor:"pointer",
               display:"flex", flexDirection:"column", alignItems:"center", gap:4
             }}>
-              <span style={{ fontSize:16 }}>{d.icon}</span>
+              <span style={{ fontSize:18 }}>{d.icon}</span>
               {t(d.label)}
             </button>
           ))}
@@ -2916,8 +2916,8 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
       {/* Which meal anything logged from here goes into */}
       <div style={{ marginBottom:16 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8 }}>
-          <span style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>{t("log_to_meal")}</span>
-          <span style={{ fontSize:9.5, color:T.textMuted }}>
+          <span style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>{t("log_to_meal")}</span>
+          <span style={{ fontSize:11.5, color:T.textMuted }}>
             {logTo === mealSlotForTime() ? t("matches_time") : t("auto_was", { m: t(mealSlotForTime().toLowerCase()) })}
           </span>
         </div>
@@ -2927,7 +2927,7 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
               flex:1, background: logTo===m ? T.teal : T.card,
               border:`1px solid ${logTo===m ? T.teal : T.border}`,
               borderRadius:8, color: logTo===m ? T.bg : T.textSecondary,
-              fontSize:10, fontWeight:700, padding:"8px 4px", cursor:"pointer"
+              fontSize:12, fontWeight:700, padding:"8px 4px", cursor:"pointer"
             }}>{t(m.toLowerCase())}</button>
           ))}
         </div>
@@ -2935,32 +2935,32 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
 
       {/* Remaining today */}
       <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"16px", marginBottom:16 }}>
-        <div style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:12 }}>{t("still_needed")}</div>
+        <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:12 }}>{t("still_needed")}</div>
         <div style={{ display:"flex", justifyContent:"space-between", marginBottom:14 }}>
           <div>
-            <div style={{ fontSize:26, fontWeight:800, color: gaps.kcal>0 ? T.teal : T.green, fontFamily:"monospace", lineHeight:1 }}>
+            <div style={{ fontSize:28, fontWeight:800, color: gaps.kcal>0 ? T.teal : T.green, fontFamily:"monospace", lineHeight:1 }}>
               {gaps.kcal}
             </div>
-            <div style={{ fontSize:10, color:T.textSecondary, marginTop:3 }}>{t("calories_left")}</div>
+            <div style={{ fontSize:12, color:T.textSecondary, marginTop:3 }}>{t("calories_left")}</div>
           </div>
           <div style={{ display:"flex", gap:14 }}>
             {shortfalls.map(s => (
               <div key={s.key} style={{ textAlign:"center" }}>
-                <div style={{ fontSize:14, fontWeight:800, color: s.gap>0 ? s.color : T.green, fontFamily:"monospace" }}>
+                <div style={{ fontSize:16, fontWeight:800, color: s.gap>0 ? s.color : T.green, fontFamily:"monospace" }}>
                   {s.gap > 0 ? `${Math.round(s.gap*10)/10}` : "✓"}
                 </div>
-                <div style={{ fontSize:9, color:T.textMuted }}>{s.label}</div>
+                <div style={{ fontSize:11, color:T.textMuted }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
 
         {allMet ? (
-          <div style={{ background:`${T.green}15`, border:`1px solid ${T.green}30`, borderRadius:10, padding:"10px 12px", fontSize:12, color:T.green }}>
+          <div style={{ background:`${T.green}15`, border:`1px solid ${T.green}30`, borderRadius:10, padding:"10px 12px", fontSize:14, color:T.green }}>
 {t("all_met")}
           </div>
         ) : (
-          <div style={{ fontSize:11.5, color:T.textSecondary, lineHeight:1.5 }}>
+          <div style={{ fontSize:13.5, color:T.textSecondary, lineHeight:1.5 }}>
             {t("biggest_gap")} <span style={{ color:priority[0].color, fontWeight:700 }}>{priority[0].label}</span>
             {priority.length > 1 && <>{t("then_x", { x: priority[1].label })}</>}
           </div>
@@ -2969,11 +2969,11 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
 
       {/* Suggestions */}
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:10 }}>
-        <div style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>
+        <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>
           {query.trim() ? t("search_results") : showAll ? t("all_foods") : t("suggested")}
         </div>
         <button onClick={() => setShowAll(v => !v)} style={{
-          background:"none", border:"none", color:T.teal, fontSize:11, fontWeight:700, cursor:"pointer", padding:0
+          background:"none", border:"none", color:T.teal, fontSize:13, fontWeight:700, cursor:"pointer", padding:0
         }}>{showAll ? t("show_top") : t("browse_all", { n: candidates.length })}</button>
       </div>
 
@@ -2983,7 +2983,7 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
         placeholder={t("search_foods")}
         style={{
           width:"100%", background:T.card, border:`1px solid ${T.border}`, borderRadius:10,
-          color:T.textPrimary, fontSize:12.5, padding:"10px 13px", outline:"none",
+          color:T.textPrimary, fontSize:14.5, padding:"10px 13px", outline:"none",
           marginBottom:12, boxSizing:"border-box"
         }}
       />
@@ -2996,17 +2996,17 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:10 }}>
             <div style={{ flex:1, minWidth:0 }}>
               <div style={{ display:"flex", alignItems:"center", gap:6, flexWrap:"wrap" }}>
-                <span style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary }}>{foodName(f.name, lang)}</span>
+                <span style={{ fontSize:15.5, fontWeight:700, color:T.textPrimary }}>{foodName(f.name, lang)}</span>
                 {i===0 && !allMet && (
-                  <span style={{ fontSize:8.5, background:`${T.teal}20`, color:T.teal, borderRadius:4, padding:"2px 6px", fontWeight:800 }}>{t("best_match")}</span>
+                  <span style={{ fontSize:11, background:`${T.teal}20`, color:T.teal, borderRadius:4, padding:"2px 6px", fontWeight:800 }}>{t("best_match")}</span>
                 )}
               </div>
-              <div style={{ fontSize:10.5, color:T.textSecondary, marginTop:3 }}>{servingName(f.serving, lang)}</div>
+              <div style={{ fontSize:12.5, color:T.textSecondary, marginTop:3 }}>{servingName(f.serving, lang)}</div>
             </div>
             <div style={{ display:"flex", gap:6, flexShrink:0, marginLeft:8 }}>
               <button onClick={() => setAdded(prev => [...prev, f])} style={{
                 background:"none", border:`1px solid ${T.border}`, borderRadius:8,
-                color:T.textSecondary, fontSize:11, fontWeight:700, padding:"6px 10px", cursor:"pointer"
+                color:T.textSecondary, fontSize:13, fontWeight:700, padding:"6px 10px", cursor:"pointer"
               }}>{t("plan_btn")}</button>
               <button
                 onClick={() => {
@@ -3020,14 +3020,14 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
                 }}
                 style={{
                   background:`${T.teal}18`, border:`1px solid ${T.teal}40`, borderRadius:8,
-                  color:T.teal, fontSize:11, fontWeight:700, padding:"6px 10px", cursor:"pointer"
+                  color:T.teal, fontSize:13, fontWeight:700, padding:"6px 10px", cursor:"pointer"
                 }}>{t("log_btn")}</button>
             </div>
           </div>
 
           <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
             {[["kcal",f.kcal,"",T.teal],["P",f.protein,"g",T.orange],["Fib",f.fiber,"g",T.lime],["Ca",f.calcium,"mg",T.sky],["B12",f.b12,"μg",T.pink]].map(([l,v,u,c]) => (
-              <div key={l} style={{ fontSize:10, color:T.textSecondary }}>
+              <div key={l} style={{ fontSize:12, color:T.textSecondary }}>
                 {l} <span style={{ color: v>0 ? c : T.textMuted, fontFamily:"monospace", fontWeight:700 }}>{v}{u}</span>
               </div>
             ))}
@@ -3039,19 +3039,19 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
       {added.length > 0 && (
         <div style={{ background:T.tealDim, border:`1px solid ${T.teal}30`, borderRadius:16, padding:"16px", marginTop:6 }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
-            <div style={{ fontSize:11, fontWeight:800, color:T.teal, letterSpacing:0.5 }}>{t("your_plan", { n: added.length })}</div>
+            <div style={{ fontSize:13, fontWeight:800, color:T.teal, letterSpacing:0.5 }}>{t("your_plan", { n: added.length })}</div>
             <button onClick={() => setAdded([])} style={{
-              background:"none", border:"none", color:T.textSecondary, fontSize:10.5, cursor:"pointer", textDecoration:"underline"
+              background:"none", border:"none", color:T.textSecondary, fontSize:12.5, cursor:"pointer", textDecoration:"underline"
             }}>{t("clear")}</button>
           </div>
 
           {added.map((f, i) => (
             <div key={i} style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"7px 0", borderBottom:`1px solid ${T.teal}18` }}>
-              <div style={{ fontSize:12, color:T.textPrimary }}>{foodName(f.name, lang)}</div>
+              <div style={{ fontSize:14, color:T.textPrimary }}>{foodName(f.name, lang)}</div>
               <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-                <span style={{ fontSize:11, fontFamily:"monospace", color:T.textSecondary }}>{f.kcal} kcal</span>
+                <span style={{ fontSize:13, fontFamily:"monospace", color:T.textSecondary }}>{f.kcal} kcal</span>
                 <button onClick={() => setAdded(prev => prev.filter((_,j) => j!==i))} style={{
-                  background:"none", border:"none", color:T.textMuted, fontSize:15, cursor:"pointer", padding:0, lineHeight:1
+                  background:"none", border:"none", color:T.textMuted, fontSize:17, cursor:"pointer", padding:0, lineHeight:1
                 }}>×</button>
               </div>
             </div>
@@ -3059,7 +3059,7 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
 
           {/* Projected result */}
           <div style={{ marginTop:14, paddingTop:12, borderTop:`1px solid ${T.teal}30` }}>
-            <div style={{ fontSize:10, color:T.textSecondary, marginBottom:10 }}>{t("if_you_eat")}</div>
+            <div style={{ fontSize:12, color:T.textSecondary, marginBottom:10 }}>{t("if_you_eat")}</div>
             {[
               [t("calories"), nutrition.kcal + plannedTotal.kcal, goals.tdee, "", T.teal],
               [t("protein"),  nutrition.protein + plannedTotal.protein, goals.protein, "g", T.orange],
@@ -3072,8 +3072,8 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
               return (
                 <div key={label} style={{ marginBottom:9 }}>
                   <div style={{ display:"flex", justifyContent:"space-between", marginBottom:4 }}>
-                    <span style={{ fontSize:11, color:T.textSecondary }}>{label}</span>
-                    <span style={{ fontSize:11, fontFamily:"monospace", fontWeight:700, color: met ? T.green : color }}>
+                    <span style={{ fontSize:13, color:T.textSecondary }}>{label}</span>
+                    <span style={{ fontSize:13, fontFamily:"monospace", fontWeight:700, color: met ? T.green : color }}>
                       {val}{unit} / {goal}{unit} {met && "✓"}
                     </span>
                   </div>
@@ -3102,7 +3102,7 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
               }}
               style={{
                 width:"100%", background:T.teal, border:"none", borderRadius:12,
-                color:T.bg, fontSize:14, fontWeight:800, padding:"14px", cursor:"pointer"
+                color:T.bg, fontSize:16, fontWeight:800, padding:"14px", cursor:"pointer"
               }}>
               {t("add_n_to", { n: added.length, items: added.length === 1 ? t("item") : t("items"), m: t(logTo.toLowerCase()) })}
             </button>
@@ -3116,19 +3116,19 @@ function MealPlanTab({ nutrition, goals, onAddMeal }) {
           background:`${T.green}15`, border:`1px solid ${T.green}40`, borderRadius:14,
           padding:"14px 16px", marginTop:6, display:"flex", alignItems:"center", gap:12
         }}>
-          <span style={{ fontSize:20 }}>✅</span>
+          <span style={{ fontSize:22 }}>✅</span>
           <div style={{ flex:1 }}>
-            <div style={{ fontSize:13, fontWeight:700, color:T.green }}>
+            <div style={{ fontSize:15, fontWeight:700, color:T.green }}>
 {t("added_to", { m: t(justLogged.meal.toLowerCase()) })}
             </div>
-            <div style={{ fontSize:11, color:T.textSecondary, marginTop:2 }}>
+            <div style={{ fontSize:13, color:T.textSecondary, marginTop:2 }}>
 {t("logged_updated", { n: justLogged.count, items: justLogged.count === 1 ? t("item") : t("items") })}
             </div>
           </div>
         </div>
       )}
 
-      <div style={{ fontSize:10.5, color:T.textMuted, textAlign:"center", padding:"16px 12px 0", lineHeight:1.5 }}>
+      <div style={{ fontSize:12.5, color:T.textMuted, textAlign:"center", padding:"16px 12px 0", lineHeight:1.5 }}>
 {t("plan_disclaimer")}
       </div>
     </div>
@@ -3143,19 +3143,19 @@ function WaterCard({ glasses, onChange, goal = 8 }) {
     <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"16px", marginBottom:20 }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:12 }}>
         <div>
-          <div style={{ fontSize:12, fontWeight:700, color:T.textPrimary }}>💧 {t("water")}</div>
-          <div style={{ fontSize:10, color:T.textSecondary, marginTop:2 }}>
+          <div style={{ fontSize:14, fontWeight:700, color:T.textPrimary }}>💧 {t("water")}</div>
+          <div style={{ fontSize:12, color:T.textSecondary, marginTop:2 }}>
 {t("water_of", { n: glasses, goal, l: (glasses * 0.25).toFixed(2) })}
           </div>
         </div>
         <div style={{ display:"flex", gap:6 }}>
           <button onClick={() => onChange(Math.max(glasses - 1, 0))} style={{
             background:T.surface, border:`1px solid ${T.border}`, borderRadius:8,
-            color:T.textSecondary, fontSize:16, fontWeight:700, width:34, height:34, cursor:"pointer", lineHeight:1
+            color:T.textSecondary, fontSize:18, fontWeight:700, width:34, height:34, cursor:"pointer", lineHeight:1
           }}>−</button>
           <button onClick={() => onChange(glasses + 1)} style={{
             background:`${T.sky}20`, border:`1px solid ${T.sky}50`, borderRadius:8,
-            color:T.sky, fontSize:16, fontWeight:700, width:34, height:34, cursor:"pointer", lineHeight:1
+            color:T.sky, fontSize:18, fontWeight:700, width:34, height:34, cursor:"pointer", lineHeight:1
           }}>+</button>
         </div>
       </div>
@@ -3167,7 +3167,7 @@ function WaterCard({ glasses, onChange, goal = 8 }) {
             flex:1, height:26, borderRadius:5, cursor:"pointer",
             background: i < glasses ? T.sky : T.surface,
             border:`1px solid ${i < glasses ? T.sky : T.border}`,
-            fontSize:11, padding:0, lineHeight:1
+            fontSize:13, padding:0, lineHeight:1
           }}>{i < glasses ? "💧" : ""}</button>
         ))}
       </div>
@@ -3176,7 +3176,7 @@ function WaterCard({ glasses, onChange, goal = 8 }) {
         <div style={{ width:`${pct*100}%`, height:"100%", background: glasses >= goal ? T.green : T.sky, borderRadius:3, transition:"width 0.4s" }} />
       </div>
       {glasses > goal && (
-        <div style={{ fontSize:10, color:T.green, marginTop:6 }}>{t("water_extra", { n: glasses - goal })}</div>
+        <div style={{ fontSize:12, color:T.green, marginTop:6 }}>{t("water_extra", { n: glasses - goal })}</div>
       )}
     </div>
   );
@@ -3189,8 +3189,8 @@ function RecentRow({ recent, onLog, mealTarget }) {
   return (
     <div style={{ marginBottom:20 }}>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:9 }}>
-        <span style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>{t("quick_add")}</span>
-        <span style={{ fontSize:9.5, color:T.textMuted }}>→ {t(mealTarget.toLowerCase())}</span>
+        <span style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>{t("quick_add")}</span>
+        <span style={{ fontSize:11.5, color:T.textMuted }}>→ {t(mealTarget.toLowerCase())}</span>
       </div>
       <div style={{ display:"flex", gap:8, overflowX:"auto", paddingBottom:4 }}>
         {recent.slice(0, 10).map((f, i) => (
@@ -3198,11 +3198,11 @@ function RecentRow({ recent, onLog, mealTarget }) {
             flexShrink:0, background:T.card, border:`1px solid ${T.border}`,
             borderRadius:11, padding:"10px 13px", cursor:"pointer", textAlign:"left", minWidth:110
           }}>
-            <div style={{ fontSize:11.5, fontWeight:700, color:T.textPrimary, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis", maxWidth:130 }}>
+            <div style={{ fontSize:13.5, fontWeight:700, color:T.textPrimary, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis", maxWidth:130 }}>
 {foodName(f.name, lang)}
             </div>
-            <div style={{ fontSize:10, fontFamily:"monospace", color:T.teal, marginTop:3 }}>{f.kcal} kcal</div>
-            <div style={{ fontSize:9, color:T.textMuted, marginTop:1 }}>P{d1(f.protein)} · {f.weight}g</div>
+            <div style={{ fontSize:12, fontFamily:"monospace", color:T.teal, marginTop:3 }}>{f.kcal} kcal</div>
+            <div style={{ fontSize:11, color:T.textMuted, marginTop:1 }}>P{d1(f.protein)} · {f.weight}g</div>
           </button>
         ))}
       </div>
@@ -3230,8 +3230,8 @@ function WeeklySummary({ history, goals, todayNutrition }) {
   if (thisWeek.length === 0) {
     return (
       <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"20px 16px", marginBottom:20, textAlign:"center" }}>
-        <div style={{ fontSize:22, marginBottom:8 }}>📈</div>
-        <div style={{ fontSize:12.5, color:T.textSecondary, lineHeight:1.55 }}>
+        <div style={{ fontSize:24, marginBottom:8 }}>📈</div>
+        <div style={{ fontSize:14.5, color:T.textSecondary, lineHeight:1.55 }}>
 {t("weekly_empty")}
         </div>
       </div>
@@ -3258,7 +3258,7 @@ function WeeklySummary({ history, goals, todayNutrition }) {
 
   return (
     <div style={{ marginBottom:20 }}>
-      <div style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:10 }}>
+      <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:10 }}>
 {t("this_week", { n: thisWeek.length, days: thisWeek.length === 1 ? t("day") : t("days") })}
       </div>
 
@@ -3270,14 +3270,14 @@ function WeeklySummary({ history, goals, todayNutrition }) {
             borderBottom: i < metrics.length-1 ? `1px solid ${T.border}` : "none"
           }}>
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:5 }}>
-              <span style={{ fontSize:12, fontWeight:700, color:T.textPrimary }}>{m.label}</span>
+              <span style={{ fontSize:14, fontWeight:700, color:T.textPrimary }}>{m.label}</span>
               <div style={{ display:"flex", alignItems:"baseline", gap:8 }}>
-                <span style={{ fontSize:13, fontFamily:"monospace", fontWeight:800, color:m.color }}>
+                <span style={{ fontSize:15, fontFamily:"monospace", fontWeight:800, color:m.color }}>
                   {m.key === "kcal" || m.key === "calcium" ? Math.round(m.now) : d1(m.now)}{m.unit}
                 </span>
                 {m.change != null && Math.abs(m.change) >= 3 && (
                   <span style={{
-                    fontSize:10, fontWeight:700,
+                    fontSize:12, fontWeight:700,
                     color: m.change > 0 ? T.green : T.orange
                   }}>
                     {m.change > 0 ? "▲" : "▼"} {Math.abs(Math.round(m.change))}%
@@ -3285,7 +3285,7 @@ function WeeklySummary({ history, goals, todayNutrition }) {
                 )}
               </div>
             </div>
-            <div style={{ display:"flex", justifyContent:"space-between", fontSize:9.5, color:T.textMuted }}>
+            <div style={{ display:"flex", justifyContent:"space-between", fontSize:11.5, color:T.textMuted }}>
               <span>{t("avg_vs_goal", { goal: m.goal, unit: m.unit })}</span>
               <span>{t("hit_target", { n: m.daysMet, total: thisWeek.length })}</span>
             </div>
@@ -3307,8 +3307,8 @@ function WeeklySummary({ history, goals, todayNutrition }) {
           borderRadius:12, padding:"12px 14px", marginTop:10,
           display:"flex", gap:10, alignItems:"flex-start"
         }}>
-          <span style={{ fontSize:16 }}>{proteinTrend.change > 0 ? "📈" : "📉"}</span>
-          <p style={{ margin:0, fontSize:12, color:T.textPrimary, lineHeight:1.5 }}>
+          <span style={{ fontSize:18 }}>{proteinTrend.change > 0 ? "📈" : "📉"}</span>
+          <p style={{ margin:0, fontSize:14, color:T.textPrimary, lineHeight:1.5 }}>
             {proteinTrend.change > 5
               ? t("protein_up", { n: Math.round(proteinTrend.change) })
               : proteinTrend.change < -5
@@ -3467,7 +3467,7 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
     <button onClick={onClick} disabled={disabled} style={{
       flex: 1, background: primary ? T.teal : T.card,
       border: `1px solid ${primary ? T.teal : T.border}`, borderRadius: 11,
-      color: primary ? T.bg : T.textSecondary, fontSize: 13, fontWeight: 700,
+      color: primary ? T.bg : T.textSecondary, fontSize: 15, fontWeight: 700,
       padding: "12px", cursor: disabled ? "not-allowed" : "pointer", opacity: disabled ? 0.5 : 1
     }}>{children}</button>
   );
@@ -3476,25 +3476,25 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
     <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} maxLength={maxLength}
       style={{
         width: "100%", background: T.card, border: `1px solid ${T.border}`, borderRadius: 10,
-        color: T.textPrimary, fontSize: 13.5, padding: "12px 14px", outline: "none",
+        color: T.textPrimary, fontSize: 15.5, padding: "12px 14px", outline: "none",
         marginBottom: 10, boxSizing: "border-box"
       }} />
   );
 
-  if (loading) return <div style={{ padding: 30, textAlign: "center", color: T.textSecondary, fontSize: 13 }}>…</div>;
+  if (loading) return <div style={{ padding: 30, textAlign: "center", color: T.textSecondary, fontSize: 15 }}>…</div>;
 
   return (
     <div>
       <button onClick={mode === "list" ? onBack : () => { setMode("list"); setError(null); }} style={{
         background: T.card, border: `1px solid ${T.border}`, borderRadius: 10,
-        color: T.textSecondary, fontSize: 12, padding: "8px 14px", cursor: "pointer", marginBottom: 16
+        color: T.textSecondary, fontSize: 14, padding: "8px 14px", cursor: "pointer", marginBottom: 16
       }}>{t("back_to_menu")}</button>
 
       {/* Honest note about what sharing actually does here */}
       {!canShare && (
         <div style={{
           background: `${T.amber}12`, border: `1px solid ${T.amber}35`, borderRadius: 12,
-          padding: "12px 14px", marginBottom: 16, fontSize: 11.5, color: T.textSecondary, lineHeight: 1.55
+          padding: "12px 14px", marginBottom: 16, fontSize: 13.5, color: T.textSecondary, lineHeight: 1.55
         }}>
           {t("grp_local_only")}
         </div>
@@ -3502,15 +3502,15 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
 
       {mode === "list" && (
         <>
-          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 1, marginBottom: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.textSecondary, letterSpacing: 1, marginBottom: 10 }}>
             {t("grp_your_groups")}
           </div>
 
           {groups.length === 0 ? (
             <div style={{ textAlign: "center", padding: "28px 20px 24px" }}>
-              <div style={{ fontSize: 34, marginBottom: 12 }}>👥</div>
-              <div style={{ fontSize: 14.5, fontWeight: 800, color: T.textPrimary, marginBottom: 7 }}>{t("grp_empty")}</div>
-              <p style={{ fontSize: 12.5, color: T.textSecondary, lineHeight: 1.6, margin: 0 }}>{t("grp_empty_body")}</p>
+              <div style={{ fontSize: 35, marginBottom: 12 }}>👥</div>
+              <div style={{ fontSize: 16.5, fontWeight: 800, color: T.textPrimary, marginBottom: 7 }}>{t("grp_empty")}</div>
+              <p style={{ fontSize: 14.5, color: T.textSecondary, lineHeight: 1.6, margin: 0 }}>{t("grp_empty_body")}</p>
             </div>
           ) : (
             groups.map(g => (
@@ -3519,14 +3519,14 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
                 padding: "14px 16px", marginBottom: 10, cursor: "pointer", textAlign: "left",
                 display: "flex", alignItems: "center", gap: 12
               }}>
-                <span style={{ fontSize: 20 }}>👥</span>
+                <span style={{ fontSize: 22 }}>👥</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 13.5, fontWeight: 700, color: T.textPrimary }}>{g.title}</div>
-                  <div style={{ fontSize: 10.5, color: T.textSecondary, marginTop: 2 }}>
+                  <div style={{ fontSize: 15.5, fontWeight: 700, color: T.textPrimary }}>{g.title}</div>
+                  <div style={{ fontSize: 12.5, color: T.textSecondary, marginTop: 2 }}>
                     {t("grp_as")} {g.alias} · {g.code}
                   </div>
                 </div>
-                <span style={{ color: T.textMuted, fontSize: 16 }}>›</span>
+                <span style={{ color: T.textMuted, fontSize: 18 }}>›</span>
               </button>
             ))
           )}
@@ -3540,17 +3540,17 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
 
       {mode === "create" && (
         <>
-          <div style={{ fontSize: 15, fontWeight: 800, color: T.textPrimary, marginBottom: 6 }}>{t("grp_create_title")}</div>
-          <p style={{ fontSize: 12, color: T.textSecondary, lineHeight: 1.55, margin: "0 0 16px" }}>{t("grp_create_body")}</p>
+          <div style={{ fontSize: 17, fontWeight: 800, color: T.textPrimary, marginBottom: 6 }}>{t("grp_create_title")}</div>
+          <p style={{ fontSize: 14, color: T.textSecondary, lineHeight: 1.55, margin: "0 0 16px" }}>{t("grp_create_body")}</p>
 
-          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_title_label")}</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_title_label")}</div>
           <Field value={title} onChange={setTitle} placeholder={t("grp_title_ph")} maxLength={40} />
 
-          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_alias_label")}</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_alias_label")}</div>
           <Field value={alias} onChange={setAlias} placeholder={t("grp_alias_ph")} maxLength={20} />
-          <div style={{ fontSize: 10.5, color: T.textMuted, lineHeight: 1.5, marginBottom: 16 }}>{t("grp_alias_hint")}</div>
+          <div style={{ fontSize: 12.5, color: T.textMuted, lineHeight: 1.5, marginBottom: 16 }}>{t("grp_alias_hint")}</div>
 
-          {error && <div style={{ background: `${T.red}15`, border: `1px solid ${T.red}35`, borderRadius: 10, padding: "10px 13px", marginBottom: 12, fontSize: 12, color: T.red }}>{error}</div>}
+          {error && <div style={{ background: `${T.red}15`, border: `1px solid ${T.red}35`, borderRadius: 10, padding: "10px 13px", marginBottom: 12, fontSize: 14, color: T.red }}>{error}</div>}
 
           <div style={{ display: "flex", gap: 8 }}>
             <Btn onClick={() => setMode("list")}>{t("cancel")}</Btn>
@@ -3561,17 +3561,17 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
 
       {mode === "join" && (
         <>
-          <div style={{ fontSize: 15, fontWeight: 800, color: T.textPrimary, marginBottom: 6 }}>{t("grp_join_title")}</div>
-          <p style={{ fontSize: 12, color: T.textSecondary, lineHeight: 1.55, margin: "0 0 16px" }}>{t("grp_join_body")}</p>
+          <div style={{ fontSize: 17, fontWeight: 800, color: T.textPrimary, marginBottom: 6 }}>{t("grp_join_title")}</div>
+          <p style={{ fontSize: 14, color: T.textSecondary, lineHeight: 1.55, margin: "0 0 16px" }}>{t("grp_join_body")}</p>
 
-          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_code_label")}</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_code_label")}</div>
           <Field value={joinCode} onChange={setJoinCode} placeholder="workout-a3f9" maxLength={50} />
 
-          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_alias_label")}</div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.textSecondary, letterSpacing: 0.8, marginBottom: 6 }}>{t("grp_alias_label")}</div>
           <Field value={alias} onChange={setAlias} placeholder={t("grp_alias_ph")} maxLength={20} />
-          <div style={{ fontSize: 10.5, color: T.textMuted, lineHeight: 1.5, marginBottom: 16 }}>{t("grp_alias_hint")}</div>
+          <div style={{ fontSize: 12.5, color: T.textMuted, lineHeight: 1.5, marginBottom: 16 }}>{t("grp_alias_hint")}</div>
 
-          {error && <div style={{ background: `${T.red}15`, border: `1px solid ${T.red}35`, borderRadius: 10, padding: "10px 13px", marginBottom: 12, fontSize: 12, color: T.red }}>{error}</div>}
+          {error && <div style={{ background: `${T.red}15`, border: `1px solid ${T.red}35`, borderRadius: 10, padding: "10px 13px", marginBottom: 12, fontSize: 14, color: T.red }}>{error}</div>}
 
           <div style={{ display: "flex", gap: 8 }}>
             <Btn onClick={() => setMode("list")}>{t("cancel")}</Btn>
@@ -3583,8 +3583,8 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
       {mode === "detail" && active && (
         <>
           <div style={{ background: T.card, border: `1px solid ${T.border}`, borderRadius: 16, padding: "16px", marginBottom: 14 }}>
-            <div style={{ fontSize: 17, fontWeight: 800, color: T.textPrimary }}>{active.title}</div>
-            <div style={{ fontSize: 11, color: T.textSecondary, marginTop: 4 }}>
+            <div style={{ fontSize: 19, fontWeight: 800, color: T.textPrimary }}>{active.title}</div>
+            <div style={{ fontSize: 13, color: T.textSecondary, marginTop: 4 }}>
               {t("grp_as")} <span style={{ color: T.teal, fontWeight: 700 }}>{active.alias}</span>
             </div>
             <div style={{
@@ -3592,13 +3592,13 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
               display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10
             }}>
               <div style={{ minWidth: 0 }}>
-                <div style={{ fontSize: 9.5, color: T.textMuted, letterSpacing: 0.8, marginBottom: 3 }}>{t("grp_share_code")}</div>
-                <div style={{ fontSize: 12.5, fontFamily: "monospace", color: T.textPrimary, wordBreak: "break-all" }}>{active.code}</div>
+                <div style={{ fontSize: 11.5, color: T.textMuted, letterSpacing: 0.8, marginBottom: 3 }}>{t("grp_share_code")}</div>
+                <div style={{ fontSize: 14.5, fontFamily: "monospace", color: T.textPrimary, wordBreak: "break-all" }}>{active.code}</div>
               </div>
             </div>
           </div>
 
-          <div style={{ fontSize: 10, fontWeight: 700, color: T.textSecondary, letterSpacing: 1, marginBottom: 10 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: T.textSecondary, letterSpacing: 1, marginBottom: 10 }}>
             {t("grp_members")} ({members.length || 1})
           </div>
 
@@ -3611,10 +3611,10 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
               }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 15 }}>{isMe ? "🙋" : "👤"}</span>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: isMe ? T.teal : T.textPrimary }}>{m.alias}</span>
+                    <span style={{ fontSize: 17 }}>{isMe ? "🙋" : "👤"}</span>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: isMe ? T.teal : T.textPrimary }}>{m.alias}</span>
                   </div>
-                  <span style={{ fontSize: 10.5, color: T.textMuted }}>
+                  <span style={{ fontSize: 12.5, color: T.textMuted }}>
                     {m.daysLogged} {m.daysLogged === 1 ? t("day") : t("days")}
                   </span>
                 </div>
@@ -3622,8 +3622,8 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
                   {[[t("calories"), m.kcalPct, T.teal], [t("protein"), m.proteinPct, T.orange]].map(([lbl, pct, c]) => (
                     <div key={lbl} style={{ flex: 1 }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                        <span style={{ fontSize: 9.5, color: T.textSecondary }}>{lbl}</span>
-                        <span style={{ fontSize: 10, fontFamily: "monospace", fontWeight: 700, color: c }}>{pct}%</span>
+                        <span style={{ fontSize: 11.5, color: T.textSecondary }}>{lbl}</span>
+                        <span style={{ fontSize: 12, fontFamily: "monospace", fontWeight: 700, color: c }}>{pct}%</span>
                       </div>
                       <div style={{ background: T.border, borderRadius: 3, height: 4, overflow: "hidden" }}>
                         <div style={{ width: `${Math.min(pct, 100)}%`, height: "100%", background: c, borderRadius: 3 }} />
@@ -3635,13 +3635,13 @@ function GroupsView({ onBack, profile, nutrition, goals, history }) {
             );
           })}
 
-          <div style={{ fontSize: 10.5, color: T.textMuted, lineHeight: 1.55, margin: "14px 0" }}>
+          <div style={{ fontSize: 12.5, color: T.textMuted, lineHeight: 1.55, margin: "14px 0" }}>
             {t("grp_privacy_note")}
           </div>
 
           <button onClick={() => leaveGroup(active.code)} style={{
             width: "100%", background: "none", border: `1px solid ${T.red}40`, borderRadius: 11,
-            color: T.red, fontSize: 12.5, fontWeight: 700, padding: "12px", cursor: "pointer"
+            color: T.red, fontSize: 14.5, fontWeight: 700, padding: "12px", cursor: "pointer"
           }}>{t("grp_leave")}</button>
         </>
       )}
@@ -3826,7 +3826,7 @@ export default function NutriVisionAI() {
           border:`4px solid ${T.border}`, borderTopColor:T.teal,
           animation:"nvspin 0.9s linear infinite"
         }} />
-        <div style={{ fontSize:10, fontWeight:700, color:T.teal, letterSpacing:2 }}>{t("appName")}</div>
+        <div style={{ fontSize:12, fontWeight:700, color:T.teal, letterSpacing:2 }}>{t("appName")}</div>
       </div>
       <style>{`@keyframes nvspin { to { transform: rotate(360deg); } }`}</style>
     </div>
@@ -3867,11 +3867,11 @@ export default function NutriVisionAI() {
           }}
           style={{
             background:T.card, border:`1px solid ${T.border}`, borderRadius:10,
-            color:T.textPrimary, fontSize:18, padding:"7px 11px", cursor:"pointer", lineHeight:1, flexShrink:0
+            color:T.textPrimary, fontSize:20, padding:"7px 11px", cursor:"pointer", lineHeight:1, flexShrink:0
           }}>{showGroups || activeGuide ? "←" : "☰"}</button>
         <div style={{ flex:1, minWidth:0 }}>
-          <div style={{ fontSize:11, fontWeight:700, color:T.teal, letterSpacing:1.5 }}>{t("appName")}</div>
-          <div style={{ fontSize:18, fontWeight:800, color:T.textPrimary, marginTop:2, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
+          <div style={{ fontSize:13, fontWeight:700, color:T.teal, letterSpacing:1.5 }}>{t("appName")}</div>
+          <div style={{ fontSize:20, fontWeight:800, color:T.textPrimary, marginTop:2, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
             {showGroups ? t("grp_title")
               : activeGuide ? (lang === "hi" ? GUIDE_TITLES_HI[activeGuide] || GUIDES[activeGuide].title : GUIDES[activeGuide].title)
               : activeTab==="home"?t("title_today"):activeTab==="meals"?t("title_meals"):activeTab==="plan"?t("title_plan"):activeTab==="micros"?t("title_micros"):activeTab==="history"?t("title_history"):t("title_weight")}
@@ -3879,7 +3879,7 @@ export default function NutriVisionAI() {
         </div>
       </div>
 
-      <div style={{ padding:"20px 20px 110px", overflowY:"auto" }}>
+      <div style={{ padding:"20px 20px 120px", overflowY:"auto" }}>
 
         {showGroups && (
           <GroupsView
@@ -3902,8 +3902,8 @@ export default function NutriVisionAI() {
             {/* Day completion across every tracked nutrient */}
             <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"14px 16px", marginBottom:20 }}>
               <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:12 }}>
-                <span style={{ fontSize:10, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>{t("day_completion")}</span>
-                <span style={{ fontSize:10, color:T.textMuted }}>
+                <span style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1 }}>{t("day_completion")}</span>
+                <span style={{ fontSize:12, color:T.textMuted }}>
                   {t("targets_met", { n: [
                     nutrition.kcal    >= goals.tdee    * 0.95,
                     nutrition.protein >= goals.protein * 0.95,
@@ -3929,13 +3929,13 @@ export default function NutriVisionAI() {
                 return (
                   <div key={label} style={{ marginBottom: i < arr.length - 1 ? 10 : 0 }}>
                     <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:4 }}>
-                      <span style={{ fontSize:11, color:T.textSecondary, fontWeight:600 }}>{label}</span>
+                      <span style={{ fontSize:13, color:T.textSecondary, fontWeight:600 }}>{label}</span>
                       <div style={{ display:"flex", alignItems:"baseline", gap:8 }}>
-                        <span style={{ fontSize:10, fontFamily:"monospace", color:T.textMuted }}>
+                        <span style={{ fontSize:12, fontFamily:"monospace", color:T.textMuted }}>
                           {unit === "kcal" || unit === "mg" ? Math.round(val) : d1(val)} / {goal}{unit === "kcal" ? "" : unit}
                         </span>
                         <span style={{
-                          fontSize:12, fontFamily:"monospace", fontWeight:800, minWidth:38, textAlign:"right",
+                          fontSize:14, fontFamily:"monospace", fontWeight:800, minWidth:38, textAlign:"right",
                           color: over ? T.red : met ? T.green : color
                         }}>
                           {Math.round(raw * 100)}%
@@ -3955,14 +3955,14 @@ export default function NutriVisionAI() {
             </div>
 
             {/* Macro rings — 3 col */}
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, background:T.card, borderRadius:20, padding:"18px 10px", border:`1px solid ${T.border}`, marginBottom:16 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, background:T.card, borderRadius:20, padding:"20px 8px", border:`1px solid ${T.border}`, marginBottom:16 }}>
               <Ring value={nutrition.protein} max={goals.protein} color={T.orange} label={t("protein")} sub={`${d1(nutrition.protein)}/${goals.protein}g`} icon="🥩" />
               <Ring value={nutrition.carbs} max={goals.carbs} color={T.violet} label={t("carbs")} sub={`${d1(nutrition.carbs)}/${goals.carbs}g`} icon="🌾" />
               <Ring value={nutrition.fat} max={goals.fat} color={T.amber} label={t("fat")} sub={`${d1(nutrition.fat)}/${goals.fat}g`} icon="🫒" />
             </div>
 
             {/* Micro rings — 3 col */}
-            <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, background:T.card, borderRadius:20, padding:"18px 10px", border:`1px solid ${T.border}`, marginBottom:20 }}>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, background:T.card, borderRadius:20, padding:"20px 8px", border:`1px solid ${T.border}`, marginBottom:20 }}>
               <Ring value={nutrition.fiber} max={goals.fiber} color={T.lime} label={t("fiber")} sub={`${d1(nutrition.fiber)}/${goals.fiber}g`} icon="🌿" />
               <Ring value={nutrition.calcium} max={goals.calcium} color={T.sky} label={t("calcium")} sub={`${Math.round(nutrition.calcium)}/${goals.calcium}mg`} icon="🦴" />
               <Ring value={nutrition.b12} max={goals.b12} color={T.pink} label={t("b12")} sub={`${d1(nutrition.b12)}/${goals.b12}μg`} icon="💊" />
@@ -4006,17 +4006,17 @@ export default function NutriVisionAI() {
             <MicroCard icon="💊" label="Vitamin B12" value={nutrition.b12} goal={goals.b12}     color={T.pink} unit="μg" />
 
             <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"16px", marginTop:4 }}>
-              <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:14 }}>{t("good_sources")}</div>
+              <div style={{ fontSize:14, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:14 }}>{t("good_sources")}</div>
               {[
                 ["🌿 Fiber",   T.lime, ["Whole wheat roti","Rajma, chhole","Vegetables","Oats, dalia"]],
                 ["🦴 Calcium", T.sky,  ["Milk, curd, paneer","Ragi (nachni)","Sesame seeds","Green leafy veggies"]],
                 ["💊 B12",     T.pink, ["Milk & dairy","Eggs","Fortified cereals","B12 supplement (for vegans)"]],
               ].map(([label, color, items]) => (
                 <div key={label} style={{ marginBottom:14 }}>
-                  <div style={{ fontSize:12, fontWeight:700, color, marginBottom:6 }}>{label}</div>
+                  <div style={{ fontSize:14, fontWeight:700, color, marginBottom:6 }}>{label}</div>
                   <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
                     {items.map(s => (
-                      <span key={s} style={{ background:T.surface, border:`1px solid ${T.border}`, borderRadius:6, fontSize:11, color:T.textSecondary, padding:"4px 8px" }}>{s}</span>
+                      <span key={s} style={{ background:T.surface, border:`1px solid ${T.border}`, borderRadius:6, fontSize:13, color:T.textSecondary, padding:"4px 8px" }}>{s}</span>
                     ))}
                   </div>
                 </div>
@@ -4038,37 +4038,37 @@ export default function NutriVisionAI() {
         {activeTab==="progress_disabled" && (
           <div>
             <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:20, padding:20, marginBottom:16 }}>
-              <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:16 }}>{t("macros")}</div>
+              <div style={{ fontSize:14, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:16 }}>{t("macros")}</div>
               <div style={{ display:"flex", justifyContent:"space-around", marginBottom:20 }}>
-                <Ring value={nutrition.kcal}    max={goals.tdee}    color={T.teal}   size={90} label="Calories" sub={`${nutrition.kcal}/${goals.tdee}`}         icon="🔥" />
-                <Ring value={nutrition.protein} max={goals.protein} color={T.orange} size={90} label="Protein"  sub={`${nutrition.protein}/${goals.protein}g`}   icon="💪" />
+                <Ring value={nutrition.kcal}    max={goals.tdee}    color={T.teal}   size={100} label="Calories" sub={`${nutrition.kcal}/${goals.tdee}`}         icon="🔥" />
+                <Ring value={nutrition.protein} max={goals.protein} color={T.orange} size={100} label="Protein"  sub={`${nutrition.protein}/${goals.protein}g`}   icon="💪" />
               </div>
               <div style={{ display:"flex", justifyContent:"space-around" }}>
-                <Ring value={nutrition.carbs} max={goals.carbs} color={T.violet} size={90} label="Carbs" sub={`${nutrition.carbs}/${goals.carbs}g`} icon="🌾" />
-                <Ring value={nutrition.fat}   max={goals.fat}   color={T.amber}  size={90} label="Fat"   sub={`${nutrition.fat}/${goals.fat}g`}     icon="🫒" />
+                <Ring value={nutrition.carbs} max={goals.carbs} color={T.violet} size={100} label="Carbs" sub={`${nutrition.carbs}/${goals.carbs}g`} icon="🌾" />
+                <Ring value={nutrition.fat}   max={goals.fat}   color={T.amber}  size={100} label="Fat"   sub={`${nutrition.fat}/${goals.fat}g`}     icon="🫒" />
               </div>
             </div>
             <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:20, padding:20, marginBottom:16 }}>
-              <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:16 }}>{t("micronutrients")}</div>
+              <div style={{ fontSize:14, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:16 }}>{t("micronutrients")}</div>
               <div style={{ display:"flex", justifyContent:"space-around" }}>
-                <Ring value={nutrition.fiber}   max={goals.fiber}   color={T.lime} size={90} label="Fiber"   sub={`${nutrition.fiber}/${goals.fiber}g`}       icon="🌿" />
-                <Ring value={nutrition.calcium} max={goals.calcium} color={T.sky}  size={90} label="Calcium" sub={`${nutrition.calcium}/${goals.calcium}mg`}   icon="🦴" />
-                <Ring value={nutrition.b12}     max={goals.b12}     color={T.pink} size={90} label="B12"     sub={`${nutrition.b12}/${goals.b12}μg`}           icon="💊" />
+                <Ring value={nutrition.fiber}   max={goals.fiber}   color={T.lime} size={100} label="Fiber"   sub={`${nutrition.fiber}/${goals.fiber}g`}       icon="🌿" />
+                <Ring value={nutrition.calcium} max={goals.calcium} color={T.sky}  size={100} label="Calcium" sub={`${nutrition.calcium}/${goals.calcium}mg`}   icon="🦴" />
+                <Ring value={nutrition.b12}     max={goals.b12}     color={T.pink} size={100} label="B12"     sub={`${nutrition.b12}/${goals.b12}μg`}           icon="💊" />
               </div>
             </div>
             <div style={{ background:T.card, border:`1px solid ${T.border}`, borderRadius:16, padding:"16px" }}>
-              <div style={{ fontSize:12, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:14 }}>{t("daily_targets")}</div>
+              <div style={{ fontSize:14, fontWeight:700, color:T.textSecondary, letterSpacing:1, marginBottom:14 }}>{t("daily_targets")}</div>
               {[
                 ["🔥 Calories",`${goals.tdee} kcal`,T.teal],["🥩 Protein",`${goals.protein}g`,T.orange],
                 ["🌾 Carbs",`${goals.carbs}g`,T.violet],["🫒 Fat",`${goals.fat}g`,T.amber],
                 ["🌿 Fiber",`${goals.fiber}g`,T.lime],["🦴 Calcium",`${goals.calcium}mg`,T.sky],["💊 B12",`${goals.b12}μg`,T.pink],
               ].map(([label,val,color]) => (
                 <div key={label} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:`1px solid ${T.border}` }}>
-                  <span style={{ fontSize:13, color:T.textPrimary }}>{label}</span>
-                  <span style={{ fontSize:13, fontFamily:"monospace", fontWeight:700, color }}>{val}</span>
+                  <span style={{ fontSize:15, color:T.textPrimary }}>{label}</span>
+                  <span style={{ fontSize:15, fontFamily:"monospace", fontWeight:700, color }}>{val}</span>
                 </div>
               ))}
-              <div style={{ marginTop:12, fontSize:11, color:T.textMuted }}>
+              <div style={{ marginTop:12, fontSize:13, color:T.textMuted }}>
                 Based on: {profile.weight}kg · {profile.height}cm · {profile.age}y · {profile.activity} · {profile.goal}
               </div>
             </div>
@@ -4080,18 +4080,18 @@ export default function NutriVisionAI() {
 
       {/* FAB */}
       {!activeGuide && !showGroups && <button onClick={() => setScanner(true)} style={{
-        position:"fixed", bottom:80, left:"50%", transform:"translateX(-50%)",
+        position:"fixed", bottom:86, left:"50%", transform:"translateX(-50%)",
         background:T.teal, border:"none", borderRadius:50, width:60, height:60,
-        fontSize:24, cursor:"pointer", boxShadow:`0 0 24px ${T.teal}60`,
+        fontSize:26, cursor:"pointer", boxShadow:`0 0 24px ${T.teal}60`,
         display:"flex", alignItems:"center", justifyContent:"center", zIndex:50
       }}>📷</button>}
 
       {/* Bottom nav */}
       <div style={{ position:"fixed", bottom:0, left:"50%", transform:"translateX(-50%)", width:"100%", maxWidth:430, background:T.surface, borderTop:`1px solid ${T.border}`, display:"flex", zIndex:40 }}>
         {tabs.map(tab => (
-          <button key={tab.id} onClick={() => { setActiveTab(tab.id); setActiveGuide(null); setShowGroups(false); }} style={{ flex:1, background:"none", border:"none", padding:"9px 0 13px", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:3, minWidth:0 }}>
-            <span style={{ fontSize:15 }}>{tab.icon}</span>
-            <span style={{ fontSize:7.5, fontWeight:700, letterSpacing:0.2, color:(!activeGuide && activeTab===tab.id)?T.teal:T.textMuted }}>{tab.label}</span>
+          <button key={tab.id} onClick={() => { setActiveTab(tab.id); setActiveGuide(null); setShowGroups(false); }} style={{ flex:1, background:"none", border:"none", padding:"10px 0 15px", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:4, minWidth:0 }}>
+            <span style={{ fontSize:19 }}>{tab.icon}</span>
+            <span style={{ fontSize:10, fontWeight:700, letterSpacing:0.2, color:(!activeGuide && activeTab===tab.id)?T.teal:T.textMuted }}>{tab.label}</span>
           </button>
         ))}
       </div>
@@ -4105,7 +4105,7 @@ export default function NutriVisionAI() {
           padding:"11px 18px", zIndex:250, maxWidth:340, textAlign:"center",
           boxShadow:"0 6px 24px rgba(0,0,0,0.5)"
         }}>
-          <span style={{ fontSize:12.5, color:T.textPrimary }}>{toast}</span>
+          <span style={{ fontSize:14.5, color:T.textPrimary }}>{toast}</span>
         </div>
       )}
 

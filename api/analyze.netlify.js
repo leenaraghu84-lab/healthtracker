@@ -69,10 +69,62 @@ function toGemini(messages) {
 // Pull a JSON object out of a model reply that may carry fences or commentary.
 function extractJson(raw) {
   let out = String(raw).replace(/```json/gi, "").replace(/```/g, "").trim();
+
   const first = out.indexOf("{");
+  if (first === -1) return out;
+
   const last = out.lastIndexOf("}");
-  if (first !== -1 && last > first) out = out.slice(first, last + 1);
-  return out;
+  if (last > first) {
+    const candidate = out.slice(first, last + 1);
+    try { JSON.parse(candidate); return candidate; } catch { /* fall through to repair */ }
+  }
+
+  // The reply was cut off. Salvage whatever complete items exist by
+  // truncating at the last valid item and closing the structure — a partial
+  // meal the user can edit beats an error and a lost photo.
+  return repairTruncatedJson(out.slice(first));
+}
+
+function repairTruncatedJson(text) {
+  // Walk the string tracking depth, ignoring braces inside string literals,
+  // and remember the position after the last complete top-level array item.
+  let depth = 0, inStr = false, esc = false, lastGoodItemEnd = -1;
+
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (esc) { esc = false; continue; }
+    if (c === "\\") { esc = true; continue; }
+    if (c === '"') { inStr = !inStr; continue; }
+    if (inStr) continue;
+
+    if (c === "{" || c === "[") depth++;
+    else if (c === "}" || c === "]") {
+      depth--;
+      // Depth 2 closing brace = an object inside the items array.
+      if (c === "}" && depth === 2) lastGoodItemEnd = i;
+    }
+  }
+
+  if (lastGoodItemEnd === -1) return text;
+
+  let repaired = text.slice(0, lastGoodItemEnd + 1);
+
+  // Close whatever remains open.
+  depth = 0; inStr = false; esc = false;
+  const stack = [];
+  for (let i = 0; i < repaired.length; i++) {
+    const c = repaired[i];
+    if (esc) { esc = false; continue; }
+    if (c === "\\") { esc = true; continue; }
+    if (c === '"') { inStr = !inStr; continue; }
+    if (inStr) continue;
+    if (c === "{") stack.push("}");
+    else if (c === "[") stack.push("]");
+    else if (c === "}" || c === "]") stack.pop();
+  }
+  while (stack.length) repaired += stack.pop();
+
+  try { JSON.parse(repaired); return repaired; } catch { return text; }
 }
 
 async function callGemini(apiKey, messages, maxTokens) {
@@ -95,6 +147,13 @@ async function callGemini(apiKey, messages, maxTokens) {
   // Rather than guess, start with the richest config and drop optional
   // fields on INVALID_ARGUMENT until the request is accepted.
   const attempts = [
+    // Gemini 3.x names the control thinkingLevel; 2.x used thinkingBudget.
+    // Try to minimise thinking first — those tokens count against the output
+    // budget and are what truncates the JSON mid-object.
+    { responseMimeType: "application/json", temperature: 0.2, maxOutputTokens: maxTokens,
+      thinkingConfig: { thinkingLevel: "low" } },
+    { responseMimeType: "application/json", temperature: 0.2, maxOutputTokens: maxTokens,
+      thinkingConfig: { thinkingBudget: 0 } },
     { responseMimeType: "application/json", temperature: 0.2, maxOutputTokens: maxTokens },
     { temperature: 0.2, maxOutputTokens: maxTokens },
     { maxOutputTokens: maxTokens }
@@ -169,11 +228,8 @@ async function callGemini(apiKey, messages, maxTokens) {
     throw err;
   }
 
-  if (finish === "MAX_TOKENS") {
-    const err = new Error("The response was cut off before it finished. Try a simpler photo or fewer items.");
-    err.status = 502;
-    throw err;
-  }
+  // MAX_TOKENS is no longer fatal — extractJson salvages complete items
+  // below, and only a total failure to parse surfaces as an error.
 
   // Strip markdown fences and isolate the JSON object, in case the model
   // ignores responseMimeType and wraps its answer in prose.
